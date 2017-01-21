@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBayerGreen">#6bc200</color>
+    <color name="colorBayerBlue">#0090c5</color>
 </resources>
