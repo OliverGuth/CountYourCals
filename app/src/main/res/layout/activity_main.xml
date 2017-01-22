@@ -11,30 +11,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhdw.bg.bfwi314b.countyourcals.MainActivity"
     android:orientation="vertical"
-    tools:background="@android:color/background_light">
+    android:background="@color/colorWhiteBackground">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"></LinearLayout>
+        android:layout_weight="0.5">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="false" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:padding="2dp">
+        android:layout_weight="0.5">
 
         <Button
             android:id="@+id/Button1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:text="Button1"
-            tools:background="@color/colorBayerGreen"
-            android:padding="2dp"
-            android:layout_margin="5dp" />
+            android:text="Food detail"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/Button2"
@@ -42,8 +48,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:layout_toRightOf="@id/Button1"
-            android:text="Button2"
-            android:background="@color/colorBayerGreen"
+            android:text="Kalorientagebuch"
             android:layout_margin="5dp" />
 
     </LinearLayout>
@@ -52,8 +57,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:padding="2dp">
+        android:layout_weight="0.5">
 
         <Button
             android:id="@+id/Button3"
@@ -62,7 +66,8 @@
             android:layout_weight="0.5"
             android:layout_toEndOf="@id/Button1"
             android:layout_toRightOf="@id/Button1"
-            android:text="Button3"/>
+            android:text="Button3"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/Button4"
@@ -70,7 +75,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:layout_toRightOf="@id/Button3"
-            android:text="Button4"/>
+            android:text="Button4"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 </LinearLayout>
