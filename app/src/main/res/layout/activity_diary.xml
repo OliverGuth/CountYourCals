@@ -1,14 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fhdw.bg.bfwi314b.countyourcals.DiaryActivity">
+    android:background="@color/colorWhiteBackground">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="Tage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonDays"
+            android:layout_weight="1"
+            android:background="@color/colorBayerGreen"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:text="Wochen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonWeeks"
+            android:layout_weight="1"
+            android:background="@color/colorBayerBlue"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:text="Monate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonMonths"
+            android:layout_weight="1"
+            android:background="@color/colorBayerGreen"
+            android:layout_margin="5dp"/>
+        <Button
+            android:text="Alle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonAll"
+            android:layout_weight="1"
+            android:background="@color/colorBayerBlue"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:text="Kalorientagebuch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:id="@+id/DiaryTextCaption"
 
-</android.support.v4.widget.NestedScrollView>
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="fhdw.bg.bfwi314b.countyourcals.DiaryActivity">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryTableLayout">
+
+            <TableRow android:layout_height="1dp" android:background="#000000">
+                <TextView android:layout_height="1dp"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/DiaryTableRow1">
+
+                <TextView
+                    android:text="1."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine1Number"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:text="Gericht 1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine1Name"
+                    android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                android:text="XYZ kcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryLine1Calories"
+                android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                android:text="Ändern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryButtonLine1Change"
+                android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:background="@color/colorBayerGreen"
+                    android:layout_margin="5dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/DiaryTableRow2">
+
+                <TextView
+                    android:text="2."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine2Number"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:text="Gericht 2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine2Name"
+                    android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:text="12321 kcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine2Calories"
+                    android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:text="Ändern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryButtonLine2Change"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:background="@color/colorBayerGreen"
+                    android:layout_margin="5dp"/>
+
+            </TableRow>
+
+            <TableRow android:layout_height="1dp" android:background="#000000">
+                <TextView android:layout_height="1dp"/>
+            </TableRow>
+        </TableLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:text="Neuer Eintrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonNewEntry"
+            android:layout_weight="1"
+            android:background="@color/colorBayerGreen"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:text="Durchschn.: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiarySummaryText"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textEnd"
+            tools:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:text="3248 kcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiarySummaryValue"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:text="Mehr Statistiken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DiaryButtonMoreStatistics"
+            android:layout_weight="1"
+            android:background="@color/colorBayerBlue"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>

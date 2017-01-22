@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
+            android:id="@+id/MainLogo"
             android:src="@drawable/logo"
             android:scaleType="fitCenter"
             android:adjustViewBounds="false" />
@@ -35,21 +35,22 @@
         android:layout_weight="0.5">
 
         <Button
-            android:id="@+id/Button1"
+            android:id="@+id/MainButtonFoodDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:text="Food detail"
-            android:layout_margin="5dp"/>
+            android:layout_weight="2"
+            android:text="Lebensmittel verwalten"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
 
         <Button
-            android:id="@+id/Button2"
+            android:id="@+id/MainButtonDiary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:layout_toRightOf="@id/Button1"
+            android:layout_weight="2"
             android:text="Kalorientagebuch"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -60,23 +61,40 @@
         android:layout_weight="0.5">
 
         <Button
-            android:id="@+id/Button3"
+            android:id="@+id/MainButtonAccount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:layout_toEndOf="@id/Button1"
-            android:layout_toRightOf="@id/Button1"
-            android:text="Button3"
-            android:layout_margin="5dp"/>
+            android:layout_weight="2"
+            android:text="Profil anzeigen"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
 
         <Button
-            android:id="@+id/Button4"
+            android:id="@+id/MainButtonSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="Einstellungen"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.65">
+
+        <Button
+            android:id="@+id/MainButtonNewEntry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:layout_toRightOf="@id/Button3"
-            android:text="Button4"
-            android:layout_margin="5dp"/>
+            android:text="Neuer Eintrag"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
+
     </LinearLayout>
+
 
 </LinearLayout>

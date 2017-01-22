@@ -14,38 +14,47 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button button1 = (Button) findViewById(R.id.Button1);
-        final Button button2 = (Button) findViewById(R.id.Button2);
-        final Button button3 = (Button) findViewById(R.id.Button3);
-        final Button button4 = (Button) findViewById(R.id.Button4);
+        final Button buttonFoodDetail = (Button) findViewById(R.id.MainButtonFoodDetail);
+        final Button buttonDiary = (Button) findViewById(R.id.MainButtonDiary);
+        final Button buttonAccount = (Button) findViewById(R.id.MainButtonAccount);
+        final Button buttonSettings = (Button) findViewById(R.id.MainButtonSettings);
+        final Button buttonNewEntry = (Button) findViewById(R.id.MainButtonNewEntry);
 
-        button1.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
-        button2.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerBlue));
-        button3.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerBlue));
-        button4.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
+        buttonFoodDetail.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
+        buttonDiary.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerBlue));
+        buttonAccount.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerBlue));
+        buttonSettings.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
+        buttonNewEntry.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        buttonFoodDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
                 startActivity(intent);
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        buttonDiary.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
                 startActivity(intent);
             }
         });
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        buttonAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
         });
 
-        button4.setOnClickListener(new View.OnClickListener() {
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
                 startActivity(intent);
