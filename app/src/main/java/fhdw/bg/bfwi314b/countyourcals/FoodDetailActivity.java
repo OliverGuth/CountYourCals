@@ -1,9 +1,10 @@
 package fhdw.bg.bfwi314b.countyourcals;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FoodDetailActivity extends AppCompatActivity {
+public class FoodDetailActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

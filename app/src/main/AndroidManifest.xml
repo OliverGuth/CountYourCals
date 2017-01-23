@@ -20,7 +20,9 @@
         <activity android:name=".FoodDetailActivity" />
         <activity
             android:name=".DiaryActivity"
-            android:label="@string/title_activity_diary"></activity>
+            android:label="@string/title_activity_diary" />
+        <activity android:name=".AccountActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
