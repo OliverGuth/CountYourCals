@@ -49,7 +49,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="fhdw.bg.bfwi314b.countyourcals.DiaryActivity">
+        tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity">
 
 
         <TableLayout

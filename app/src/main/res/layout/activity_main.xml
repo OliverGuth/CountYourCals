@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="fhdw.bg.bfwi314b.countyourcals.MainActivity"
+    tools:context="fhdw.bg.bfwi314b.countyourcals.gui.MainActivity"
     android:orientation="vertical"
     android:background="@color/colorWhiteBackground">
 
@@ -34,14 +34,15 @@
         android:layout_height="match_parent"
         android:layout_weight="0.5">
 
-        <Button
-            android:id="@+id/MainButtonFoodDetail"
+        <include android:id="@+id/MainButtonFoodDetail"
+            layout="@layout/image_text_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Lebensmittel verwalten"
-            android:layout_margin="5dp"
-            android:textSize="18sp" />
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:background="@color/colorBayerGreen" />
 
         <Button
             android:id="@+id/MainButtonDiary"
@@ -49,8 +50,9 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Kalorientagebuch"
-            android:layout_margin="5dp"
-            android:textSize="18sp" />
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:background="@color/colorBayerBlue" />
 
     </LinearLayout>
 
@@ -66,8 +68,9 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Profil anzeigen"
-            android:layout_margin="5dp"
-            android:textSize="18sp" />
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:background="@color/colorBayerBlue" />
 
         <Button
             android:id="@+id/MainButtonSettings"
@@ -75,8 +78,9 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Einstellungen"
-            android:layout_margin="5dp"
-            android:textSize="18sp" />
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:background="@color/colorBayerGreen" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +96,8 @@
             android:layout_weight="0.5"
             android:text="Neuer Eintrag"
             android:layout_margin="5dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:background="@color/colorButtonGrey" />
 
     </LinearLayout>
 

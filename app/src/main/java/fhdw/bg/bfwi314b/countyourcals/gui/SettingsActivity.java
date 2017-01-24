@@ -1,4 +1,4 @@
-package fhdw.bg.bfwi314b.countyourcals;
+package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fhdw.bg.bfwi314b.countyourcals.R;
 
 
 public class SettingsActivity extends AppCompatActivity {

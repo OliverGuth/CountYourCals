@@ -1,7 +1,9 @@
-package fhdw.bg.bfwi314b.countyourcals;
+package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.os.Bundle;
 import android.app.Activity;
+
+import fhdw.bg.bfwi314b.countyourcals.R;
 
 public class DiaryActivity extends Activity {
 

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".gui.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FoodDetailActivity" />
+        <activity android:name=".gui.FoodDetailActivity" />
         <activity
-            android:name=".DiaryActivity"
+            android:name=".gui.DiaryActivity"
             android:label="@string/title_activity_diary" />
-        <activity android:name=".AccountActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".gui.AccountActivity" />
+        <activity android:name=".gui.SettingsActivity"></activity>
     </application>
 
 </manifest>
