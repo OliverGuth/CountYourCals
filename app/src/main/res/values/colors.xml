@@ -6,4 +6,6 @@
     <color name="colorAccent">#0090c5</color>
     <color name="colorBayerGreen">#6bc200</color>
     <color name="colorBayerBlue">#0090c5</color>
+    <color name="colorButtonGrey">#666666</color>
+
 </resources>

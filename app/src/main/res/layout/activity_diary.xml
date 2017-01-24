@@ -195,6 +195,7 @@
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:textAlignment="textEnd"
+            android:gravity="end"
             tools:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
 
