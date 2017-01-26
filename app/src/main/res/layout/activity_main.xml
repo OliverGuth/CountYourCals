@@ -11,13 +11,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhdw.bg.bfwi314b.countyourcals.gui.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorWhiteBackground">
+    android:background="@color/colorWhiteBackground"
+    android:weightSum="100">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5">
+        android:layout_height="0dp"
+        android:layout_weight="30">
 
         <ImageView
             android:layout_width="match_parent"
@@ -31,8 +32,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5">
+        android:layout_height="0dp"
+        android:layout_weight="30">
 
         <include android:id="@+id/MainButtonFoodDetail"
             layout="@layout/image_text_button"
@@ -41,63 +42,64 @@
             android:layout_weight="2"
             android:text="Lebensmittel verwalten"
             android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:background="@color/colorBayerGreen" />
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/MainButtonDiary"
+
+        <include android:id="@+id/MainButtonDiaryDetail"
+            layout="@layout/image_text_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Kalorientagebuch"
             android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:background="@color/colorBayerBlue" />
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5">
+        android:layout_height="0dp"
+        android:layout_weight="30">
 
-        <Button
-            android:id="@+id/MainButtonAccount"
+        <include android:id="@+id/MainButtonAccountDetail"
+            layout="@layout/image_text_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Profil anzeigen"
             android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:background="@color/colorBayerBlue" />
+            android:textSize="18sp"/>
 
-        <Button
-            android:id="@+id/MainButtonSettings"
+        <include android:id="@+id/MainButtonSettingsDetail"
+            layout="@layout/image_text_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Einstellungen"
             android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:background="@color/colorBayerGreen" />
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.65">
+        android:layout_height="0dp"
+        android:layout_weight="10">
 
         <Button
             android:id="@+id/MainButtonNewEntry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:text="Neuer Eintrag"
-            android:layout_margin="5dp"
             android:textSize="18sp"
-            android:background="@color/colorButtonGrey" />
+            android:background="@color/colorButtonGrey"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorWhiteBackground" />
 
     </LinearLayout>
 

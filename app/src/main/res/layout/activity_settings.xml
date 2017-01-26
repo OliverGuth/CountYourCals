@@ -68,9 +68,8 @@
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:textSize="18sp"
-                    android:textColor="@android:color/background_light"
                     android:background="@drawable/spinner_border"
-                    android:popupBackground="@color/colorAccent" />
+                    android:popupBackground="@color/colorButtonGrey" />
 
             </LinearLayout>
 
@@ -122,7 +121,8 @@
                     android:layout_weight="0.5"
                     android:text="Werkszustand"
                     android:layout_margin="5dp"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textColor="@color/colorWhiteBackground" />
 
             </LinearLayout>
 

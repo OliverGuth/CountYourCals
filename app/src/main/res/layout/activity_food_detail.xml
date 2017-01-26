@@ -5,51 +5,56 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteBackground">
+    android:background="@color/colorWhiteBackground"
+    android:weightSum="100">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="10">
 
         <Button
             android:text="Lebensmittel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/FoodDetailButtonFood"
             android:layout_weight="1"
             android:background="@color/colorBayerGreen"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textColor="@color/colorWhiteBackground" />
 
         <Button
             android:text="Gerichte"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/FoodDetailButtonMeals"
             android:layout_weight="1"
             android:background="@color/colorBayerBlue"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textColor="@color/colorWhiteBackground" />
 
     </LinearLayout>
 
     <TextView
-        android:text="Lebensmittel verwalten"
+        android:text="Verwalten"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/FoodDetailTextCaption"
 
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:layout_weight="12"
+        android:gravity="center_vertical" />
 
     <android.support.v4.widget.NestedScrollView
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity">
+        android:layout_height="0dp"
+        tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
+        android:layout_weight="68">
 
 
         <TableLayout
@@ -59,63 +64,10 @@
 
             <View style="@style/Divider"/>
 
-            <TableRow
+            <include
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/FoodDetailTableRow1">
-
-                <TextView
-                    android:text="1."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FoodDetailLine1Number"
-                    android:layout_weight="0.5"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:text="Gericht 1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FoodDetailLine1Name"
-                    android:layout_weight="3"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:text="100 Gramm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FoodDetailLine1Volume"
-                    android:layout_weight="3"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical" />
-
-
-                <TextView
-                    android:text="XYZ kcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FoodDetailLine1Calories"
-                    android:layout_weight="3"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical" />
-
-                <Button
-                    android:text="Ändern"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FoodDetailButtonLine1Change"
-                    android:layout_weight="1"
-                    android:elevation="0dp"
-                    android:background="@color/colorBayerGreen"
-                    android:layout_margin="5dp"/>
-
-            </TableRow>
+                android:layout_height="wrap_content"
+                layout="@layout/table_food_detail_row" />
 
             <View style="@style/Divider"/>
 
@@ -172,7 +124,8 @@
                     android:layout_weight="1"
                     android:elevation="0dp"
                     android:background="@color/colorBayerGreen"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorWhiteBackground" />
 
             </TableRow>
 
@@ -184,17 +137,20 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="10">
 
         <Button
             android:text="Neuer Eintrag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/FoodDetailButtonNewEntry"
             android:layout_weight="1"
             android:background="@color/colorButtonGrey"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:layout_gravity="bottom"
+            android:textColor="@color/colorWhiteBackground" />
 
     </LinearLayout>
 </LinearLayout>

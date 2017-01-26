@@ -26,11 +26,11 @@ public class SettingsActivity extends AppCompatActivity {
         List<String> spinnerArray =  new ArrayList<String>();
         spinnerArray.add("Deutsch");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguage.setAdapter(adapter);
+
 
         buttonFactoryReset.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
 

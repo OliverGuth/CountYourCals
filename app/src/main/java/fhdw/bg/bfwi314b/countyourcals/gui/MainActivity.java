@@ -18,8 +18,23 @@ public class MainActivity extends Activity {
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.colorBayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");
-        buttonFoodDetail.setImageResource(R.id.button_image, R.drawable.diary);
-        //buttonFoodDetail.setBackgroundColor(R.id.Button_Layout ,R.color.colorBayerGreen);
+        buttonFoodDetail.setImageResource(R.id.button_image, R.drawable.food);
+        buttonFoodDetail.setBackgroundColor(R.id.MainButtonFoodDetail ,R.color.colorBayerGreen);
+
+        ButtonTextImage buttonDiary = new ButtonTextImage(this,R.id.MainButtonDiaryDetail, R.color.colorBayerBlue);
+        buttonDiary.setText(R.id.button_text, "Tagebuch");
+        buttonDiary.setImageResource(R.id.button_image, R.drawable.diary);
+        //buttonDiary.setBackgroundColor(R.id.Button_Layout ,R.color.colorBayerGreen);
+
+        ButtonTextImage buttonAccount = new ButtonTextImage(this,R.id.MainButtonAccountDetail, R.color.colorBayerBlue);
+        buttonAccount.setText(R.id.button_text, "Profil");
+        buttonAccount.setImageResource(R.id.button_image, R.drawable.account);
+        //buttonAccount.setBackgroundColor(R.id.Button_Layout ,R.color.colorBayerGreen);
+
+        ButtonTextImage buttonSettings = new ButtonTextImage(this,R.id.MainButtonSettingsDetail, R.color.colorBayerGreen);
+        buttonSettings.setText(R.id.button_text, "Einstellungen");
+        buttonSettings.setImageResource(R.id.button_image, R.drawable.settings);
+        //buttonSettings.setBackgroundColor(R.id.Button_Layout ,R.color.colorBayerGreen);
 
 
 
@@ -29,9 +44,7 @@ public class MainActivity extends Activity {
 
 
 
-        final Button buttonDiary = (Button) findViewById(R.id.MainButtonDiary);
-        final Button buttonAccount = (Button) findViewById(R.id.MainButtonAccount);
-        final Button buttonSettings = (Button) findViewById(R.id.MainButtonSettings);
+
         final Button buttonNewEntry = (Button) findViewById(R.id.MainButtonNewEntry);
 
         buttonFoodDetail.setOnClickListener(new View.OnClickListener() {

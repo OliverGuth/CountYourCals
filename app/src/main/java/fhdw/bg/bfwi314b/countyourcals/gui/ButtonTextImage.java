@@ -3,6 +3,7 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,10 @@ public class ButtonTextImage extends RelativeLayout {
         // to get standard button background and to get button text color
 
         Button bt = new Button(context);
+        bt.setBackgroundColor(color);
+        this.setBackgroundDrawable(bt.getBackground());
+
+
 
         // copy all child from relative layout to this button
         while (layout.getChildCount() > 0)
@@ -64,12 +69,13 @@ public class ButtonTextImage extends RelativeLayout {
 
         // remove all view from layout (maybe it's not necessary)
         layout.removeAllViews();
-
+        bt.setBackgroundColor(color);
         // set that this button is clickable, focusable, ...
+        this.setBackgroundColor(getResources().getColor(color));
         this.setClickable(true);
         this.setFocusable(true);
         this.setFocusableInTouchMode(false);
-        this.setBackgroundColor(color);
+
 
         // replace relative layout in parent with this one modified to looks like button
         ViewGroup vp = (ViewGroup)layout.getParent();
@@ -78,6 +84,9 @@ public class ButtonTextImage extends RelativeLayout {
         vp.addView(this,index);
 
         this.setId(id);
+
+
+
 
     }
 
@@ -109,7 +118,7 @@ public class ButtonTextImage extends RelativeLayout {
         View v = findViewById(id);
         if (null != v && v instanceof RelativeLayout)
         {
-            ((RelativeLayout)v).setBackgroundColor(color);
+            ((RelativeLayout) v).getChildAt(0).setBackgroundResource(color);
         }
 
     }

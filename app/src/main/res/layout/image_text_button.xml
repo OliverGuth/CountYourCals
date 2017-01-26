@@ -1,15 +1,11 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:id="@+id/Button_Layout"
-    android:background="@color/colorBayerGreen"
-    android:gravity="center">
-
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorBayerGreen"
+        android:gravity="center">
 
         <ImageView
         android:id="@+id/button_image"
@@ -17,19 +13,25 @@
         android:layout_height="wrap_content"
 
 
-            android:src="@drawable/diary" />
+            android:src="@drawable/diary"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/button_image"
-            android:text="Beispiel Text"
-            android:textColor="@color/colorWhiteBackground"
-            android:textAlignment="center"
-            />
+        android:id="@+id/button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_image"
+        android:text="Beispiel Text"
+        android:textColor="@color/colorWhiteBackground"
+        android:textAlignment="center"
+        />
     </RelativeLayout>
-
-</RelativeLayout>
