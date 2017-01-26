@@ -57,9 +57,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/FoodDetailTableLayout">
 
-            <TableRow android:layout_height="1dp" android:background="#000000">
-                <TextView android:layout_height="1dp"/>
-            </TableRow>
+            <View style="@style/Divider"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -73,7 +71,8 @@
                     android:id="@+id/FoodDetailLine1Number"
                     android:layout_weight="0.5"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="Gericht 1"
@@ -82,7 +81,8 @@
                     android:id="@+id/FoodDetailLine1Name"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="100 Gramm"
@@ -91,7 +91,8 @@
                     android:id="@+id/FoodDetailLine1Volume"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
 
                 <TextView
@@ -101,7 +102,8 @@
                     android:id="@+id/FoodDetailLine1Calories"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <Button
                     android:text="Ändern"
@@ -115,6 +117,8 @@
 
             </TableRow>
 
+            <View style="@style/Divider"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -127,7 +131,8 @@
                     android:id="@+id/FoodDetailLine2Number"
                     android:layout_weight="0.5"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="Gericht 2"
@@ -136,7 +141,8 @@
                     android:id="@+id/FoodDetailLine2Name"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="1000 Milliliter"
@@ -145,7 +151,8 @@
                     android:id="@+id/FoodDetailLine2Volume"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="12321 kcal"
@@ -154,7 +161,8 @@
                     android:id="@+id/FoodDetailLine2Calories"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <Button
                     android:text="Ändern"
@@ -168,9 +176,7 @@
 
             </TableRow>
 
-            <TableRow android:layout_height="1dp" android:background="#000000">
-                <TextView android:layout_height="1dp"/>
-            </TableRow>
+            <View style="@style/Divider"/>
 
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -187,7 +193,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/FoodDetailButtonNewEntry"
             android:layout_weight="1"
-            android:background="@color/colorBayerGreen"
+            android:background="@color/colorButtonGrey"
             android:layout_margin="5dp"/>
 
     </LinearLayout>

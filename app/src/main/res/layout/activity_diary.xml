@@ -73,10 +73,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/DiaryTableLayout">
 
-            <TableRow android:layout_height="1dp" android:background="#000000">
-                <TextView android:layout_height="1dp"/>
-            </TableRow>
-
+            <View style="@style/Divider"/>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -89,7 +86,8 @@
                     android:id="@+id/DiaryLine1Number"
                     android:layout_weight="0.5"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="Gericht 1"
@@ -98,7 +96,8 @@
                     android:id="@+id/DiaryLine1Name"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                 android:text="XYZ kcal"
@@ -107,7 +106,8 @@
                 android:id="@+id/DiaryLine1Calories"
                 android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <Button
                 android:text="Ändern"
@@ -121,43 +121,97 @@
 
             </TableRow>
 
+            <View style="@style/Divider"/>
+
+            <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/DiaryTableRow2">
+
+            <TextView
+                android:text="2."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryLine2Number"
+                android:layout_weight="0.5"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:text="Gericht 2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryLine2Name"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:text="12321 kcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryLine2Calories"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:text="Ändern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DiaryButtonLine2Change"
+                android:layout_weight="1"
+                android:elevation="0dp"
+                android:background="@color/colorBayerGreen"
+                android:layout_margin="5dp"/>
+
+        </TableRow>
+
+            <View style="@style/Divider"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/DiaryTableRow2">
+                android:id="@+id/DiaryTableRow3">
 
                 <TextView
-                    android:text="2."
+                    android:text="3."
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine2Number"
+                    android:id="@+id/DiaryLine3Number"
                     android:layout_weight="0.5"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
-                    android:text="Gericht 2"
+                    android:text="Gericht 3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine2Name"
+                    android:id="@+id/DiaryLine3Name"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:text="12321 kcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine2Calories"
+                    android:id="@+id/DiaryLine3Calories"
                     android:layout_weight="3"
                     android:textSize="18sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
 
                 <Button
                     android:text="Ändern"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DiaryButtonLine2Change"
+                    android:id="@+id/DiaryButtonLine3Change"
                     android:layout_weight="1"
                     android:elevation="0dp"
                     android:background="@color/colorBayerGreen"
@@ -165,10 +219,57 @@
 
             </TableRow>
 
-            <TableRow android:layout_height="1dp" android:background="#000000">
-                <TextView android:layout_height="1dp"/>
+            <View style="@style/Divider"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/DiaryTableRow4">
+
+                <TextView
+                    android:text="4."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine4Number"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:text="Gericht 4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine4Name"
+                    android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:text="12321 kcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryLine4Calories"
+                    android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical" />
+
+                <Button
+                    android:text="Ändern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryButtonLine4Change"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:background="@color/colorBayerGreen"
+                    android:layout_margin="5dp"/>
+
             </TableRow>
+            <View style="@style/Divider"/>
         </TableLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
@@ -183,7 +284,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/DiaryButtonNewEntry"
             android:layout_weight="1"
-            android:background="@color/colorBayerGreen"
+            android:background="@color/colorButtonGrey"
             android:layout_margin="5dp"/>
 
         <TextView
