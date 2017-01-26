@@ -16,9 +16,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail);
-        buttonFoodDetail.setText(R.id.button_text, "FoodDetail");
+        ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.colorBayerGreen);
+        buttonFoodDetail.setText(R.id.button_text, "Verwalten");
         buttonFoodDetail.setImageResource(R.id.button_image, R.drawable.diary);
+        //buttonFoodDetail.setBackgroundColor(R.id.Button_Layout ,R.color.colorBayerGreen);
 
 
 

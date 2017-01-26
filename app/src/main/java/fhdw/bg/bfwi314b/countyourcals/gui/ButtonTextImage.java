@@ -2,6 +2,7 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import fhdw.bg.bfwi314b.countyourcals.R;
+
 public class ButtonTextImage extends RelativeLayout {
 
-    public ButtonTextImage(Context context, int id)
+    public ButtonTextImage(Context context, int id, int color)
     {
         super(context);
 
@@ -38,7 +41,6 @@ public class ButtonTextImage extends RelativeLayout {
         // to get standard button background and to get button text color
 
         Button bt = new Button(context);
-        this.setBackgroundDrawable(bt.getBackground());
 
         // copy all child from relative layout to this button
         while (layout.getChildCount() > 0)
@@ -51,7 +53,7 @@ public class ButtonTextImage extends RelativeLayout {
             // using temporary instance of Button class
             if (vchild instanceof TextView  )
             {
-                ((TextView)vchild).setTextColor(bt.getTextColors());
+                ((TextView)vchild).setTextColor(Color.WHITE);
             }
 
             // just to be sure that child views can't be clicked and focused
@@ -67,6 +69,7 @@ public class ButtonTextImage extends RelativeLayout {
         this.setClickable(true);
         this.setFocusable(true);
         this.setFocusableInTouchMode(false);
+        this.setBackgroundColor(color);
 
         // replace relative layout in parent with this one modified to looks like button
         ViewGroup vp = (ViewGroup)layout.getParent();
@@ -96,6 +99,17 @@ public class ButtonTextImage extends RelativeLayout {
         if (null != v && v instanceof ImageView)
         {
             ((ImageView)v).setImageDrawable(drawable);
+        }
+
+    }
+
+    public void setBackgroundColor(int id, int color)
+    {
+
+        View v = findViewById(id);
+        if (null != v && v instanceof RelativeLayout)
+        {
+            ((RelativeLayout)v).setBackgroundColor(color);
         }
 
     }
