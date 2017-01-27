@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteBackground"
+    android:background="@color/colorWhite"
     android:weightSum="100">
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="@color/colorBayerGreen"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
         <Button
             android:text="Gerichte"
@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:background="@color/colorBayerBlue"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 
@@ -46,15 +46,16 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:layout_weight="12"
-        android:gravity="center_vertical" />
+        android:layout_weight="15"
+        android:gravity="center_vertical"
+        android:layout_margin="10dp" />
 
     <android.support.v4.widget.NestedScrollView
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
-        android:layout_weight="68">
+        android:layout_weight="65">
 
 
         <TableLayout
@@ -125,7 +126,7 @@
                     android:elevation="0dp"
                     android:background="@color/colorBayerGreen"
                     android:layout_margin="5dp"
-                    android:textColor="@color/colorWhiteBackground" />
+                    android:textColor="@color/colorWhite" />
 
             </TableRow>
 
@@ -150,7 +151,7 @@
             android:background="@color/colorButtonGrey"
             android:layout_margin="5dp"
             android:layout_gravity="bottom"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 </LinearLayout>

@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorWhiteBackground">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorAccent">#0090c5</color>
     <color name="colorBayerGreen">#6bc200</color>
     <color name="colorBayerBlue">#0090c5</color>

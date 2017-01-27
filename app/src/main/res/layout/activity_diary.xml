@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteBackground"
+    android:background="@color/colorWhite"
     android:baselineAligned="false"
     android:weightSum="100">
 
@@ -19,41 +19,41 @@
         <Button
             android:text="Tage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonDays"
             android:layout_weight="1"
             android:background="@color/colorBayerGreen"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
         <Button
             android:text="Wochen"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonWeeks"
             android:layout_weight="1"
             android:background="@color/colorBayerBlue"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
         <Button
             android:text="Monate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonMonths"
             android:layout_weight="1"
             android:background="@color/colorBayerGreen"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
         <Button
             android:text="Alle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonAll"
             android:layout_weight="1"
             android:background="@color/colorBayerBlue"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 
@@ -66,10 +66,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
-        android:layout_weight="15" />
+        android:layout_weight="15"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                     android:elevation="0dp"
                     android:background="@color/colorBayerGreen"
                     android:layout_margin="5dp"
-                    android:textColor="@color/colorWhiteBackground" />
+                    android:textColor="@color/colorWhite" />
 
             </TableRow>
             <View style="@style/Divider"/>
@@ -156,12 +156,12 @@
         <Button
             android:text="Neuer Eintrag"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonNewEntry"
             android:layout_weight="1"
             android:background="@color/colorButtonGrey"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:text="Durchschn.: "
@@ -189,12 +189,12 @@
         <Button
             android:text="Mehr Statistiken"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/DiaryButtonMoreStatistics"
             android:layout_weight="1"
             android:background="@color/colorBayerBlue"
             android:layout_margin="5dp"
-            android:textColor="@color/colorWhiteBackground" />
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
 </LinearLayout>

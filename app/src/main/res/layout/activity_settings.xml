@@ -10,133 +10,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/colorWhiteBackground">
+    android:background="@color/colorWhite">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/SettingsLogo"
-            android:src="@drawable/logo"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="false"
-            android:layout_weight="0.5"/>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:layout_gravity="top">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Einstellungen"
+            <ImageView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/SettingsTextCaption"
-
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@android:color/black" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/SettingsLanguageText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sprache: "
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/SettingsLanguageSpinner"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"
-                    android:textSize="18sp"
-                    android:background="@drawable/spinner_border"
-                    android:popupBackground="@color/colorButtonGrey" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/SettingsNotificationsText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Benachrichtigungen"
-                    android:layout_margin="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:gravity="center_vertical" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"
-                    android:layout_height="match_parent" >
-
-                    <CheckBox
-                        android:text=""
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/SettingsNotificationsCheckBox"
-                        android:checked="true"
-                        android:layout_gravity="center_vertical" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-
-                <Button
-                    android:id="@+id/SettingsButtonFactoryReset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Werkszustand"
-                    android:layout_margin="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorWhiteBackground" />
-
-            </LinearLayout>
+                android:id="@+id/SettingsLogo"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_weight="0.5"
+                android:maxHeight="200dp" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:layout_gravity="top">
 
                 <TextView
-                    android:text="Impressum"
+                    android:text="Einstellungen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/SettingsImpressumCaption"
+                    android:id="@+id/SettingsTextCaption"
 
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textAlignment="center"
@@ -151,21 +58,121 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/SettingsImpressumText"
+                        android:id="@+id/SettingsLanguageText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Eine App programmiert im Rahmen der Vorlesung AGI (SET) von der BFWI314B. Programmiert von Katja Müller, Sina Sander, Fabian Schmitz, Robin Stephan, Niko Reder und Oliver Guth."
+                        android:text="Sprache: "
                         android:layout_weight="1"
                         android:layout_margin="5dp"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black"
-                        android:textAlignment="center" />
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/SettingsLanguageSpinner"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:background="@drawable/spinner_border"
+                        android:popupBackground="@color/colorButtonGrey" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-        </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/SettingsNotificationsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Benachrichtigungen"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_vertical" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent" >
+
+                        <CheckBox
+                            android:text=""
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/SettingsNotificationsCheckBox"
+                            android:checked="true"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
+
+                    <Button
+                        android:id="@+id/SettingsButtonFactoryReset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="Werkszustand"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
+
+                    <TextView
+                        android:text="Impressum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/SettingsImpressumCaption"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/black" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/SettingsImpressumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Eine App programmiert im Rahmen der Vorlesung AGI (SET) von der BFWI314B. Programmiert von Katja Müller, Sina Sander, Fabian Schmitz, Robin Stephan, Niko Reder und Oliver Guth."
+                            android:layout_weight="1"
+                            android:layout_margin="5dp"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

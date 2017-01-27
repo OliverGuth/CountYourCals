@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
 
 
 
+
         final Button buttonNewEntry = (Button) findViewById(R.id.MainButtonNewEntry);
 
         buttonFoodDetail.setOnClickListener(new View.OnClickListener() {

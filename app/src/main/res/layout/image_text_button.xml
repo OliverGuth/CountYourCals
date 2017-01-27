@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/button_image"
         android:text="Beispiel Text"
-        android:textColor="@color/colorWhiteBackground"
+        android:textColor="@color/colorWhite"
         android:textAlignment="center"
         />
     </RelativeLayout>

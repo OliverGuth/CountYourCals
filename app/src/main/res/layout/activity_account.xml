@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhdw.bg.bfwi314b.countyourcals.gui.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorWhiteBackground"
+    android:background="@color/colorWhite"
     android:weightSum="100">
 
     <ImageView
@@ -33,14 +33,14 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:layout_weight="10"
+        android:layout_weight="15"
         android:gravity="center_vertical" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50">
+        android:layout_weight="42.5">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -48,24 +48,28 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/AccountNameText"
+                android:id="@+id/AccountMaxCalsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name: "
                 android:layout_weight="1"
+                android:text="Tageshöchstwert (kcal):"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
-            <TextView
-                android:id="@+id/AccountNameValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Oliver Guth"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:gravity="center_vertical" />
 
+            <EditText
+                android:id="@+id/AccountMaxCalsValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2500"
+                android:inputType="numberDecimal"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:singleLine="true"
+                style="@style/Widget.AppCompat.EditText" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,47 +103,35 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/AccountMaxCalsText"
+                android:id="@+id/AccountNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Name: "
                 android:layout_weight="1"
-                android:text="Tageshöchstwert (kcal):"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:gravity="center_vertical" />
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/AccountNameValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Oliver Guth"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
-            <EditText
-                android:id="@+id/AccountMaxCalsValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2500"
-                android:inputType="numberDecimal"
-                android:layout_margin="5dp"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:singleLine="true"
-                style="@style/Widget.AppCompat.EditText" />
         </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <Button
+        android:id="@+id/AccountButtonLogout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
-
-        <Button
-            android:id="@+id/AccountButtonLogout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:text="Ausloggen"
-            android:layout_margin="5dp"
-            android:textSize="18sp"
-            android:textColor="@color/colorWhiteBackground" />
-
-    </LinearLayout>
+        android:text="Ausloggen"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:layout_weight="12.5" />
 
 </LinearLayout>
