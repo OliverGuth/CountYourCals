@@ -57,19 +57,44 @@
 
     </LinearLayout>
 
-    <TextView
-        android:text="Kalorientagebuch"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/DiaryTextCaption"
-
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black"
         android:layout_weight="15"
-        android:layout_margin="10dp"
-        android:gravity="center_vertical" />
+        android:weightSum="100">
+
+        <include
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            layout="@layout/image_button"
+            android:layout_weight="15"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/DiaryLineEditButton" />
+
+        <TextView
+            android:text="Kalorientagebuch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/DiaryTextCaption"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:layout_weight="70"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical" />
+
+        <include
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            layout="@layout/image_button"
+            android:layout_weight="15"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/DiaryLineEditButton" />
+    </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
