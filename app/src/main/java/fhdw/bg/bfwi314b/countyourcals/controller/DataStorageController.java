@@ -1,5 +1,7 @@
 package fhdw.bg.bfwi314b.countyourcals.controller;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class DataStorageController {
     }
 
     public ArrayList<User> getUserList() {
+        File file = Environment.getDataDirectory()
         mUserFile =
         return
     }

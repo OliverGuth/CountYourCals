@@ -21,6 +21,8 @@ public class XMLFoodWriter {
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
+        fileWriter.write("<Foods>");
+        fileWriter.write("\n");
 
         for (int i = 0; i < foodArrayList.size(); i++) {
             tmpFood = foodArrayList.get(i);
@@ -48,6 +50,8 @@ public class XMLFoodWriter {
             fileWriter.write("</Food>");
             fileWriter.write("\n");
         }
+        fileWriter.write("</Foods>");
+        fileWriter.write("\n");
         fileWriter.flush();
         fileWriter.close();
     }

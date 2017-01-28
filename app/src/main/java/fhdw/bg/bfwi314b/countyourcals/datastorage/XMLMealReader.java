@@ -42,7 +42,8 @@ public class XMLMealReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList mealNodeList = xmlData.getElementsByTagName("Meal");
+        NodeList roodNode = xmlData.getElementsByTagName("Meals");
+        NodeList mealNodeList = roodNode.item(0).getChildNodes();
 
         Node mealNode;
         NodeList mealChildNodes;

@@ -42,7 +42,8 @@ public class XMLUserReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList userNodeList = xmlData.getElementsByTagName("User");
+        NodeList roodNode = xmlData.getElementsByTagName("Users");
+        NodeList userNodeList = roodNode.item(0).getChildNodes();
 
         Node userNode;
         NodeList userChildNodes;

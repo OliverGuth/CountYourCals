@@ -42,7 +42,8 @@ public class XMLFoodReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList foodNodeList = xmlData.getElementsByTagName("Food");
+        NodeList roodNode = xmlData.getElementsByTagName("Foods");
+        NodeList foodNodeList = roodNode.item(0).getChildNodes();
 
         Node foodNode;
         NodeList foodChildNodes;

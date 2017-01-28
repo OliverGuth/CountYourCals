@@ -20,6 +20,8 @@ public class XMLUserWriter {
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
+        fileWriter.write("<Users>");
+        fileWriter.write("\n");
 
         for (int i = 0; i < userArrayList.size(); i++) {
             tmpUser = userArrayList.get(i);
@@ -38,6 +40,8 @@ public class XMLUserWriter {
             fileWriter.write("</User>");
             fileWriter.write("\n");
         }
+        fileWriter.write("</Users>");
+        fileWriter.write("\n");
         fileWriter.flush();
         fileWriter.close();
     }

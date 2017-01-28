@@ -42,7 +42,8 @@ public class XMLDiaryEntryReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList entryNodeList = xmlData.getElementsByTagName("DiaryEntry");
+        NodeList roodNode = xmlData.getElementsByTagName("DiaryEntrys");
+        NodeList entryNodeList = roodNode.item(0).getChildNodes();
 
         Node entryNode;
         NodeList entryChildNodes;

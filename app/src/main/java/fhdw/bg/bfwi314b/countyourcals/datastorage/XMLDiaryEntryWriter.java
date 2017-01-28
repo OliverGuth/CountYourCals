@@ -22,6 +22,8 @@ public class XMLDiaryEntryWriter {
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
+        fileWriter.write("<DiaryEntrys>");
+        fileWriter.write("\n");
 
         for (int i = 0; i < entryArrayList.size(); i++) {
             tmpEntry = entryArrayList.get(i);
@@ -46,6 +48,8 @@ public class XMLDiaryEntryWriter {
             fileWriter.write("</DiaryEntry>");
             fileWriter.write("\n");
         }
+        fileWriter.write("</DiaryEntrys>");
+        fileWriter.write("\n");
         fileWriter.flush();
         fileWriter.close();
     }
