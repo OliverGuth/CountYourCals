@@ -32,9 +32,9 @@ public class DataStorageController {
     }
 
     public ArrayList<User> getUserList() {
-        File file = Environment.getDataDirectory()
-        mUserFile =
-        return
+        //File file = Environment.getDataDirectory()
+        //mUserFile =
+        //return
     }
 
 }
