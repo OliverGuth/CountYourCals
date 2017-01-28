@@ -44,6 +44,7 @@ public class Meal {
         mIngredientsUnit = ingredientsUnit;
         mIngredientsQuantity = ingredientsQuantity;
         mIngredientsKCal = ingredientsKCal;
+        mSumOfKCal = 0;
 
         for (int i = 0; i < mIngredientsKCal.size(); i++) {
             mSumOfKCal = mSumOfKCal + mIngredientsKCal.get(i);
