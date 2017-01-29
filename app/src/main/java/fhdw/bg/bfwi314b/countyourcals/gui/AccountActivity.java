@@ -33,7 +33,7 @@ public class AccountActivity extends AppCompatActivity {
 
                 login.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if(loginUserName.getText().equals("Oliver"))
+                        if(loginUserName.getText().toString().trim().equals("Oliver"))
                             Toast.makeText(AccountActivity.this, "login successful", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(AccountActivity.this, "login failed", Toast.LENGTH_SHORT).show();
