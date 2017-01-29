@@ -40,10 +40,10 @@ public class Meal {
         mMealQuantity = mealQuantity;
         mMealUnit = mealUnit;
         mMealKCal = mealKCal;
-        mIngredients = ingredients;
-        mIngredientsUnit = ingredientsUnit;
-        mIngredientsQuantity = ingredientsQuantity;
-        mIngredientsKCal = ingredientsKCal;
+        mIngredients = (ArrayList<String>) ingredients.clone();
+        mIngredientsUnit = (ArrayList<String>) ingredientsUnit.clone();
+        mIngredientsQuantity = (ArrayList<Integer>) ingredientsQuantity.clone();
+        mIngredientsKCal = (ArrayList<Integer>) ingredientsKCal.clone();
         mSumOfKCal = 0;
 
         for (int i = 0; i < mIngredientsKCal.size(); i++) {

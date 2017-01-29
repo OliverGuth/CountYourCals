@@ -29,7 +29,7 @@ public class XMLUserReader {
         String line = bufferedReader.readLine();
         String userXML = "";
         while (line != null) {
-            userXML = userXML + line + "\n";
+            userXML = userXML + line /*+ System.getProperty("line.Seperator")*/;
             line = bufferedReader.readLine();
         }
         bufferedReader.close();
@@ -42,8 +42,9 @@ public class XMLUserReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList roodNode = xmlData.getElementsByTagName("Users");
-        NodeList userNodeList = roodNode.item(0).getChildNodes();
+        /*NodeList rootNode = xmlData.getElementsByTagName("Users");
+        NodeList userNodeList = rootNode.item(0).getChildNodes();*/
+        NodeList userNodeList = xmlData.getElementsByTagName("User");
 
         Node userNode;
         NodeList userChildNodes;
@@ -56,9 +57,9 @@ public class XMLUserReader {
         for (int i = 0; i < userNodeList.getLength(); i++) {
             userNode = userNodeList.item(i);
             userChildNodes = userNode.getChildNodes();
-            tmpName = userChildNodes.item(0).getNodeValue();
-            tmpGender = userChildNodes.item(1).getNodeValue().charAt(0);
-            tmpMaxKCal = Integer.parseInt(userChildNodes.item(2).getNodeValue());
+            tmpName = userChildNodes.item(0).getTextContent();
+            tmpGender = userChildNodes.item(1).getTextContent().charAt(0);
+            tmpMaxKCal = Integer.parseInt(userChildNodes.item(2).getTextContent());
             userList.add(new User(tmpName, tmpGender, tmpMaxKCal));
             tmpName = "";
             tmpGender = ' ';
