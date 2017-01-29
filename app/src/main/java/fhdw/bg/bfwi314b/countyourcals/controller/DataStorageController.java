@@ -31,10 +31,10 @@ public class DataStorageController {
         mXMLWriter = new XMLWriter();
     }
 
-    public ArrayList<User> getUserList() {
-        File file = Environment.getDataDirectory()
-        mUserFile =
-        return
-    }
+    //public ArrayList<User> getUserList() {
+        //File file = Environment.getDataDirectory()
+        //mUserFile =
+        //return
+    //}
 
 }
