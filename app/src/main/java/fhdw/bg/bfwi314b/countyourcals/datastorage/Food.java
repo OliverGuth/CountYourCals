@@ -35,9 +35,9 @@ public class Food {
 
     public Food(String name, ArrayList<Integer> quantity, ArrayList<String> unit, ArrayList<Integer> kCal) {
         mName = name;
-        mUnit = unit;
-        mQuantity = quantity;
-        mKCal = kCal;
+        mUnit = (ArrayList<String>) unit.clone();
+        mQuantity = (ArrayList<Integer>) quantity.clone();
+        mKCal = (ArrayList<Integer>) kCal.clone();
     }
 
     public void addRelation(Integer quantity, String unit, Integer kCal) {

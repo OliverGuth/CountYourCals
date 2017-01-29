@@ -29,7 +29,7 @@ public class XMLDiaryEntryReader {
         String line = bufferedReader.readLine();
         String entryXML = "";
         while (line != null) {
-            entryXML = entryXML + line + "\n";
+            entryXML = entryXML + line /*+ System.getProperty("line.Seperator")*/;
             line = bufferedReader.readLine();
         }
         bufferedReader.close();
@@ -42,8 +42,9 @@ public class XMLDiaryEntryReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList roodNode = xmlData.getElementsByTagName("DiaryEntrys");
-        NodeList entryNodeList = roodNode.item(0).getChildNodes();
+        /*NodeList rootNode = xmlData.getElementsByTagName("DiaryEntrys");
+        NodeList entryNodeList = rootNode.item(0).getChildNodes();*/
+        NodeList entryNodeList = xmlData.getElementsByTagName("DiaryEntry");
 
         Node entryNode;
         NodeList entryChildNodes;
@@ -58,11 +59,11 @@ public class XMLDiaryEntryReader {
         for (int i = 0; i < entryNodeList.getLength(); i++) {
             entryNode = entryNodeList.item(i);
             entryChildNodes = entryNode.getChildNodes();
-            tmpTimeStamp = entryChildNodes.item(0).getNodeValue();
-            tmpName = entryChildNodes.item(1).getNodeValue();
-            tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getNodeValue());
-            tmpUnit = entryChildNodes.item(2).getNodeValue();
-            tmpKCal = Integer.parseInt(entryChildNodes.item(3).getNodeValue());
+            tmpTimeStamp = entryChildNodes.item(0).getTextContent();
+            tmpName = entryChildNodes.item(1).getTextContent();
+            tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getTextContent());
+            tmpUnit = entryChildNodes.item(2).getTextContent();
+            tmpKCal = Integer.parseInt(entryChildNodes.item(3).getTextContent());
 
             diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpQuantity, tmpUnit, tmpKCal));
             tmpTimeStamp = "";

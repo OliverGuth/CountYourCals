@@ -29,7 +29,7 @@ public class XMLFoodReader {
         String line = bufferedReader.readLine();
         String foodXML = "";
         while (line != null) {
-            foodXML = foodXML + line + "\n";
+            foodXML = foodXML + line /*+ System.getProperty("line.Seperator")*/;
             line = bufferedReader.readLine();
         }
         bufferedReader.close();
@@ -42,8 +42,9 @@ public class XMLFoodReader {
         document = documentBuilder.parse(inputSource);
 
         Element xmlData = document.getDocumentElement();
-        NodeList roodNode = xmlData.getElementsByTagName("Foods");
-        NodeList foodNodeList = roodNode.item(0).getChildNodes();
+        /*NodeList rootNode = xmlData.getElementsByTagName("Foods");
+        NodeList foodNodeList = rootNode.item(0).getChildNodes();*/
+        NodeList foodNodeList = xmlData.getElementsByTagName("Food");
 
         Node foodNode;
         NodeList foodChildNodes;
@@ -57,12 +58,12 @@ public class XMLFoodReader {
         for (int i = 0; i < foodNodeList.getLength(); i++) {
             foodNode = foodNodeList.item(i);
             foodChildNodes = foodNode.getChildNodes();
-            tmpName = foodChildNodes.item(0).getNodeValue();
+            tmpName = foodChildNodes.item(0).getTextContent();
             for (int j = 1; j < foodChildNodes.getLength(); j++) {
                 relationNode = foodChildNodes.item(j).getChildNodes();
-                tmpQuantity.add(Integer.parseInt(relationNode.item(0).getNodeValue()));
-                tmpUnit.add(relationNode.item(1).getNodeValue());
-                tmpKCal.add(Integer.parseInt(relationNode.item(2).getNodeValue()));
+                tmpQuantity.add(Integer.parseInt(relationNode.item(0).getTextContent()));
+                tmpUnit.add(relationNode.item(1).getTextContent());
+                tmpKCal.add(Integer.parseInt(relationNode.item(2).getTextContent()));
             }
             foodList.add(new Food(tmpName, tmpQuantity, tmpUnit, tmpKCal));
             tmpQuantity.clear();
