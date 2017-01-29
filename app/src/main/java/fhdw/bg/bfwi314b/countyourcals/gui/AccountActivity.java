@@ -18,16 +18,16 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        user = new User("Oliver", 'M', 2500);
+        user = new User("Oliver", 'M', 2500, "Deutsch");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         final Button buttonLogout = (Button) findViewById(R.id.AccountButtonLogout);
-        buttonLogout.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
+        buttonLogout.setBackgroundDrawable(getResources().getDrawable(R.color.BayerGreen));
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AccountActivity.this);
-                View view = getLayoutInflater().inflate(R.layout.login_dialog, null);
+                View view = getLayoutInflater().inflate(R.layout.dialog_login, null);
                 final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
                 Button login = (Button) view.findViewById(R.id.LoginButton);
 

@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhdw.bg.bfwi314b.countyourcals.gui.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/White"
     android:weightSum="100">
 
     <LinearLayout
@@ -93,13 +93,13 @@
             android:layout_height="match_parent"
             android:text="Neuer Eintrag"
             android:textSize="18sp"
-            android:background="@color/colorButtonGrey"
+            android:background="@color/Grey"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/White" />
 
     </LinearLayout>
 

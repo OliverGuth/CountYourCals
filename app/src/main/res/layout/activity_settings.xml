@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/White">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:textAllCaps="false"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/Black" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -65,7 +65,7 @@
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:textSize="18sp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/Black" />
 
                     <Spinner
                         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_margin="5dp"
                         android:textSize="18sp"
                         android:background="@drawable/spinner_border"
-                        android:popupBackground="@color/colorButtonGrey" />
+                        android:popupBackground="@color/Grey" />
 
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                         android:text="Benachrichtigungen"
                         android:layout_margin="5dp"
                         android:textSize="18sp"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/Black"
                         android:gravity="center_vertical" />
 
                     <LinearLayout
@@ -128,7 +128,7 @@
                         android:text="Werkszustand"
                         android:layout_margin="5dp"
                         android:textSize="18sp"
-                        android:textColor="@color/colorWhite" />
+                        android:textColor="@color/White" />
 
                 </LinearLayout>
 
@@ -149,7 +149,7 @@
                         android:textAllCaps="false"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/Black" />
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -164,7 +164,7 @@
                             android:layout_weight="1"
                             android:layout_margin="5dp"
                             android:textSize="14sp"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/Black"
                             android:textAlignment="center" />
 
                     </LinearLayout>

@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         spinnerLanguage.setAdapter(adapter);
 
 
-        buttonFactoryReset.setBackgroundDrawable(getResources().getDrawable(R.color.colorBayerGreen));
+        buttonFactoryReset.setBackgroundDrawable(getResources().getDrawable(R.color.BayerGreen));
 
         buttonFactoryReset.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

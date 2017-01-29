@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fhdw.bg.bfwi314b.countyourcals.gui.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/White"
     android:weightSum="100">
 
     <ImageView
@@ -32,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@android:color/black"
+        android:textColor="@color/Black"
         android:layout_weight="15"
         android:gravity="center_vertical" />
 
@@ -55,7 +55,7 @@
                 android:text="Tageshöchstwert (kcal):"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/Black"
                 android:gravity="center_vertical" />
 
             <EditText
@@ -67,7 +67,7 @@
                 android:inputType="numberDecimal"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/Black"
                 android:singleLine="true"
                 style="@style/Widget.AppCompat.EditText" />
         </LinearLayout>
@@ -85,7 +85,7 @@
                 android:text="Geschlecht"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/Black" />
             <TextView
                 android:id="@+id/AccountGenderValue"
                 android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 android:text="Männlich"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/Black" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +110,7 @@
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/Black" />
             <TextView
                 android:id="@+id/AccountNameValue"
                 android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/Black" />
 
         </LinearLayout>
 
@@ -131,7 +131,7 @@
         android:layout_height="0dp"
         android:text="Ausloggen"
         android:textSize="18sp"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/White"
         android:layout_weight="12.5" />
 
 </LinearLayout>

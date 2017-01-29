@@ -4,7 +4,7 @@ package fhdw.bg.bfwi314b.countyourcals.datastorage;
  * Created by Niko.
  */
 
-public class User {
+public class  User {
 
     private String mName;
     private Character mGender;
