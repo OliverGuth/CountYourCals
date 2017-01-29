@@ -22,7 +22,7 @@ public class Food {
         mName = name;
     }
 
-    public Food(String name, String unit, Integer quantity, Integer kCal) {
+    public Food(String name, Integer quantity, String unit, Integer kCal) {
         mUnit = new ArrayList<String>();
         mQuantity = new ArrayList<Integer>();
         mKCal = new ArrayList<Integer>();

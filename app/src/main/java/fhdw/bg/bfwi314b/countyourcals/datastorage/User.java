@@ -9,15 +9,17 @@ public class User {
     private String mName;
     private Character mGender;
     private Integer mMaxKCal;
+    private String mLanguage;
 
     public User(String name) {
         mName = name;
     }
 
-    public User(String name, Character gender, Integer maxKCal) {
+    public User(String name, Character gender, Integer maxKCal, String language) {
         mName = name;
         mGender = gender;
         mMaxKCal = maxKCal;
+        mLanguage = language;
     }
 
     public String getName() {
@@ -34,5 +36,9 @@ public class User {
 
     public void setMaxKCal(Integer maxKCal) {
         mMaxKCal = maxKCal;
+    }
+
+    public String getLanguage() {
+        return mLanguage;
     }
 }

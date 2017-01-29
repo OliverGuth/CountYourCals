@@ -51,6 +51,7 @@ public class XMLUserReader {
         String tmpName = "";
         Character tmpGender = ' ';
         Integer tmpMaxKCal = 0;
+        String tmpLanguage = "";
 
         ArrayList<User> userList = new ArrayList<User>();
 
@@ -60,10 +61,12 @@ public class XMLUserReader {
             tmpName = userChildNodes.item(0).getTextContent();
             tmpGender = userChildNodes.item(1).getTextContent().charAt(0);
             tmpMaxKCal = Integer.parseInt(userChildNodes.item(2).getTextContent());
-            userList.add(new User(tmpName, tmpGender, tmpMaxKCal));
+            tmpLanguage = userChildNodes.item(3).getTextContent();
+            userList.add(new User(tmpName, tmpGender, tmpMaxKCal, tmpLanguage));
             tmpName = "";
             tmpGender = ' ';
             tmpMaxKCal = 0;
+            tmpLanguage = "";
         }
 
         return userList;

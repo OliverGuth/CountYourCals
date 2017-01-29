@@ -17,6 +17,7 @@ public class XMLUserWriter {
         String tmpName;
         Character tmpGender;
         Integer tmpMaxKCal;
+        String tmpLanguage;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
@@ -28,6 +29,7 @@ public class XMLUserWriter {
             tmpName = tmpUser.getName();
             tmpGender = tmpUser.getGender();
             tmpMaxKCal = tmpUser.getMaxKCal();
+            tmpLanguage = tmpUser.getLanguage();
 
             fileWriter.write("<User>");
             fileWriter.write("\n");
@@ -36,6 +38,8 @@ public class XMLUserWriter {
             fileWriter.write("<Gender>" + tmpGender + "</Gender>");
             fileWriter.write("\n");
             fileWriter.write("<MaxKCal>" + tmpMaxKCal + "</MaxKCal>");
+            fileWriter.write("\n");
+            fileWriter.write("<Language>" + tmpLanguage + "</Language>");
             fileWriter.write("\n");
             fileWriter.write("</User>");
             fileWriter.write("\n");
