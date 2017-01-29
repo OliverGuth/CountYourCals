@@ -1,11 +1,11 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
 
-public class NewMealActivity extends AppCompatActivity {
+public class NewMealActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

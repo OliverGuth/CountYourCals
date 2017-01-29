@@ -1,5 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.datastorage.User;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends Activity {
 
     private User user;
     @Override

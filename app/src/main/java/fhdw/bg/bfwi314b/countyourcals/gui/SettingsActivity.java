@@ -1,5 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import java.util.List;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

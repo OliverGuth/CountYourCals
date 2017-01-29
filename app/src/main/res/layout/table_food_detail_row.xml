@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:id="@+id/FoodDetailTableRow"
     android:background="@color/White"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:longClickable="true">
 
     <TextView
         android:text="1."
@@ -23,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/FoodDetailLineName"
-        android:layout_weight="24"
+        android:layout_weight="32"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:layout_gravity="center_vertical" />
@@ -44,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/FoodDetailLineCalories"
-        android:layout_weight="23"
+        android:layout_weight="25"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:layout_gravity="center_vertical" />
@@ -53,17 +54,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         layout="@layout/image_button"
-        android:layout_weight="11"
+        android:layout_weight="13"
         android:layout_margin="3dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/FoodDetailButtonLineEdit" />
 
-    <include
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        layout="@layout/image_button"
-        android:layout_weight="11"
-        android:layout_margin="3dp"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/FoodDetailButtonLineDelete" />
 </TableRow>
