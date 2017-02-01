@@ -5,7 +5,8 @@
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
     android:background="@color/BayerGreen"
-    android:gravity="center">
+    android:gravity="center"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/button_image"

@@ -3,7 +3,6 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class SplashActivity extends Activity {

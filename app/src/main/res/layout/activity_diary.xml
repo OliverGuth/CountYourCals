@@ -74,7 +74,7 @@
             android:id="@+id/DiaryLineEditButton" />
 
         <TextView
-            android:text="Kalorientagebuch"
+            android:text="Tagebuch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/DiaryTextCaption"
@@ -108,64 +108,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/DiaryTableLayout">
 
-            <View style="@style/Divider"/>
-
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/table_diary_row" />
 
             <View style="@style/Divider"/>
 
-
-            <View style="@style/Divider"/>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/DiaryTableRow4">
-
-                <TextView
-                    android:text="4."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine4Number"
-                    android:layout_weight="0.5"
-                    android:textSize="18sp"
-                    android:textColor="@color/Black"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:text="Gericht 4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine4Name"
-                    android:layout_weight="3"
-                    android:textSize="18sp"
-                    android:textColor="@color/Black"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:text="12321 kcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/DiaryLine4Calories"
-                    android:layout_weight="3"
-                    android:textSize="18sp"
-                    android:textColor="@color/Black"
-                    android:layout_gravity="center_vertical" />
-
-                <Button
-                    android:text="Ändern"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/DiaryButtonLine4Change"
-                    android:layout_weight="1"
-                    android:elevation="0dp"
-                    android:background="@color/BayerGreen"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/White" />
-
-            </TableRow>
             <View style="@style/Divider"/>
         </TableLayout>
 
