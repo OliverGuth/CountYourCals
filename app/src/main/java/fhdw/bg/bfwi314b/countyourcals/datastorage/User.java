@@ -4,7 +4,7 @@ package fhdw.bg.bfwi314b.countyourcals.datastorage;
  * Created by Niko.
  */
 
-public class  User {
+public class User {
 
     private String mName;
     private Character mGender;
@@ -20,6 +20,10 @@ public class  User {
         mGender = gender;
         mMaxKCal = maxKCal;
         mLanguage = language;
+    }
+
+    public String toString() {
+        return mName;
     }
 
     public String getName() {
@@ -40,5 +44,9 @@ public class  User {
 
     public String getLanguage() {
         return mLanguage;
+    }
+
+    public void setLanguage(String language) {
+        mLanguage = language;
     }
 }

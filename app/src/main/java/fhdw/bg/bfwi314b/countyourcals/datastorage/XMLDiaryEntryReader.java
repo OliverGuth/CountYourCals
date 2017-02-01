@@ -53,6 +53,7 @@ public class XMLDiaryEntryReader {
         Integer tmpQuantity = 0;
         String tmpUnit = "";
         Integer tmpKCal = 0;
+        Integer tmpIdentifier = 0;
 
         ArrayList<DiaryEntry> diaryList = new ArrayList<DiaryEntry>();
 
@@ -64,13 +65,15 @@ public class XMLDiaryEntryReader {
             tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getTextContent());
             tmpUnit = entryChildNodes.item(2).getTextContent();
             tmpKCal = Integer.parseInt(entryChildNodes.item(3).getTextContent());
+            tmpIdentifier = Integer.parseInt(entryChildNodes.item(4).getTextContent());
 
-            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpQuantity, tmpUnit, tmpKCal));
+            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpQuantity, tmpUnit, tmpKCal, tmpIdentifier));
             tmpTimeStamp = "";
             tmpName = "";
             tmpQuantity = 0;
             tmpUnit = "";
             tmpKCal = 0;
+            tmpIdentifier = 0;
         }
 
         return diaryList;

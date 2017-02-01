@@ -46,6 +46,10 @@ public class Food {
         mKCal.add(kCal);
     }
 
+    public String toString() {
+        return mName;
+    }
+
     public String getName() {
         return mName;
     }

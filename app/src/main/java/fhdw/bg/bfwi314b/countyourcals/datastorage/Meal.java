@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Meal {
 
     private String mName;
+    private Integer mIdentifier;
     //private Food mMeal;
     private Integer mMealQuantity;
     private String mMealUnit;
@@ -22,8 +23,9 @@ public class Meal {
     private ArrayList<Integer> mIngredientsKCal;
     private Integer mSumOfKCal;
 
-    public Meal(String name) {
+    public Meal(String name, Integer identifier) {
         mName = name;
+        mIdentifier = identifier;
         //mMeal = new Food(mName);
         mMealQuantity = null;
         mMealUnit = null;
@@ -35,8 +37,9 @@ public class Meal {
         mSumOfKCal = null;
     }
 
-    public Meal(String name, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredients, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
+    public Meal(String name, Integer identifier, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredients, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
         mName = name;
+        mIdentifier = identifier;
         mMealQuantity = mealQuantity;
         mMealUnit = mealUnit;
         mMealKCal = mealKCal;
@@ -64,6 +67,10 @@ public class Meal {
         mMealQuantity = mealQuantity;
         mMealUnit = mealUnit;
         mMealKCal = mealKCal;
+    }
+
+    public String toString() {
+        return mName;
     }
 
     public Integer getSumOfKCal() {
@@ -120,5 +127,9 @@ public class Meal {
 
     public Integer getMealKCal() {
         return mMealKCal;
+    }
+
+    public Integer getIdentifier() {
+        return mIdentifier;
     }
 }

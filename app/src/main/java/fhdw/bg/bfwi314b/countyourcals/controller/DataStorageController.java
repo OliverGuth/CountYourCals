@@ -1,16 +1,10 @@
 package fhdw.bg.bfwi314b.countyourcals.controller;
 
-import android.os.Environment;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import fhdw.bg.bfwi314b.countyourcals.datastorage.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.Food;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.Meal;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.User;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.XMLReader;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.XMLWriter;
+import fhdw.bg.bfwi314b.countyourcals.datastorage.*;
 
 /**
  * Created by Niko.
@@ -34,12 +28,7 @@ public class DataStorageController {
         mXMLWriter = new XMLWriter();
     }
 
-    public void getMealList() {
-
-    }
-
-    public void addMeal(String userName, String mealName, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredientsName, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
-        Meal tmpMeal = new Meal(mealName, mealQuantity, mealUnit, mealKCal, ingredientsName, ingredientsQuantity, ingredientsUnit, ingredientsKCal);
+    public ArrayList<Meal> getMealList(String userName) {
         File tmpMealListFile = new File(userName + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         if (tmpMealListFile.exists()) {
@@ -52,22 +41,60 @@ public class DataStorageController {
             }
             tmpMealArrayList = new ArrayList<Meal>();
         }
+        return tmpMealArrayList;
+    }
+
+    public void addMeal(String userName, String mealName, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredientsName, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
+        File tmpMealListFile = new File(userName + "Meal.xml");
+        ArrayList<Meal> tmpMealArrayList;
+        tmpMealArrayList = getMealList(userName);
+        Integer tmpIdentifier = 0;
+        for (int index = 0; index < tmpMealArrayList.size(); index++) {
+            if (tmpIdentifier < tmpMealArrayList.get(index).getIdentifier()) {
+                tmpIdentifier = tmpMealArrayList.get(index).getIdentifier();
+            }
+        }
+        Meal tmpMeal = new Meal(mealName, tmpIdentifier, mealQuantity, mealUnit, mealKCal, ingredientsName, ingredientsQuantity, ingredientsUnit, ingredientsKCal);
         tmpMealArrayList.add(tmpMeal);
         mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
     }
 
-    public void editMeal() {
+    public void changeRelationToMeal(String userName, Integer mealIdentifier, Integer mealQuantity, String mealUnit, Integer mealKCal) {
+        File tmpMealListFile = new File(userName + "Meal.xml");
+        ArrayList<Meal> tmpMealArrayList;
+        tmpMealArrayList = getMealList(userName);
+        for (int index = 0; index < tmpMealArrayList.size(); index++) {
+            if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
+                tmpMealArrayList.get(index).changeRelation(mealQuantity, mealUnit, mealKCal);
 
+                index = tmpMealArrayList.size();
+            }
+        }
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
     }
+
+    public void addFoodToMeal(String userName, String mealName, Integer mealQuantity, String mealUnit, Integer mealKCal, String ingredientsName, Integer ingredientsQuantity, String ingredientsUnit, Integer ingredientsKCal) {
+        File tmpMealListFile = new File(userName + "Meal.xml");
+        ArrayList<Meal> tmpMealArrayList;
+        tmpMealArrayList = getMealList(userName);
+        for (int index = 0; index < tmpMealArrayList.size(); index++) {
+            if (tmpMealArrayList.get(index).getName().equals(mealName)) {
+                tmpMealArrayList.get(index).addFood(ingredientsName, ingredientsQuantity, ingredientsUnit, ingredientsKCal);
+                tmpMealArrayList.get(index).changeRelation(mealQuantity, mealUnit, mealKCal);
+
+                index = tmpMealArrayList.size();
+            }
+        }
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
+    }
+
+//    public void editMeal() {
+//
+//    }
 
     //----------
 
-    public void getFoodList() {
-
-    }
-
-    public void addFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
-        Food tmpFood = new Food(foodName, foodQuantity, foodUnit, foodKCal);
+    public ArrayList<Food> getFoodList(String userName) {
         File tmpFoodListFile = new File(userName + "Food.xml");
         ArrayList<Food> tmpFoodArrayList;
         if (tmpFoodListFile.exists()) {
@@ -80,22 +107,46 @@ public class DataStorageController {
             }
             tmpFoodArrayList = new ArrayList<Food>();
         }
+        return tmpFoodArrayList;
+    }
+
+    public void addFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
+        Food tmpFood = new Food(foodName, foodQuantity, foodUnit, foodKCal);
+        File tmpFoodListFile = new File(userName + "Food.xml");
+        ArrayList<Food> tmpFoodArrayList;
+        tmpFoodArrayList = getFoodList(userName);
         tmpFoodArrayList.add(tmpFood);
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
-    public void editFood() {
+    public void addRelationToFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
+        File tmpFoodListFile = new File(userName + "Food.xml");
+        ArrayList<Food> tmpFoodArrayList;
+        tmpFoodArrayList = getFoodList(userName);
+        for (int index = 0; index < tmpFoodArrayList.size(); index++) {
+            if (tmpFoodArrayList.get(index).getName().equals(foodName)) {
+                tmpFoodArrayList.get(index).addRelation(foodQuantity, foodUnit, foodKCal);
 
+                index = tmpFoodArrayList.size();
+            }
+        }
+        mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
+
+//    public void editFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
+//    	File tmpFoodListFile = new File(userName + "Food.xml");
+//        ArrayList<Food> tmpFoodArrayList;
+//        tmpFoodArrayList = getFoodList(userName);
+//        for(int index = 0; index < tmpFoodArrayList.size(); index++){
+//        	if(tmpFoodArrayList.get(index).getName().equals(userName)){
+//
+//        	}
+//        }
+//    }
 
     //----------
 
-    public void getDiaryEntryList() {
-
-    }
-
-    public void addDiaryEntry(String userName, String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal) {
-        DiaryEntry tmpDiaryEntry = new DiaryEntry(timeStamp, consumedName, consumedQuantity, consumedUnit, consumedKCal);
+    public ArrayList<DiaryEntry> getDiaryEntryList(String userName) {
         File tmpDiaryEntryListFile = new File(userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         if (tmpDiaryEntryListFile.exists()) {
@@ -108,22 +159,44 @@ public class DataStorageController {
             }
             tmpDiaryEntryArrayList = new ArrayList<DiaryEntry>();
         }
+        return tmpDiaryEntryArrayList;
+    }
+
+    public void addDiaryEntry(String userName, String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal) {
+        File tmpDiaryEntryListFile = new File(userName + "DiaryEntry.xml");
+        ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
+        tmpDiaryEntryArrayList = getDiaryEntryList(userName);
+        Integer tmpIdentifier = 0;
+        for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
+            if (tmpIdentifier < tmpDiaryEntryArrayList.get(index).getIdentifier()) {
+                tmpIdentifier = tmpDiaryEntryArrayList.get(index).getIdentifier();
+            }
+        }
+        DiaryEntry tmpDiaryEntry = new DiaryEntry(timeStamp, consumedName, consumedQuantity, consumedUnit, consumedKCal, tmpIdentifier);
         tmpDiaryEntryArrayList.add(tmpDiaryEntry);
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile);
     }
 
-    public void editDiaryEntry() {
+    public void editDiaryEntry(String userName, String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
+        File tmpDiaryEntryListFile = new File(userName + "DiaryEntry.xml");
+        ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
+        tmpDiaryEntryArrayList = getDiaryEntryList(userName);
+        for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
+            if (tmpDiaryEntryArrayList.get(index).getIdentifier() == identifier) {
+                tmpDiaryEntryArrayList.get(index).setConsumedName(consumedName);
+                tmpDiaryEntryArrayList.get(index).setConsumedQuantity(consumedQuantity);
+                tmpDiaryEntryArrayList.get(index).setConsumedUnit(consumedUnit);
+                tmpDiaryEntryArrayList.get(index).setConsumedKCal(consumedKCal);
 
+                index = tmpDiaryEntryArrayList.size();
+            }
+        }
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile);
     }
 
     //----------
 
-    public void getUserList() {
-
-    }
-
-    public void addUser(String userName, Character gender, Integer maxKCal, String language) {
-        User tmpUser = new User(userName, gender, maxKCal, language);
+    public ArrayList<User> getUserList() {
         File tmpUserListFile = new File("User.xml");
         ArrayList<User> tmpUserArrayList;
         if (tmpUserListFile.exists()) {
@@ -136,12 +209,31 @@ public class DataStorageController {
             }
             tmpUserArrayList = new ArrayList<User>();
         }
+        return tmpUserArrayList;
+    }
+
+    public void addUser(String userName, Character gender, Integer maxKCal, String language) {
+        User tmpUser = new User(userName, gender, maxKCal, language);
+        File tmpUserListFile = new File("User.xml");
+        ArrayList<User> tmpUserArrayList;
+        tmpUserArrayList = getUserList();
         tmpUserArrayList.add(tmpUser);
         mXMLWriter.writeUser(tmpUserArrayList, tmpUserListFile);
     }
 
-    public void editUser() {
+    public void editUser(String userName, Character gender, Integer maxKCal, String language) {
+        File tmpUserListFile = new File("User.xml");
+        ArrayList<User> tmpUserArrayList;
+        tmpUserArrayList = getUserList();
+        for (int index = 0; index < tmpUserArrayList.size(); index++) {
+            if (tmpUserArrayList.get(index).getName().equals(userName)) {
+                tmpUserArrayList.get(index).setMaxKCal(maxKCal);
+                tmpUserArrayList.get(index).setLanguage(language);
 
+                index = tmpUserArrayList.size();
+            }
+        }
+        mXMLWriter.writeUser(tmpUserArrayList, tmpUserListFile);
     }
 
     //----------

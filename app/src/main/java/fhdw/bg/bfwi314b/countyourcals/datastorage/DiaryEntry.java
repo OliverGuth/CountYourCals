@@ -13,13 +13,19 @@ public class DiaryEntry {
     private Integer mConsumedQuantity;
     private String mConsumedUnit;
     private Integer mConsumedKCal;
+    private Integer mIdentifier;
 
-    public DiaryEntry(String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal) {
+    public DiaryEntry(String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
         mTimeStamp = timeStamp;
         mConsumedName = consumedName;
         mConsumedQuantity = consumedQuantity;
         mConsumedUnit = consumedUnit;
         mConsumedKCal = consumedKCal;
+        mIdentifier = identifier;
+    }
+
+    public String toString() {
+        return mConsumedName;
     }
 
     public String getTimeStamp() {
@@ -36,6 +42,10 @@ public class DiaryEntry {
 
     public Integer getConsumedQuantity() {
         return mConsumedQuantity;
+    }
+
+    public Integer getIdentifier() {
+        return mIdentifier;
     }
 
     public void setConsumedQuantity(Integer mConsumedQuantity) {

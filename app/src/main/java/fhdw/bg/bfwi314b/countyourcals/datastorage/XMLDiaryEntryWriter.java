@@ -19,6 +19,7 @@ public class XMLDiaryEntryWriter {
         Integer tmpQuantity;
         String tmpUnit;
         Integer tmpKCal;
+        Integer tmpIdentifier;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
@@ -32,6 +33,7 @@ public class XMLDiaryEntryWriter {
             tmpQuantity = tmpEntry.getConsumedQuantity();
             tmpUnit = tmpEntry.getConsumedUnit();
             tmpKCal = tmpEntry.getConsumedKCal();
+            tmpIdentifier = tmpEntry.getIdentifier();
 
             fileWriter.write("<DiaryEntry>");
             fileWriter.write("\n");
@@ -44,6 +46,8 @@ public class XMLDiaryEntryWriter {
             fileWriter.write("<Unit>" + tmpUnit + "</Unit>");
             fileWriter.write("\n");
             fileWriter.write("<KCal>" + tmpKCal + "</KCal>");
+            fileWriter.write("\n");
+            fileWriter.write("<Identifier>" + tmpIdentifier + "</Identifier>");
             fileWriter.write("\n");
             fileWriter.write("</DiaryEntry>");
             fileWriter.write("\n");
