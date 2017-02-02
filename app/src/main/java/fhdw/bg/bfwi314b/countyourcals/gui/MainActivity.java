@@ -81,18 +81,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 buttonNewEntry.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                        View view = getLayoutInflater().inflate(R.layout.dialog_new_diary_entry, null);
-                        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
 
-                        saveEntry.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        dialogBuilder.setView(view);
-                        AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
                     }});
             }
         });
