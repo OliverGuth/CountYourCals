@@ -1,13 +1,10 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.ColorRes;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -18,7 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
 /**
  * Created by Oliver Guth on 29.01.2017.

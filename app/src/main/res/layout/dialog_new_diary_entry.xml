@@ -34,7 +34,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/DialogNewEntryFoodSpinner"
-        tools:background="@drawable/spinner_border" />
+        tools:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border"
+        android:entries="@array/array_name"
+        android:layout_margin="5dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogNewEntryMealSpinner"
+        tools:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border"
+        android:entries="@array/array_name"
+        android:layout_margin="5dp" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -84,7 +95,10 @@
         android:text="Speichern"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntrySaveButton" />
+        android:id="@+id/DialogNewEntrySaveButton"
+        android:background="@color/Grey"
+        android:textColor="@color/White"
+        android:layout_margin="5dp" />
 
 
 </LinearLayout>

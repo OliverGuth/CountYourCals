@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
 
@@ -77,8 +79,21 @@ public class MainActivity extends Activity {
 
         buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
-                startActivity(intent);
+                buttonNewEntry.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                        View view = getLayoutInflater().inflate(R.layout.dialog_new_diary_entry, null);
+                        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
+
+                        saveEntry.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialogBuilder.setView(view);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }});
             }
         });
     }

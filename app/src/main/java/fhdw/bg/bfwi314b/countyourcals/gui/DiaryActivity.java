@@ -2,26 +2,16 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
 public class DiaryActivity extends Activity {
 
@@ -54,7 +44,7 @@ public class DiaryActivity extends Activity {
 
 
         rowFactroy = new RowFactory();
-        entries = new ArrayList<DiaryEntry>();
+        /*entries = new ArrayList<DiaryEntry>();
 
         entries.add(new DiaryEntry("01.01.1900", "mein Gericht", 100, "Gramm", 200));
         entries.add(new DiaryEntry("01.01.1900", "Pommes", 100, "Gramm", 500));
@@ -68,7 +58,9 @@ public class DiaryActivity extends Activity {
         foods.add(new Food("Hünersuppe", 100, "Milliliter", 200).getName());
         foods.add(new Food("Halver Hahn", 1, "Halbes Brötchen", 200).getName());
 
-        /*final Spinner foodSpinner = (Spinner) findViewById(R.id.DialogNewEntryFoodSpinner);
+        //foods
+
+        final Spinner foodSpinner = (Spinner) findViewById(R.id.DialogNewEntryFoodSpinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, foods);
 

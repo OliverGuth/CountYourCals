@@ -1,7 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.datastorage.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.User;
 
 public class AccountActivity extends Activity {
 
