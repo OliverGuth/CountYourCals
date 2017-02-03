@@ -10,11 +10,39 @@
     android:baselineAligned="false"
     android:weightSum="100">
 
-    <TextView
-        android:text="Lebensmittelname"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/DiaryTextCaption"
+        android:layout_weight="10">
+
+        <Button
+            android:text="Lebensmittel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/FoodMealButtonFood"
+            android:layout_weight="1"
+            android:background="@color/BayerGreen"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+        <Button
+            android:text="Mahlzeiten"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/FoodMealButtonMeal"
+            android:layout_weight="1"
+            android:background="@color/BayerBlue"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Lebensmittel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/FoodMealCaption"
 
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -29,22 +57,22 @@
         tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80">
+        android:layout_weight="70">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/DiaryTableLayout">
+            android:id="@+id/FoodMealTableLayout">
 
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>
     <View style="@style/Divider"/>
 
     <Button
-        android:text="Hinzufügen"
+        android:text="Neuer Eintrag"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/FoodDetailButtonNewEntry"
+        android:id="@+id/FoodMealButtonNewEntry"
         android:layout_weight="10"
         android:background="@color/Grey"
         android:layout_margin="5dp"

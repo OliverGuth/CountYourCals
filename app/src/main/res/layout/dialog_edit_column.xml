@@ -5,12 +5,21 @@
     android:background="@color/White">
 
     <Button
+        android:text="Kopieren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/EditColumnButtonCopy"
+        android:background="@color/Grey"
+        android:layout_margin="5dp"
+        android:textColor="@color/White" />
+    <Button
         android:text="Ändern"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/EditColumnButtonEdit"
         android:background="@color/Grey"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:textColor="@color/White" />
 
     <Button
         android:text="Löschen"
@@ -18,5 +27,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/EditColumnButtonDelete"
         android:background="@color/Red"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:textColor="@color/White" />
 </LinearLayout>

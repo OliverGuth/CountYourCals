@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
@@ -23,12 +25,19 @@ import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
 public class RowFactory {
 
-    public void FillDiaryTableLayout(TableLayout table, List<DiaryEntry> diaryEntries, final Context context)
+    DialogFactory dialogFactory;
+
+    public RowFactory()
+    {
+        dialogFactory = new DialogFactory();
+    }
+
+    public void FillDiaryTableLayout(TableLayout table, final List<DiaryEntry> diaryEntries, final Context context)
     {
         for(int i = 0; i < diaryEntries.size(); i++)
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TableRow row = (TableRow) inflater.inflate(R.layout.table_diary_row,null);
+            TableRow row = (TableRow) inflater.inflate(R.layout.row_diary_entry,null);
             TextView number = (TextView) row.getChildAt(0);
             TextView name = (TextView) row.getChildAt(1);
             TextView calories = (TextView) row.getChildAt(2);
@@ -48,27 +57,7 @@ public class RowFactory {
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                    View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
-                    Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
-                    Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
-
-                    edit.setTextColor(context.getResources().getColor(R.color.White));
-                    edit.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    delete.setTextColor(context.getResources().getColor(R.color.White));
-                    delete.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    dialogBuilder.setView(view);
-                    AlertDialog dialog = dialogBuilder.create();
-                    dialog.show();
+                    dialogFactory.CreateEditLineDialog(context);
                 return true;
                 }
 
@@ -76,28 +65,49 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                    View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
-                    Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
-                    Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
-
-                    edit.setTextColor(context.getResources().getColor(R.color.White));
-                    edit.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    delete.setTextColor(context.getResources().getColor(R.color.White));
-                    delete.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    dialogBuilder.setView(view);
-                    AlertDialog dialog = dialogBuilder.create();
-                    dialog.show();
+                    dialogFactory.CreateEditLineDialog(context);
                     }
+
+            });
+            table.addView(row);
+        }
+    }
+
+    public void FillMealTableLayout(TableLayout table, final List<Meal> meals, final Context context)
+    {
+        for(int i = 0; i < meals.size(); i++)
+        {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            TableRow row = (TableRow) inflater.inflate(R.layout.row_meal ,null);
+            TextView number = (TextView) row.getChildAt(0);
+            TextView name = (TextView) row.getChildAt(1);
+            TextView calories = (TextView) row.getChildAt(2);
+            RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
+
+            ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
+            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
+
+
+
+            number.setText(i+1 + ".");
+            name.setText(meals.get(i).getName());
+            calories.setText(meals.get(i).getName());
+
+            edit.setClickable(true);
+            row.setLongClickable(true);
+
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                    return true;
+                }
+
+            });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                }
 
             });
             table.addView(row);

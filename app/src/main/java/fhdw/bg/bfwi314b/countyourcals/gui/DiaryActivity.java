@@ -8,50 +8,49 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
 public class DiaryActivity extends Activity {
 
     private RowFactory rowFactroy;
+    private DialogFactory dialogFactory;
     private List<DiaryEntry> entries;
-    private List<String> foods;
+    private List<Food> foods;
+    private List<Meal> meals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
+        rowFactroy = new RowFactory();
+        dialogFactory = new DialogFactory();
+
+        foods = new ArrayList<Food>();
+        meals = new ArrayList<Meal>();
 
         Button newEntry = (Button)findViewById(R.id.DiaryButtonNewEntry);
 
         newEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(DiaryActivity.this);
-                View view = getLayoutInflater().inflate(R.layout.dialog_new_diary_entry, null);
-                final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
-
-                saveEntry.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Toast.makeText(DiaryActivity.this, "login successful", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                dialogBuilder.setView(view);
-                AlertDialog dialog = dialogBuilder.create();
-                dialog.show();
+                dialogFactory.CreateNewDiaryEntryDialog(DiaryActivity.this, foods, meals);
             }});
 
 
-        rowFactroy = new RowFactory();
-        /*entries = new ArrayList<DiaryEntry>();
 
-        entries.add(new DiaryEntry("01.01.1900", "mein Gericht", 100, "Gramm", 200));
-        entries.add(new DiaryEntry("01.01.1900", "Pommes", 100, "Gramm", 500));
-        entries.add(new DiaryEntry("01.01.1900", "Pizza", 100, "Gramm", 700));
-        entries.add(new DiaryEntry("01.01.1900", "Salat", 100, "Gramm", 100));
+        entries = new ArrayList<DiaryEntry>();
 
+        entries.add(new DiaryEntry("01.01.1900", "mein Gericht", 100, "Gramm", 200, 1));
+        entries.add(new DiaryEntry("01.01.1900", "Pommes", 100, "Gramm", 500, 2));
+        entries.add(new DiaryEntry("01.01.1900", "Pizza", 100, "Gramm", 700, 3));
+        entries.add(new DiaryEntry("01.01.1900", "Salat", 100, "Gramm", 100, 4));
 
+/*
         foods = new ArrayList<String>();
 
         foods.add(new Food("Pommes mit Schnitzel", 200, "Gramm", 400).getName());

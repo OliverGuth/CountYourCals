@@ -7,11 +7,27 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
 
-    <string-array name="array_name">
-        <item>Array Item One</item>
-        <item>Array Item Two</item>
-        <item>Array Item Three</item>
+    <string-array name="array_foods">
+        <item>Lebensmittel</item>
+        <item>Banane</item>
+        <item>Brot</item>
+        <item>Schokolade</item>
     </string-array>
+
+    <string-array name="array_meals">
+        <item>Mahlzeit</item>
+        <item>Currywurst mit Pommes</item>
+        <item>Spaghetti Bolognese</item>
+        <item>Salamipizza</item>
+    </string-array>
+
+    <string-array name="array_units">
+        <item>Einheit</item>
+        <item>Stück</item>
+        <item>Gramm</item>
+        <item>Milliliter</item>
+    </string-array>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

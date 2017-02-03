@@ -61,60 +61,81 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="20"
         android:weightSum="100">
 
-        <include
+        <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             layout="@layout/image_button"
-            android:layout_weight="15"
+            android:layout_weight="12"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:id="@+id/DiaryLineEditButton" />
+            android:id="@+id/DiaryLeftArrowButton"
+            tools:background="@drawable/arrow_left"
+            android:background="@drawable/arrow_left" />
 
-        <TextView
-            android:text="Tagebuch"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/DiaryTextCaption"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:layout_weight="70"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical" />
+            android:layout_weight="76"
+            android:weightSum="100">
 
-        <include
+            <TextView
+                android:text="Tagebuch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/DiaryTextCaption"
+
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:textSize="36sp"
+                android:layout_weight="40" />
+
+            <TextView
+                android:text="03.02.2017"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/DiaryTextDate"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:layout_weight="60" />
+
+        </LinearLayout>
+
+        <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             layout="@layout/image_button"
-            android:layout_weight="15"
+            android:layout_weight="12"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:id="@+id/DiaryLineEditButton" />
+            android:id="@+id/DiaryRightArrowButton"
+            android:background="@drawable/arrow_right" />
     </LinearLayout>
 
+    <View style="@style/Divider"/>
     <android.support.v4.widget.NestedScrollView
+        tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
         android:layout_width="match_parent"
-    android:layout_height="0dp"
-    tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
-        android:layout_weight="65">
-
+        android:layout_height="0dp"
+        android:layout_weight="60">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/DiaryTableLayout">
 
-
-            <View style="@style/Divider"/>
-
-            <View style="@style/Divider"/>
         </TableLayout>
-
     </android.support.v4.widget.NestedScrollView>
+    <View style="@style/Divider"/>
 
     <LinearLayout
         android:orientation="horizontal"

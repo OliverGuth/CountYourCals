@@ -9,14 +9,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 public class MainActivity extends Activity {
+
+    private DialogFactory dialogFactory;
+
+    private List<Food> foods;
+    private List<Meal> meals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dialogFactory = new DialogFactory();
+        foods = new ArrayList<Food>();
+        meals = new ArrayList<Meal>();
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.BayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");
@@ -39,19 +53,11 @@ public class MainActivity extends Activity {
 
 
 
-
-
-
-
-
-
-
-
         final Button buttonNewEntry = (Button) findViewById(R.id.MainButtonNewEntry);
 
         buttonFoodDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, FoodMealActivity.class);
                 startActivity(intent);
             }
         });
@@ -81,7 +87,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 buttonNewEntry.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-
+                        dialogFactory.CreateNewDiaryEntryDialog(MainActivity.this, foods, meals);
                     }});
             }
         });
