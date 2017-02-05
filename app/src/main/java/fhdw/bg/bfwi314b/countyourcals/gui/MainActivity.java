@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +15,13 @@ import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 public class MainActivity extends Activity {
 
     private DialogFactory dialogFactory;
-
+    public User user;
     private List<Food> foods;
     private List<Meal> meals;
 
@@ -31,6 +33,9 @@ public class MainActivity extends Activity {
         dialogFactory = new DialogFactory();
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
+        user = new User("Oliver", 'M', 2500, "Deutsch");
+
+        //User holen
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.BayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");
@@ -57,7 +62,7 @@ public class MainActivity extends Activity {
 
         buttonFoodDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodMealActivity.class);
+                Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
                 startActivity(intent);
             }
         });
@@ -65,6 +70,7 @@ public class MainActivity extends Activity {
         buttonDiary.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
+                //intent.putExtra("user", (Parcelable)user);
                 startActivity(intent);
             }
         });

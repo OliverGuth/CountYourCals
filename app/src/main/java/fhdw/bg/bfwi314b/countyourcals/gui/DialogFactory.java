@@ -103,4 +103,24 @@ public class DialogFactory {
 
 
     }
+
+    public void CreateLoginDialog(final Context context)
+    {
+        android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
+        final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
+        Button login = (Button) view.findViewById(R.id.LoginButton);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(loginUserName.getText().toString().trim().equals("Oliver"))
+                    Toast.makeText(context, "login successful", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, "login failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialogBuilder.setView(view);
+        android.app.AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
 }

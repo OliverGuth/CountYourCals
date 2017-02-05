@@ -6,7 +6,7 @@
     android:background="@color/White">
 
     <TextView
-        android:text="Neuer Eintrag"
+        android:text="Tagebucheintrag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/DialogNewEntryCaption"
@@ -15,7 +15,8 @@
         android:textAllCaps="false"
         android:textColor="@color/Black"
         android:layout_margin="10dp"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textSize="36sp" />
     //Timestamp
     //name
     //'->Quantity + Unit

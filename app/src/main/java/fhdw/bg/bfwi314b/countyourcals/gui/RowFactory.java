@@ -16,6 +16,7 @@ import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 
@@ -34,6 +35,7 @@ public class RowFactory {
 
     public void FillDiaryTableLayout(TableLayout table, final List<DiaryEntry> diaryEntries, final Context context)
     {
+        table.removeAllViews();
         for(int i = 0; i < diaryEntries.size(); i++)
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +52,7 @@ public class RowFactory {
 
             number.setText(i+1 + ".");
             name.setText(diaryEntries.get(i).getConsumedName());
-            calories.setText(diaryEntries.get(i).getConsumedKCal().toString());
+            calories.setText(diaryEntries.get(i).getConsumedKCal().toString() + " kcal");
 
             edit.setClickable(true);
             row.setLongClickable(true);
@@ -92,6 +94,88 @@ public class RowFactory {
             number.setText(i+1 + ".");
             name.setText(meals.get(i).getName());
             calories.setText(meals.get(i).getName());
+
+            edit.setClickable(true);
+            row.setLongClickable(true);
+
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                    return true;
+                }
+
+            });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                }
+
+            });
+            table.addView(row);
+        }
+    }
+
+    public void FillFoodTableLayout(TableLayout table, final List<Food> foods, final Context context)
+    {
+        for(int i = 0; i < foods.size(); i++)
+        {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            TableRow row = (TableRow) inflater.inflate(R.layout.row_food ,null);
+            TextView number = (TextView) row.getChildAt(0);
+            TextView name = (TextView) row.getChildAt(1);
+            TextView calories = (TextView) row.getChildAt(2);
+            RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
+
+            ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
+            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
+
+
+
+            number.setText(i+1 + ".");
+            name.setText(foods.get(i).getName());
+            calories.setText(foods.get(i).getName());
+
+            edit.setClickable(true);
+            row.setLongClickable(true);
+
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                    return true;
+                }
+
+            });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialogFactory.CreateEditLineDialog(context);
+                }
+
+            });
+            table.addView(row);
+        }
+    }
+
+    public void FillUnitTableLayout(TableLayout table, final List<Unit> units, final Context context)
+    {
+        for(int i = 0; i < units.size(); i++)
+        {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            TableRow row = (TableRow) inflater.inflate(R.layout.row_meal ,null);
+            TextView number = (TextView) row.getChildAt(0);
+            TextView name = (TextView) row.getChildAt(1);
+            TextView calories = (TextView) row.getChildAt(2);
+            RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
+
+            ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
+            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
+
+
+
+            number.setText(i+1 + ".");
+            name.setText(units.get(i).getUnit());
+            calories.setText(units.get(i).getUnit());
 
             edit.setClickable(true);
             row.setLongClickable(true);

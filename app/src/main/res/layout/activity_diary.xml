@@ -42,7 +42,7 @@
             android:layout_height="match_parent"
             android:id="@+id/DiaryButtonMonths"
             android:layout_weight="1"
-            android:background="@color/BayerGreen"
+            android:background="@color/BayerBlue"
             android:layout_margin="5dp"
             android:textColor="@color/White" />
         <Button
@@ -77,7 +77,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="76"
             android:weightSum="100">
@@ -85,28 +85,27 @@
             <TextView
                 android:text="Tagebuch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:id="@+id/DiaryTextCaption"
 
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/Black"
-                android:layout_margin="10dp"
                 android:gravity="center_vertical"
                 android:textSize="36sp"
-                android:layout_weight="40" />
+                android:layout_weight="60" />
 
             <TextView
                 android:text="03.02.2017"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:id="@+id/DiaryTextDate"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/Black"
-                android:layout_margin="10dp"
                 android:gravity="center_vertical"
-                android:layout_weight="60" />
+                android:layout_weight="40"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -142,47 +141,96 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="10">
+        android:layout_weight="10"
+        android:weightSum="100">
 
         <Button
             android:text="Neuer Eintrag"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/DiaryButtonNewEntry"
-            android:layout_weight="1"
+            android:layout_weight="25"
             android:background="@color/Grey"
             android:layout_margin="5dp"
             android:textColor="@color/White" />
 
-        <TextView
-            android:text="Durchschn.: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DiarySummaryText"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textColor="@color/Black"
-            tools:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:weightSum="100">
 
-        <TextView
-            android:text="3248 kcal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DiarySummaryValue"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textColor="@color/Black"
-            android:gravity="center_vertical"
-            android:layout_gravity="center" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:weightSum="100">
+
+                <TextView
+                    android:text="Summe:"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiarySumText"
+                    android:layout_weight="50"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    tools:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:text="3248 kcal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiarySumValue"
+                    android:layout_weight="50"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:weightSum="100"
+                android:clickable="true"
+                android:id="@+id/DiaryMaxDiffLine">
+                <TextView
+                    android:text="Max:"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryMaxText"
+                    android:layout_weight="50"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    tools:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:text="3248 kcal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/DiaryMaxValue"
+                    android:layout_weight="50"
+                    android:textSize="18sp"
+                    android:textColor="@color/Black"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
-            android:text="Mehr Statistiken"
-            android:layout_width="wrap_content"
+            android:text="Statistik"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/DiaryButtonMoreStatistics"
-            android:layout_weight="1"
+            android:layout_weight="25"
             android:background="@color/BayerBlue"
             android:layout_margin="5dp"
             android:textColor="@color/White" />
