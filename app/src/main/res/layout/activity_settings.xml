@@ -74,8 +74,7 @@
                         android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:textSize="18sp"
-                        android:background="@drawable/spinner_border"
-                        android:popupBackground="@color/Grey" />
+                        android:background="@drawable/spinner_border" />
 
                 </LinearLayout>
 
@@ -160,7 +159,7 @@
                             android:id="@+id/SettingsImpressumText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Eine App programmiert im Rahmen der Vorlesung AGI (SET) von der BFWI314B. Programmiert von Katja Müller, Sina Sander, Fabian Schmitz, Robin Stephan, Niko Reder und Oliver Guth."
+                            android:text="Eine App programmiert im Rahmen der Vorlesung AGI (SET) von der BFWI314B. Entwickelt von Katja Müller, Sina Sander, Fabian Schmitz, Robin Stephan, Niko Reder und Oliver Guth."
                             android:layout_weight="1"
                             android:layout_margin="5dp"
                             android:textSize="14sp"

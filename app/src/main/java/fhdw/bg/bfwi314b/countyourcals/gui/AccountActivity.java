@@ -30,6 +30,7 @@ public class AccountActivity extends Activity {
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 dialogFactory.CreateLoginDialog(AccountActivity.this);
 
         }});

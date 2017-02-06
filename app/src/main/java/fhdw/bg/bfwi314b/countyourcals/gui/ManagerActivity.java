@@ -48,7 +48,7 @@ public class ManagerActivity extends Activity {
         table = (TableLayout)this.findViewById(R.id.ManagerTableLayout);
         Button newEntry = (Button) findViewById(R.id.ManagerButtonNewEntry);
 
-        state = FoodState;
+        state = MealsState;
 
         food.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

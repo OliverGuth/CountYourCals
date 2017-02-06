@@ -18,21 +18,21 @@
         android:weightSum="100">
 
         <Button
-            android:text="Lebensmittel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/ManagerButtonFood"
-            android:layout_weight="33"
-            android:background="@color/BayerGreen"
-            android:layout_margin="5dp"
-            android:textColor="@color/White" />
-
-        <Button
             android:text="Mahlzeiten"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/ManagerButtonMeal"
             android:layout_weight="34"
+            android:background="@color/BayerGreen"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+        <Button
+            android:text="Lebensmittel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/ManagerButtonFood"
+            android:layout_weight="33"
             android:background="@color/BayerBlue"
             android:layout_margin="5dp"
             android:textColor="@color/White" />

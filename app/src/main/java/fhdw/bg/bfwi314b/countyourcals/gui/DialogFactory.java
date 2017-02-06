@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
@@ -33,20 +35,14 @@ public class DialogFactory {
         this.diaryActivity = diaryActivity;
     }
 
-    public DialogFactory(AccountActivity accountActivity)
-    {
-        this.accountActivity = accountActivity;
-    }
+    public DialogFactory(AccountActivity accountActivity) { this.accountActivity = accountActivity; }
 
     public DialogFactory(MainActivity mainActivity)
     {
         this.mainActivity = mainActivity;
     }
 
-    public DialogFactory(ManagerActivity managerActivity)
-    {
-        this.managerActivity = managerActivity;
-    }
+    public DialogFactory(ManagerActivity managerActivity) { this.managerActivity = managerActivity; }
 
 
     public void CreateNewDiaryEntryDialog(final Context context, List<Food> foods, List<Meal> meals)
@@ -177,24 +173,28 @@ public class DialogFactory {
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
+        dialogBuilder.setView(view);
+        dialog = dialogBuilder.create();
 
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "copyed", Toast.LENGTH_SHORT).show();
+                diaryActivity.entries.add(new DiaryEntry(new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime()),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
+                diaryActivity.updateView();
+                dialog.dismiss();
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "edited", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
-        dialogBuilder.setView(view);
-        dialog = dialogBuilder.create();
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 diaryActivity.entries.remove(diaryEntry);
                 diaryActivity.updateView();
-                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -239,8 +239,6 @@ public class DialogFactory {
 
         dialog.show();
     }
-
-
 
     public void CreateEditLineDialog(final Context context, final Meal meal)
     {
@@ -318,19 +316,50 @@ public class DialogFactory {
     {
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
+        dialogBuilder.setView(view);
+        final android.app.AlertDialog dialog = dialogBuilder.create();
         final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
         Button login = (Button) view.findViewById(R.id.LoginButton);
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(loginUserName.getText().toString().trim().equals("Oliver"))
+                {
                     Toast.makeText(context, "login successful", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
                 else
+                {
                     Toast.makeText(context, "login failed", Toast.LENGTH_SHORT).show();
+                    CreateNewUserDialog(context, loginUserName.getText().toString());
+                    dialog.dismiss();
+                }
             }
         });
+        dialog.show();
+    }
+
+    public void CreateNewUserDialog(final Context context, String username)
+    {
+        android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_user, null);
         dialogBuilder.setView(view);
-        android.app.AlertDialog dialog = dialogBuilder.create();
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        final EditText name = (EditText) view.findViewById(R.id.DialogNewUserName);
+        final EditText maxCals = (EditText) view.findViewById(R.id.DialogNewUserMaxCals);
+        final Spinner gender = (Spinner) view.findViewById(R.id.DialogNewUserGenderSpinner);
+        final Spinner language = (Spinner) view.findViewById(R.id.DialogNewUserLanguageSpinner);
+
+        name.setText(username);
+        Button create = (Button) view.findViewById(R.id.DialogNewUserCreateButton);
+
+        create.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(context, "User created", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 }

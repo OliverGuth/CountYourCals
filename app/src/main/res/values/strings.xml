@@ -28,6 +28,15 @@
         <item>Milliliter</item>
     </string-array>
 
+    <string-array name="Language">
+        <item>Deutsch</item>
+    </string-array>
+
+    <string-array name="Gender">
+        <item>Weiblich</item>
+        <item>Männlich</item>
+    </string-array>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

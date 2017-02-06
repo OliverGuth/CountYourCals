@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
         user = new User("Oliver", 'M', 2500, "Deutsch");
-
+        dialogFactory.CreateLoginDialog(MainActivity.this);
         //User holen
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.BayerGreen);
@@ -62,30 +62,46 @@ public class MainActivity extends Activity {
 
         buttonFoodDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
+                    startActivity(intent);
+                }
+                else
+                    dialogFactory.CreateLoginDialog(MainActivity.this);
             }
         });
 
         buttonDiary.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
-                //intent.putExtra("user", (Parcelable)user);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
+                    //intent.putExtra("user", (Parcelable)user);
+                    startActivity(intent);
+                }
+                else
+                    dialogFactory.CreateLoginDialog(MainActivity.this);
             }
         });
 
         buttonAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                    startActivity(intent);
+                }
+                else
+                    dialogFactory.CreateLoginDialog(MainActivity.this);
             }
         });
 
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }
+                else
+                    dialogFactory.CreateLoginDialog(MainActivity.this);
             }
         });
 
@@ -93,7 +109,11 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 buttonNewEntry.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateNewDiaryEntryDialog(MainActivity.this, foods, meals);
+                        if(user != null) {
+                            dialogFactory.CreateNewDiaryEntryDialog(MainActivity.this, foods, meals);
+                        }
+                        else
+                            dialogFactory.CreateLoginDialog(MainActivity.this);
                     }});
             }
         });

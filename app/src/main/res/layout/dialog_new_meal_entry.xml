@@ -7,9 +7,9 @@
     android:weightSum="100">
 
     <TextView
-        android:text="Lebensmittel"
+        android:text="Mahlzeit"
         android:layout_width="match_parent"
-        android:id="@+id/DialogNewFoodCaption"
+        android:id="@+id/DialogNewMealCaption"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:inputType="none"
         android:ems="10"
-        android:id="@+id/DialogNewFoodName"
+        android:id="@+id/DialogNewMealName"
         android:maxLines="1"
 
         android:textColor="@color/Black"
@@ -40,17 +40,17 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/DialogNewFoodTableView">
+            android:id="@+id/DialogNewMealTableView">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
                 <Button
-                    android:text="Einheit hinzufügen"
+                    android:text="Lebensmittel hinzufügen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DialogNewFoodAddNewUnitButton"
+                    android:id="@+id/DialogNewMealAddNewFoodButton"
                     android:layout_weight="1" />
             </TableRow>
         </TableLayout>
@@ -60,7 +60,7 @@
         android:text="Speichern"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/DialogNewFoodSaveButton"
+        android:id="@+id/DialogNewMealSaveButton"
         android:background="@color/Grey"
         android:textColor="@color/White"
         android:layout_margin="5dp"

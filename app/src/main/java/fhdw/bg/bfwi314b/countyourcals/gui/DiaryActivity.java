@@ -216,6 +216,7 @@ public class DiaryActivity extends Activity {
                 cal.setTime(selectedDate);
 
                 int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
+                int currentYear = cal.get(Calendar.YEAR);
 
                 for (DiaryEntry entry:entries)
                     {
@@ -226,16 +227,18 @@ public class DiaryActivity extends Activity {
                             e.printStackTrace();
                         }
                         int entryWeek = cal.get(Calendar.WEEK_OF_YEAR);
-                        if(currentWeek == entryWeek) shwownEntries.add(entry);
+                        int entryYear = cal.get(Calendar.YEAR);
+                        if(currentWeek == entryWeek && currentYear == entryYear) shwownEntries.add(entry);
                     }
 
-                    date.setText("KW "+ currentWeek);
+                    date.setText("KW "+ currentWeek + " " + currentYear);
                 break;
                 case MonthState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
 
                     cal.setTime(selectedDate);
                     int currentMonth = cal.get(Calendar.MONTH);
+                    currentYear = cal.get(Calendar.YEAR);
 
                     for (DiaryEntry entry:entries)
                     {
@@ -246,9 +249,10 @@ public class DiaryActivity extends Activity {
                             e.printStackTrace();
                         }
                         int entrymonth = cal.get(Calendar.MONTH);
-                        if(currentMonth == entrymonth) shwownEntries.add(entry);
+                        int entryYear = cal.get(Calendar.YEAR);
+                        if(currentMonth == entrymonth && currentYear == entryYear) shwownEntries.add(entry);
                     }
-                    date.setText(new SimpleDateFormat("MMMM").format(selectedDate));
+                    date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
                 break;
                 case AllState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
