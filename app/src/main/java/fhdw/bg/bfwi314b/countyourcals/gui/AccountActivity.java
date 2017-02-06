@@ -24,7 +24,7 @@ public class AccountActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        dialogFactory = new DialogFactory();
+        dialogFactory = new DialogFactory(this);
         final Button buttonLogout = (Button) findViewById(R.id.AccountButtonLogout);
         buttonLogout.setBackgroundDrawable(getResources().getDrawable(R.color.BayerGreen));
 

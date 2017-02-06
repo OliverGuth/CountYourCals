@@ -28,9 +28,24 @@ public class RowFactory {
 
     DialogFactory dialogFactory;
 
-    public RowFactory()
+    public RowFactory(AccountActivity accountActivity)
     {
-        dialogFactory = new DialogFactory();
+        dialogFactory = new DialogFactory(accountActivity);
+    }
+
+    public RowFactory(MainActivity mainActivity)
+    {
+        dialogFactory = new DialogFactory(mainActivity);
+    }
+
+    public RowFactory(ManagerActivity managerActivity)
+    {
+        dialogFactory = new DialogFactory(managerActivity);
+    }
+
+    public RowFactory(DiaryActivity diaryActivity)
+    {
+        dialogFactory = new DialogFactory(diaryActivity);
     }
 
     public void FillDiaryTableLayout(TableLayout table, final List<DiaryEntry> diaryEntries, final Context context)
@@ -38,6 +53,7 @@ public class RowFactory {
         table.removeAllViews();
         for(int i = 0; i < diaryEntries.size(); i++)
         {
+            final DiaryEntry diaryEntry = diaryEntries.get(i);
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TableRow row = (TableRow) inflater.inflate(R.layout.row_diary_entry,null);
             TextView number = (TextView) row.getChildAt(0);
@@ -59,7 +75,7 @@ public class RowFactory {
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
                 return true;
                 }
 
@@ -67,7 +83,7 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
                     }
 
             });
@@ -79,6 +95,7 @@ public class RowFactory {
     {
         for(int i = 0; i < meals.size(); i++)
         {
+            final Meal meal = meals.get(i);
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TableRow row = (TableRow) inflater.inflate(R.layout.row_meal ,null);
             TextView number = (TextView) row.getChildAt(0);
@@ -100,7 +117,7 @@ public class RowFactory {
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, meal);
                     return true;
                 }
 
@@ -108,7 +125,7 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, meal);
                 }
 
             });
@@ -120,12 +137,12 @@ public class RowFactory {
     {
         for(int i = 0; i < foods.size(); i++)
         {
+            final Food food = foods.get(i);
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TableRow row = (TableRow) inflater.inflate(R.layout.row_food ,null);
             TextView number = (TextView) row.getChildAt(0);
             TextView name = (TextView) row.getChildAt(1);
-            TextView calories = (TextView) row.getChildAt(2);
-            RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
+            RelativeLayout edit = (RelativeLayout) row.getChildAt(2);
 
             ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
             edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
@@ -134,14 +151,13 @@ public class RowFactory {
 
             number.setText(i+1 + ".");
             name.setText(foods.get(i).getName());
-            calories.setText(foods.get(i).getName());
 
             edit.setClickable(true);
             row.setLongClickable(true);
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, food);
                     return true;
                 }
 
@@ -149,7 +165,7 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, food);
                 }
 
             });
@@ -161,6 +177,7 @@ public class RowFactory {
     {
         for(int i = 0; i < units.size(); i++)
         {
+            final Unit unit = units.get(i);
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TableRow row = (TableRow) inflater.inflate(R.layout.row_meal ,null);
             TextView number = (TextView) row.getChildAt(0);
@@ -182,7 +199,7 @@ public class RowFactory {
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, unit);
                     return true;
                 }
 
@@ -190,12 +207,11 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context);
+                    dialogFactory.CreateEditLineDialog(context, unit);
                 }
 
             });
             table.addView(row);
         }
     }
-
 }

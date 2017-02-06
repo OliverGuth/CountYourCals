@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dialogFactory = new DialogFactory();
+        dialogFactory = new DialogFactory(this);
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
         user = new User("Oliver", 'M', 2500, "Deutsch");

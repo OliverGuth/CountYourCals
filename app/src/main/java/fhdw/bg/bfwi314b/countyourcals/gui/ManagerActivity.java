@@ -19,9 +19,9 @@ import static fhdw.bg.bfwi314b.countyourcals.gui.ManagerState.*;
 
 public class ManagerActivity extends Activity {
 
-    private List<Food> foods;
-    private List<Meal> meals;
-    private List<Unit> units;
+    public List<Food> foods;
+    public List<Meal> meals;
+    public List<Unit> units;
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
     private ManagerState state;
@@ -29,6 +29,7 @@ public class ManagerActivity extends Activity {
     private Button food;
     private Button meal;
     private Button unit;
+    private TableLayout table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,14 @@ public class ManagerActivity extends Activity {
 
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
-        rowFactory = new RowFactory();
-        dialogFactory = new DialogFactory();
+        units = new ArrayList<Unit>();
+        rowFactory = new RowFactory(this);
+        dialogFactory = new DialogFactory(this);
 
         food = (Button) findViewById(R.id.ManagerButtonFood);
         meal = (Button) findViewById(R.id.ManagerButtonMeal);
         unit = (Button) findViewById(R.id.ManagerButtonUnit);
-
+        table = (TableLayout)this.findViewById(R.id.ManagerTableLayout);
         Button newEntry = (Button) findViewById(R.id.ManagerButtonNewEntry);
 
         state = FoodState;
@@ -64,30 +66,46 @@ public class ManagerActivity extends Activity {
                 updateView();
             }});
 
+        newEntry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                switch (state)
+                {
+                    case FoodState:
+                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, units);
+                        break;
+                    case MealsState:
+                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, foods);
+                        break;
+                    case UnitsState:
+                        dialogFactory.CreateNewUnitDialog(ManagerActivity.this);
+                        break;
+                }
+            }});
 
-
-        foods.add(new Food("Pommes mit Schnitzel", 200, "Gramm", 400));
-        foods.add(new Food("Hünersuppe", 100, "Milliliter", 200));
-        foods.add(new Food("Halver Hahn", 1, "Halbes Brötchen", 200));
+        foods.add(new Food("Apfel", 200, "Gramm", 400));
+        foods.add(new Food("Hähnchenfleisch", 100, "Gramm", 200));
+        foods.add(new Food("Brot", 1, "Scheibe", 200));
 
         //meals.add(new Meal("Currywurst Pommes", 1, 200, "Gramm", 400, new ArrayList<String>(){"Wurst", "Pommes"}, ))
+        updateView();
     }
 
-    private void updateView()
+    public void updateView()
     {
+        table.removeAllViews();
         switch (state)
         {
             case FoodState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
-                rowFactory.FillFoodTableLayout((TableLayout)this.findViewById(R.id.ManagerTableLayout), foods, ManagerActivity.this);
+                rowFactory.FillFoodTableLayout(table, foods, ManagerActivity.this);
                 break;
             case MealsState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                rowFactory.FillMealTableLayout((TableLayout)this.findViewById(R.id.DiaryTableLayout), meals, ManagerActivity.this);
+                rowFactory.FillMealTableLayout(table, meals, ManagerActivity.this);
                 break;
             case UnitsState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                rowFactory.FillUnitTableLayout((TableLayout)this.findViewById(R.id.DiaryTableLayout), units, ManagerActivity.this);
+                rowFactory.FillUnitTableLayout(table, units, ManagerActivity.this);
                 break;
         }
     }

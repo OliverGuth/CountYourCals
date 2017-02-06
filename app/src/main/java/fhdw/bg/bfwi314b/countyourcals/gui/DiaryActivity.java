@@ -33,7 +33,7 @@ public class DiaryActivity extends Activity {
 
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
-    private List<DiaryEntry> entries;
+    public List<DiaryEntry> entries;
     private List<DiaryEntry> shwownEntries;
     private List<Food> foods;
     private List<Meal> meals;
@@ -44,22 +44,28 @@ public class DiaryActivity extends Activity {
     private Button week;
     private Button month;
     private Button all;
+    private TableLayout table;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-        rowFactory = new RowFactory();
-        dialogFactory = new DialogFactory();
+        rowFactory = new RowFactory(this);
+        dialogFactory = new DialogFactory(this);
 
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
+        user = new User("Oliver", 'M', 2500, "Deutsch");
 
+        Button newEntry = (Button)findViewById(R.id.DiaryButtonNewEntry);
+        LinearLayout maxDiff = (LinearLayout) findViewById(R.id.DiaryMaxDiffLine);
+        final TextView maxText = (TextView)findViewById(R.id.DiaryMaxText);
         day = (Button) findViewById(R.id.DiaryButtonDays);
         week = (Button) findViewById(R.id.DiaryButtonWeeks);
         month = (Button) findViewById(R.id.DiaryButtonMonths);
         all = (Button) findViewById(R.id.DiaryButtonAll);
+        table = (TableLayout) findViewById(R.id.DiaryTableLayout);
         final Button next = (Button) findViewById(R.id.DiaryRightArrowButton);
         final Button before = (Button) findViewById(R.id.DiaryLeftArrowButton);
 
@@ -144,15 +150,10 @@ public class DiaryActivity extends Activity {
 
         //Bundle bundle = getIntent().getExtras();
         //user = bundle.getParcelable("user");
-        user = new User("Oliver", 'M', 2500, "Deutsch");
 
-        Button newEntry = (Button)findViewById(R.id.DiaryButtonNewEntry);
-        LinearLayout maxDiff = (LinearLayout) findViewById(R.id.DiaryMaxDiffLine);
-        final TextView maxText = (TextView)findViewById(R.id.DiaryMaxText);
 
         newEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) { dialogFactory.CreateNewDiaryEntryDialog(DiaryActivity.this, foods, meals); }});
-
 
         maxDiff.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -194,28 +195,29 @@ public class DiaryActivity extends Activity {
         selectedDate = Calendar.getInstance().getTime();
         updateView();
     }
-        public void updateView()
+
+    public void updateView()
+    {
+        TextView date = (TextView) findViewById(R.id.DiaryTextDate);
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
+        Calendar cal = Calendar.getInstance();
+
+        shwownEntries.clear();
+        switch(diaryState)
         {
-            TextView date = (TextView) findViewById(R.id.DiaryTextDate);
-            String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
-            Calendar cal = Calendar.getInstance();
+            case DayState:
+                highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue);
+                for (DiaryEntry entry:entries) { if(timeStamp.equals(entry.getTimeStamp())) shwownEntries.add(entry); }
+                date.setText(timeStamp);
+            break;
+            case WeekState:
+                highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
 
-            shwownEntries.clear();
+                cal.setTime(selectedDate);
 
-            switch(diaryState)
-            {
-                case DayState:
-                    highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue);
-                    for (DiaryEntry entry:entries) { if(timeStamp.equals(entry.getTimeStamp())) shwownEntries.add(entry); }
-                    date.setText(timeStamp);
-                break;
-                case WeekState:
-                    highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
+                int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
 
-                    cal.setTime(selectedDate);
-                    int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
-
-                    for (DiaryEntry entry:entries)
+                for (DiaryEntry entry:entries)
                     {
                         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
                         try {
@@ -254,7 +256,7 @@ public class DiaryActivity extends Activity {
                     date.setText("");
                 break;
             }
-            rowFactory.FillDiaryTableLayout((TableLayout)this.findViewById(R.id.DiaryTableLayout), shwownEntries, DiaryActivity.this);
+            rowFactory.FillDiaryTableLayout(table, shwownEntries, DiaryActivity.this);
             updateSumMaxFields();
         }
     private void updateSumMaxFields()

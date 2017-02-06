@@ -17,12 +17,6 @@
         android:layout_margin="10dp"
         android:gravity="center_vertical"
         android:textSize="36sp" />
-    //Timestamp
-    //name
-    //'->Quantity + Unit
-    //'->Calories
-
-
     <DatePicker
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

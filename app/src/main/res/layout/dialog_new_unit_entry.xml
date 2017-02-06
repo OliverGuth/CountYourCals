@@ -9,96 +9,34 @@
         android:text="Einheit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntryCaption"
+        android:id="@+id/DialogNewUnitCaption"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/Black"
         android:layout_margin="10dp"
-        android:gravity="center_vertical" />
-    //Timestamp
-    //name
-    //'->Quantity + Unit
-    //'->Calories
-
-
-    <DatePicker
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntryDatePicker"
-        android:minDate="2016-01-01"
-        android:datePickerMode="spinner"
-        android:calendarViewShown="false" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntryFoodSpinner"
-        tools:background="@drawable/spinner_border"
-        android:background="@drawable/spinner_border"
-        android:entries="@array/array_foods"
-        android:layout_margin="5dp"
-        android:padding="5dp" />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntryMealSpinner"
-        tools:background="@drawable/spinner_border"
-        android:background="@drawable/spinner_border"
-        android:entries="@array/array_meals"
-        android:layout_margin="5dp"
-        android:padding="5dp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/DialogNewEntryQuanitityValue"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:textColor="@color/Black"
-            android:hint="Menge"
-            android:textColorHint="@color/Grey"
-            android:inputType="number" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/DialogNewEntryUnitSpinner"
-            tools:background="@drawable/spinner_border"
-            android:layout_weight="1"
-            android:background="@drawable/spinner_border"
-            android:entries="@array/array_units"
-            android:layout_margin="5dp"
-            android:padding="5dp" />
-    </LinearLayout>
-
+        android:gravity="center_vertical"
+        android:textSize="36sp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="none"
         android:ems="10"
-        android:id="@+id/DialogNewEntryCaloriesValue"
+        android:id="@+id/DialogNewUnitName"
         android:layout_weight="2"
         android:maxLines="1"
 
         android:textColor="@color/Black"
-        android:hint="Kalorien"
+        android:hint="Name"
         android:textColorHint="@color/Grey" />
 
     <Button
         android:text="Speichern"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/DialogNewEntrySaveButton"
+        android:id="@+id/DialogNewUnitSaveButton"
         android:background="@color/Grey"
         android:textColor="@color/White"
         android:layout_margin="5dp" />
-
 
 </LinearLayout>
