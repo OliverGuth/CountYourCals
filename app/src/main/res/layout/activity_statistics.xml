@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:baselineAligned="false"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:weightSum="100">
+
+        <Button
+            android:text="7 Tage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/StatisticsOneWeekButton"
+            android:layout_weight="34"
+            android:background="@color/BayerGreen"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+        <Button
+            android:text="14 Tage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/StatisticsTwoWeeksButton"
+            android:layout_weight="33"
+            android:background="@color/BayerBlue"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+        <Button
+            android:text="30 Tage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/StatisticsFourWeeksButton"
+            android:layout_weight="33"
+            android:background="@color/BayerBlue"
+            android:layout_margin="5dp"
+            android:textColor="@color/White" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:weightSum="100">
+
+        <TextView
+            android:text="Tagebuch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/StatisticsCaption"
+
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/Black"
+            android:gravity="center_vertical"
+            android:textSize="36sp"
+            android:layout_weight="60" />
+
+        <TextView
+            android:text="03.02.2017"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/StatisticsDate"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/Black"
+            android:gravity="center_vertical"
+            android:layout_weight="40"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <View style="@style/Divider"
+        android:layout_marginBottom="5dp" />
+    <android.support.v4.widget.NestedScrollView
+        tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <TextView
+                android:text="Durchschn. Kalorien p. Tag:"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/StatisticsAverageCaloriesText"
+                android:layout_weight="70"
+                android:textColor="@color/Black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/StatisticsAverageCaloriesValue"
+                android:layout_weight="30"
+                android:textColor="@color/Black"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

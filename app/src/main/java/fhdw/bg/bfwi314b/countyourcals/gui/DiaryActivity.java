@@ -1,5 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.SystemClock;
@@ -44,6 +45,11 @@ public class DiaryActivity extends Activity {
     private Button week;
     private Button month;
     private Button all;
+    private Button next;
+    private Button before;
+    TextView sum;
+    TextView maxText;
+    TextView maxValue;
     private TableLayout table;
 
 
@@ -60,20 +66,24 @@ public class DiaryActivity extends Activity {
 
         Button newEntry = (Button)findViewById(R.id.DiaryButtonNewEntry);
         LinearLayout maxDiff = (LinearLayout) findViewById(R.id.DiaryMaxDiffLine);
-        final TextView maxText = (TextView)findViewById(R.id.DiaryMaxText);
         day = (Button) findViewById(R.id.DiaryButtonDays);
         week = (Button) findViewById(R.id.DiaryButtonWeeks);
         month = (Button) findViewById(R.id.DiaryButtonMonths);
         all = (Button) findViewById(R.id.DiaryButtonAll);
         table = (TableLayout) findViewById(R.id.DiaryTableLayout);
-        final Button next = (Button) findViewById(R.id.DiaryRightArrowButton);
-        final Button before = (Button) findViewById(R.id.DiaryLeftArrowButton);
+        next = (Button) findViewById(R.id.DiaryRightArrowButton);
+        before = (Button) findViewById(R.id.DiaryLeftArrowButton);
+        Button statistics = (Button) findViewById(R.id.DiaryButtonMoreStatistics);
+        sum = (TextView)findViewById(R.id.DiarySumValue);
+        maxText = (TextView)findViewById(R.id.DiaryMaxText);
+        maxValue = (TextView)findViewById(R.id.DiaryMaxValue);
 
         diaryState = DayState;
         day.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 diaryState = DayState;
                 selectedDate = Calendar.getInstance().getTime();
+                ArrowsVisible(true);
                 updateView();
             }});
         week.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +158,12 @@ public class DiaryActivity extends Activity {
                 updateView();
             }});
 
+        statistics.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(DiaryActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }});
+
         //Bundle bundle = getIntent().getExtras();
         //user = bundle.getParcelable("user");
 
@@ -166,15 +182,37 @@ public class DiaryActivity extends Activity {
         entries = new ArrayList<DiaryEntry>();
         shwownEntries = new ArrayList<DiaryEntry>();
 
-        entries.add(new DiaryEntry("04.02.2017", "Wrap", 100, "Gramm", 200, 1));
-        entries.add(new DiaryEntry("05.02.2017", "mein Gericht", 100, "Gramm", 200, 2));
-        entries.add(new DiaryEntry("05.02.2017", "Pommes", 100, "Gramm", 500, 3));
-        entries.add(new DiaryEntry("05.02.2017", "Pizza", 100, "Gramm", 723, 4));
-        entries.add(new DiaryEntry("05.02.2017", "Salat", 100, "Gramm", 100, 5));
-        entries.add(new DiaryEntry("06.02.2017", "Wrap", 100, "Gramm", 200, 6));
-        entries.add(new DiaryEntry("06.02.2017", "Brot", 100, "Gramm", 500, 7));
-        entries.add(new DiaryEntry("07.02.2017", "Kaffee", 1, "Tasse", 200, 8));
-        entries.add(new DiaryEntry("08.02.2017", "Salat", 100, "Gramm", 100, 9));
+        entries.add(new DiaryEntry("24.01.2017", "Wrap", 100, "Gramm", 600, 1));
+        entries.add(new DiaryEntry("25.01.2017", "mein Gericht", 100, "Gramm", 200, 2));
+        entries.add(new DiaryEntry("25.01.2017", "Pommes", 100, "Gramm", 500, 3));
+        entries.add(new DiaryEntry("25.01.2017", "Pizza", 100, "Gramm", 723, 4));
+        entries.add(new DiaryEntry("25.01.2017", "Salat", 100, "Gramm", 100, 5));
+        entries.add(new DiaryEntry("26.01.2017", "Wrap", 100, "Gramm", 600, 6));
+        entries.add(new DiaryEntry("26.01.2017", "Brot", 100, "Gramm", 500, 7));
+        entries.add(new DiaryEntry("27.01.2017", "Kaffee", 1, "Tasse", 200, 8));
+        entries.add(new DiaryEntry("28.01.2017", "Salat", 100, "Gramm", 100, 9));
+        entries.add(new DiaryEntry("29.01.2017", "Wrap", 100, "Gramm", 600, 10));
+        entries.add(new DiaryEntry("29.01.2017", "Wrap", 100, "Gramm", 600, 11));
+        entries.add(new DiaryEntry("29.01.2017", "Pommes", 100, "Gramm", 500, 12));
+        entries.add(new DiaryEntry("30.01.2017", "Wrap", 100, "Gramm", 600, 13));
+        entries.add(new DiaryEntry("31.01.2017", "Kaffee", 1, "Tasse", 200, 14));
+        entries.add(new DiaryEntry("31.01.2017", "Wrap", 100, "Gramm", 600, 15));
+        entries.add(new DiaryEntry("31.01.2017", "Wrap", 100, "Gramm", 600, 16));
+        entries.add(new DiaryEntry("01.02.2017", "Pizza", 100, "Gramm", 723, 17));
+        entries.add(new DiaryEntry("01.02.2017", "Wrap", 100, "Gramm", 600, 18));
+        entries.add(new DiaryEntry("01.02.2017", "Wrap", 100, "Gramm", 600, 19));
+        entries.add(new DiaryEntry("02.02.2017", "Pizza", 100, "Gramm", 723, 20));
+        entries.add(new DiaryEntry("02.02.2017", "Wrap", 100, "Gramm", 600, 21));
+        entries.add(new DiaryEntry("03.02.2017", "Pommes", 100, "Gramm", 500, 22));
+        entries.add(new DiaryEntry("04.02.2017", "Wrap", 100, "Gramm", 600, 23));
+        entries.add(new DiaryEntry("05.02.2017", "mein Gericht", 100, "Gramm", 200, 24));
+        entries.add(new DiaryEntry("05.02.2017", "Pommes", 100, "Gramm", 500, 25));
+        entries.add(new DiaryEntry("05.02.2017", "Pizza", 100, "Gramm", 723, 26));
+        entries.add(new DiaryEntry("05.02.2017", "Salat", 100, "Gramm", 100, 27));
+        entries.add(new DiaryEntry("06.02.2017", "Wrap", 100, "Gramm", 600, 28));
+        entries.add(new DiaryEntry("06.02.2017", "Brot", 100, "Gramm", 500, 29));
+        entries.add(new DiaryEntry("07.02.2017", "Kaffee", 1, "Tasse", 200, 30));
+        entries.add(new DiaryEntry("08.02.2017", "Salat", 100, "Gramm", 100, 31));
 
 /*
         foods = new ArrayList<String>();
@@ -196,6 +234,20 @@ public class DiaryActivity extends Activity {
         updateView();
     }
 
+    private void ArrowsVisible(boolean visible)
+    {
+        if(visible)
+        {
+            before.setVisibility(View.VISIBLE);
+            next.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            before.setVisibility(View.INVISIBLE);
+            next.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void updateView()
     {
         TextView date = (TextView) findViewById(R.id.DiaryTextDate);
@@ -207,11 +259,15 @@ public class DiaryActivity extends Activity {
         {
             case DayState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue);
+                ArrowsVisible(true);
+
+
                 for (DiaryEntry entry:entries) { if(timeStamp.equals(entry.getTimeStamp())) shwownEntries.add(entry); }
                 date.setText(timeStamp);
             break;
             case WeekState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
+                ArrowsVisible(true);
 
                 cal.setTime(selectedDate);
 
@@ -235,6 +291,7 @@ public class DiaryActivity extends Activity {
                 break;
                 case MonthState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
+                    ArrowsVisible(true);
 
                     cal.setTime(selectedDate);
                     int currentMonth = cal.get(Calendar.MONTH);
@@ -256,6 +313,8 @@ public class DiaryActivity extends Activity {
                 break;
                 case AllState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
+                    ArrowsVisible(false);
+
                     shwownEntries.addAll(entries);
                     date.setText("");
                 break;
@@ -266,15 +325,22 @@ public class DiaryActivity extends Activity {
     private void updateSumMaxFields()
     {
         int i = 0;
-        TextView sum = (TextView)findViewById(R.id.DiarySumValue);
-        TextView maxText = (TextView)findViewById(R.id.DiaryMaxText);
-        TextView maxValue = (TextView)findViewById(R.id.DiaryMaxValue);
 
         for(DiaryEntry entry: shwownEntries) i = i + entry.getConsumedKCal();
         sum.setText(i + " kcal");
 
-        if(maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
-        else if(maxText.getText().equals("Diff.:")) maxValue.setText((user.getMaxKCal()-i) + " kcal");
+        if(diaryState == DayState)
+        {
+            maxText.setVisibility(View.VISIBLE);
+            maxValue.setVisibility(View.VISIBLE);
+            if (maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
+            else if (maxText.getText().equals("Diff.:")) maxValue.setText((user.getMaxKCal() - i) + " kcal");
+        }
+        else
+        {
+            maxText.setVisibility(View.INVISIBLE);
+            maxValue.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void highlightState(int color1, int color2, int color3, int color4)

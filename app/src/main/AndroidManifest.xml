@@ -29,7 +29,8 @@
         <activity android:name=".gui.NewMealActivity" />
         <activity android:name=".gui.UnitActivity" />
         <activity android:name=".gui.MealDetailActivity" />
-        <activity android:name=".gui.ManagerActivity"></activity>
+        <activity android:name=".gui.ManagerActivity" />
+        <activity android:name=".gui.StatisticsActivity"></activity>
     </application>
 
 </manifest>

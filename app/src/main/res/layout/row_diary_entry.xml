@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/DiaryLineNumber"
-        android:layout_weight="5"
+        android:layout_weight="8"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:layout_gravity="center_vertical" />
@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/DiaryLineName"
-        android:layout_weight="41"
+        android:layout_weight="49"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:layout_gravity="center_vertical" />
@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/DiaryLineCalories"
-        android:layout_weight="41"
+        android:layout_weight="30"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:layout_gravity="center_vertical" />
