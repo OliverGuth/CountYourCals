@@ -34,6 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LoginButton" />
+    <Button
+        android:text="Registrieren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LoginRegisterButton" />
 
 
 </LinearLayout>

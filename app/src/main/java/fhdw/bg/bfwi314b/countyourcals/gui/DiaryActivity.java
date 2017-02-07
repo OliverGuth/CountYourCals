@@ -128,7 +128,6 @@ public class DiaryActivity extends Activity {
                         //nothing to do
                         break;
                 }
-
                 updateView();
             }});
         next.setOnClickListener(new View.OnClickListener() {
@@ -260,10 +259,9 @@ public class DiaryActivity extends Activity {
             case DayState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue);
                 ArrowsVisible(true);
-
-
                 for (DiaryEntry entry:entries) { if(timeStamp.equals(entry.getTimeStamp())) shwownEntries.add(entry); }
                 date.setText(timeStamp);
+                rowFactory.FillDiaryTableLayout(table, shwownEntries, DiaryActivity.this);
             break;
             case WeekState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
@@ -288,6 +286,8 @@ public class DiaryActivity extends Activity {
                     }
 
                     date.setText("KW "+ currentWeek + " " + currentYear);
+
+                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
                 break;
                 case MonthState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
@@ -310,6 +310,7 @@ public class DiaryActivity extends Activity {
                         if(currentMonth == entrymonth && currentYear == entryYear) shwownEntries.add(entry);
                     }
                     date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
+                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
                 break;
                 case AllState:
                     highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
@@ -317,9 +318,9 @@ public class DiaryActivity extends Activity {
 
                     shwownEntries.addAll(entries);
                     date.setText("");
+                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
                 break;
             }
-            rowFactory.FillDiaryTableLayout(table, shwownEntries, DiaryActivity.this);
             updateSumMaxFields();
         }
     private void updateSumMaxFields()

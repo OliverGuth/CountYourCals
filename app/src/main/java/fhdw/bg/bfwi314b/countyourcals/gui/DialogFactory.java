@@ -62,7 +62,7 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
                 //Eintrag überprüfen und Speichern
             }
@@ -87,7 +87,7 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
                 //Eintrag überprüfen und Speichern
             }
@@ -113,7 +113,7 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
                 //Eintrag überprüfen und Speichern
             }
@@ -134,7 +134,7 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag " + name.getText() + " gespeichert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Eintrag " + name.getText() + " gespeichert", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
                 //Eintrag überprüfen und Speichern
             }
@@ -153,7 +153,7 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
 
                 //Eintrag überprüfen und Speichern
             }
@@ -178,7 +178,7 @@ public class DialogFactory {
 
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "copyed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Zum aktuellen Tag kopiert", Toast.LENGTH_LONG).show();
                 diaryActivity.entries.add(new DiaryEntry(new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime()),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
                 diaryActivity.updateView();
                 dialog.dismiss();
@@ -186,7 +186,7 @@ public class DialogFactory {
         });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "edited", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "edited", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -194,7 +194,7 @@ public class DialogFactory {
             public void onClick(View v) {
                 diaryActivity.entries.remove(diaryEntry);
                 diaryActivity.updateView();
-                Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -219,12 +219,12 @@ public class DialogFactory {
 
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "copy", Toast.LENGTH_LONG).show();
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -232,7 +232,7 @@ public class DialogFactory {
             public void onClick(View v) {
                 managerActivity.foods.remove(food);
                 managerActivity.updateView();
-                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -255,12 +255,12 @@ public class DialogFactory {
 
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "copy", Toast.LENGTH_LONG).show();
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -268,7 +268,7 @@ public class DialogFactory {
             public void onClick(View v) {
                 managerActivity.meals.remove(meal);
                 managerActivity.updateView();
-                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -291,12 +291,12 @@ public class DialogFactory {
 
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "copy", Toast.LENGTH_LONG).show();
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -304,7 +304,7 @@ public class DialogFactory {
             public void onClick(View v) {
                 managerActivity.units.remove(unit);
                 managerActivity.updateView();
-                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -320,22 +320,29 @@ public class DialogFactory {
         final android.app.AlertDialog dialog = dialogBuilder.create();
         final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
         Button login = (Button) view.findViewById(R.id.LoginButton);
+        Button register = (Button) view.findViewById(R.id.LoginRegisterButton);
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(loginUserName.getText().toString().trim().equals("Oliver"))
                 {
-                    Toast.makeText(context, "login successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "login successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(context, "login failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
                     CreateNewUserDialog(context, loginUserName.getText().toString());
                     dialog.dismiss();
                 }
             }
         });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                    CreateNewUserDialog(context, loginUserName.getText().toString());
+                    dialog.dismiss();
+                }});
         dialog.show();
     }
 
@@ -355,7 +362,7 @@ public class DialogFactory {
 
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "User created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "User created", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });

@@ -31,9 +31,6 @@ public class SettingsActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguage.setAdapter(adapter);
 
-
-        buttonFactoryReset.setBackgroundDrawable(getResources().getDrawable(R.color.BayerGreen));
-
         buttonFactoryReset.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
