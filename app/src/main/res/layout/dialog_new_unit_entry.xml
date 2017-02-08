@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White">
 
     <TextView
-        android:text="Login"
+        android:text="Einheit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/LoginCaption"
+        android:id="@+id/DialogNewUnitCaption"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/Black"
         android:layout_margin="10dp"
-        android:gravity="center_vertical" />
-
-
+        android:gravity="center_vertical"
+        android:textSize="36sp" />
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:inputType="textPersonName"
+        android:layout_height="wrap_content"
+        android:inputType="none"
         android:ems="10"
-        android:id="@+id/LoginNameValue"
-        android:layout_weight="1"
+        android:id="@+id/DialogNewUnitName"
+        android:layout_weight="2"
         android:maxLines="1"
+
         android:textColor="@color/Black"
-        android:hint="Benutzername"
+        android:hint="Name"
         android:textColorHint="@color/Grey" />
 
     <Button
-        android:text="Anmelden"
+        android:text="Speichern"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/LoginButton" />
-    <Button
-        android:text="Registrieren"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/LoginRegisterButton" />
-
+        android:id="@+id/DialogNewUnitSaveButton"
+        android:background="@color/Grey"
+        android:textColor="@color/White"
+        android:layout_margin="5dp" />
 
 </LinearLayout>

@@ -5,6 +5,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.datastorage.*;
 
 /**

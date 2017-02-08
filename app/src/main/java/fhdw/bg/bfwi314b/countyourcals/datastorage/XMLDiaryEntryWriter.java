@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+
 /**
  * Created by Niko.
  */

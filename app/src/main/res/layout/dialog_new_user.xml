@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White">
+
+    <TextView
+        android:text="Registrierung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogNewUserCaption"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/Black"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/DialogNewUserName"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:textColor="@color/Black"
+        android:hint="Benutzername"
+        android:textColorHint="@color/Grey" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:id="@+id/DialogNewUserMaxCals"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:textColor="@color/Black"
+        android:hint="Max. Tageskalorien"
+        android:textColorHint="@color/Grey"
+        android:inputType="number" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogNewUserGenderSpinner"
+        tools:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border"
+        android:entries="@array/Gender"
+        android:layout_margin="5dp"
+        android:padding="5dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogNewUserLanguageSpinner"
+        tools:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border"
+        android:entries="@array/Language"
+        android:layout_margin="5dp"
+        android:padding="5dp" />
+
+    <Button
+        android:text="Registrieren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogNewUserCreateButton" />
+
+
+</LinearLayout>

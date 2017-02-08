@@ -1,4 +1,4 @@
-package fhdw.bg.bfwi314b.countyourcals.datastorage;
+package fhdw.bg.bfwi314b.countyourcals.Models;
 
 /**
  * Created by Niko.
