@@ -13,60 +13,81 @@ public class Meal {
 
     private String mName;
     private Integer mIdentifier;
-    //private Food mMeal;
-    private Integer mMealQuantity;
-    private String mMealUnit;
-    private Integer mMealKCal;
-    private ArrayList<String> mIngredients;
-    private ArrayList<Integer> mIngredientsQuantity;
-    private ArrayList<String> mIngredientsUnit;
-    private ArrayList<Integer> mIngredientsKCal;
+    private ArrayList<Integer> mMealQuantity;
+    private ArrayList<String> mMealUnit;
+    //private Integer mMealKCal;
+    private ArrayList<Food> mIngredients;
     private Integer mSumOfKCal;
 
     public Meal(String name, Integer identifier) {
         mName = name;
         mIdentifier = identifier;
-        //mMeal = new Food(mName);
-        mMealQuantity = null;
-        mMealUnit = null;
-        mMealKCal = null;
-        mIngredients = new ArrayList<String>();
-        mIngredientsQuantity = new ArrayList<Integer>();
-        mIngredientsUnit = new ArrayList<String>();
-        mIngredientsKCal = new ArrayList<Integer>();
+        mMealQuantity = new ArrayList<Integer>();
+        mMealUnit = new ArrayList<String>();
+        //mMealKCal = null;
+        mIngredients = new ArrayList<Food>();
         mSumOfKCal = null;
     }
 
-    public Meal(String name, Integer identifier, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredients, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
+    public Meal(String name, Integer identifier, Integer mealQuantity, String mealUnit, /*Integer mealKCal,*/ ArrayList<Food> ingredients) {
         mName = name;
         mIdentifier = identifier;
-        mMealQuantity = mealQuantity;
-        mMealUnit = mealUnit;
-        mMealKCal = mealKCal;
-        mIngredients = (ArrayList<String>) ingredients.clone();
-        mIngredientsUnit = (ArrayList<String>) ingredientsUnit.clone();
-        mIngredientsQuantity = (ArrayList<Integer>) ingredientsQuantity.clone();
-        mIngredientsKCal = (ArrayList<Integer>) ingredientsKCal.clone();
+        mMealQuantity = new ArrayList<Integer>();
+        mMealQuantity.add(mealQuantity);
+        mMealUnit = new ArrayList<String>();
+        mMealUnit.add(mealUnit);
+        //mMealKCal = mealKCal;
+        mIngredients = (ArrayList<Food>) ingredients.clone();
         mSumOfKCal = 0;
 
-        for (int i = 0; i < mIngredientsKCal.size(); i++) {
-            mSumOfKCal = mSumOfKCal + mIngredientsKCal.get(i);
+        for (int i = 0; i < mIngredients.size(); i++) {
+            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
         }
     }
 
-    public void addFood(String foodName, Integer quantity, String unit, Integer kCal) {
-        mIngredients.add(foodName);
-        mIngredientsQuantity.add(quantity);
-        mIngredientsUnit.add(unit);
-        mIngredientsKCal.add(kCal);
-        mSumOfKCal = mSumOfKCal + kCal;
+    public Meal(String name, Integer identifier, ArrayList<Integer> mealQuantity, ArrayList<String> mealUnit) {
+        mName = name;
+        mIdentifier = identifier;
+        mMealQuantity = (ArrayList<Integer>) mealQuantity.clone();
+        mMealUnit = (ArrayList<String>) mealUnit.clone();
+        //mMealKCal = mealKCal;
+        mIngredients = new ArrayList<Food>();
+        mSumOfKCal = 0;
+
+        for (int i = 0; i < mIngredients.size(); i++) {
+            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
+        }
     }
 
-    public void changeRelation(Integer mealQuantity, String mealUnit, Integer mealKCal) {
-        //mMeal.addRelation(quantity, unit, kCal);
-        mMealQuantity = mealQuantity;
-        mMealUnit = mealUnit;
-        mMealKCal = mealKCal;
+    public Meal(String name, Integer identifier, ArrayList<Integer> mealQuantity, ArrayList<String> mealUnit, /*Integer mealKCal,*/ ArrayList<Food> ingredients) {
+        mName = name;
+        mIdentifier = identifier;
+        mMealQuantity = (ArrayList<Integer>) mealQuantity.clone();
+        mMealUnit = (ArrayList<String>) mealUnit.clone();
+        //mMealKCal = mealKCal;
+        mIngredients = (ArrayList<Food>) ingredients.clone();
+        mSumOfKCal = 0;
+
+        for (int i = 0; i < mIngredients.size(); i++) {
+            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
+        }
+    }
+
+    public void addFood(Food ingredient) {
+        mIngredients.add(ingredient);
+        mSumOfKCal = mSumOfKCal + ingredient.getKCal();
+    }
+
+    public void addFoodList(ArrayList<Food> ingredients) {
+        for (int i = 0; i < ingredients.size(); i++) {
+            mIngredients.add(ingredients.get(i));
+            mSumOfKCal = mSumOfKCal + ingredients.get(i).getKCal();
+        }
+    }
+
+    public void addRelation(Integer quantity, String unit) {
+        mMealUnit.add(unit);
+        mMealQuantity.add(quantity);
     }
 
     public String toString() {
@@ -77,56 +98,20 @@ public class Meal {
         return mSumOfKCal;
     }
 
-    public String[] getRelation() {
-        String[] mealRelation = {mMealQuantity.toString(), mMealUnit, mMealKCal.toString()};
-        return mealRelation;
-    }
-
-    public ArrayList<String>[] getIngredientsWithRelation() {
-        ArrayList<String>[] arrayListArray = new ArrayList[4];
-        arrayListArray[0] = mIngredients;
-        arrayListArray[2] = mIngredientsUnit;
-        arrayListArray[1] = new ArrayList<String>();
-        arrayListArray[3] = new ArrayList<String>();
-
-        for (int i = 0; i < mIngredientsQuantity.size(); i++) {
-            arrayListArray[2].add(mIngredientsQuantity.get(i).toString());
-            arrayListArray[3].add(mIngredientsKCal.get(i).toString());
-        }
-
-        return arrayListArray;
-    }
-
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Food> getIngredients() {
         return mIngredients;
-    }
-
-    public ArrayList<Integer> getIngredientsQuantity() {
-        return mIngredientsQuantity;
-    }
-
-    public ArrayList<String> getIngredientsUnit() {
-        return mIngredientsUnit;
-    }
-
-    public ArrayList<Integer> getIngredientsKCal() {
-        return mIngredientsKCal;
     }
 
     public String getName() {
         return mName;
     }
 
-    public Integer getMealQuantity() {
+    public ArrayList<Integer> getMealQuantity() {
         return mMealQuantity;
     }
 
-    public String getMealUnit() {
+    public ArrayList<String> getMealUnit() {
         return mMealUnit;
-    }
-
-    public Integer getMealKCal() {
-        return mMealKCal;
     }
 
     public Integer getIdentifier() {

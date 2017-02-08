@@ -17,7 +17,7 @@ public class XMLFoodWriter {
         String tmpName;
         ArrayList<Integer> tmpQuantity;
         ArrayList<String> tmpUnit;
-        ArrayList<Integer> tmpKCal;
+        Integer tmpKCal;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
@@ -35,14 +35,14 @@ public class XMLFoodWriter {
             fileWriter.write("\n");
             fileWriter.write("<Name>" + tmpName + "</Name>");
             fileWriter.write("\n");
+            fileWriter.write("<kCal>" + tmpKCal + "</kCal>");
+            fileWriter.write("\n");
             for (int j = 0; j < tmpUnit.size(); j++) {
                 fileWriter.write("<Relation>");
                 fileWriter.write("\n");
                 fileWriter.write("<Quantity>" + tmpQuantity.get(j) + "</Quantity>");
                 fileWriter.write("\n");
                 fileWriter.write("<Unit>" + tmpUnit.get(j) + "</Unit>");
-                fileWriter.write("\n");
-                fileWriter.write("<kCal>" + tmpKCal + "</kCal>");
                 fileWriter.write("\n");
                 fileWriter.write("</Relation>");
                 fileWriter.write("\n");

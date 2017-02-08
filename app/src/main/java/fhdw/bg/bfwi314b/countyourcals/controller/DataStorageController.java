@@ -3,6 +3,7 @@ package fhdw.bg.bfwi314b.countyourcals.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import fhdw.bg.bfwi314b.countyourcals.datastorage.*;
 
@@ -32,7 +33,7 @@ public class DataStorageController {
         File tmpMealListFile = new File(userName + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         if (tmpMealListFile.exists()) {
-            tmpMealArrayList = mXMLReader.readMeal(tmpMealListFile);
+            tmpMealArrayList = mXMLReader.readMeal(tmpMealListFile, userName);
         } else {
             try {
                 tmpMealListFile.createNewFile();
@@ -44,7 +45,7 @@ public class DataStorageController {
         return tmpMealArrayList;
     }
 
-    public void addMeal(String userName, String mealName, Integer mealQuantity, String mealUnit, Integer mealKCal, ArrayList<String> ingredientsName, ArrayList<Integer> ingredientsQuantity, ArrayList<String> ingredientsUnit, ArrayList<Integer> ingredientsKCal) {
+    public void addMeal(String userName, String mealName, ArrayList<Integer> mealQuantity, ArrayList<String> mealUnit, Integer mealKCal, ArrayList<Food> ingredients) {
         File tmpMealListFile = new File(userName + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         tmpMealArrayList = getMealList(userName);
@@ -54,38 +55,37 @@ public class DataStorageController {
                 tmpIdentifier = tmpMealArrayList.get(index).getIdentifier();
             }
         }
-        Meal tmpMeal = new Meal(mealName, tmpIdentifier, mealQuantity, mealUnit, mealKCal, ingredientsName, ingredientsQuantity, ingredientsUnit, ingredientsKCal);
+        Meal tmpMeal = new Meal(mealName, tmpIdentifier, mealQuantity, mealUnit, ingredients);
         tmpMealArrayList.add(tmpMeal);
-        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, userName);
     }
 
-    public void changeRelationToMeal(String userName, Integer mealIdentifier, Integer mealQuantity, String mealUnit, Integer mealKCal) {
+    public void addRelationToMeal(String userName, Integer mealIdentifier, Integer mealQuantity, String mealUnit) {
         File tmpMealListFile = new File(userName + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         tmpMealArrayList = getMealList(userName);
         for (int index = 0; index < tmpMealArrayList.size(); index++) {
             if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
-                tmpMealArrayList.get(index).changeRelation(mealQuantity, mealUnit, mealKCal);
+                tmpMealArrayList.get(index).addRelation(mealQuantity, mealUnit);
 
                 index = tmpMealArrayList.size();
             }
         }
-        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, userName);
     }
 
-    public void addFoodToMeal(String userName, String mealName, Integer mealQuantity, String mealUnit, Integer mealKCal, String ingredientsName, Integer ingredientsQuantity, String ingredientsUnit, Integer ingredientsKCal) {
+    public void addFoodToMeal(String userName, Integer mealIdentifier, Integer mealQuantity, Food ingredient) {
         File tmpMealListFile = new File(userName + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         tmpMealArrayList = getMealList(userName);
         for (int index = 0; index < tmpMealArrayList.size(); index++) {
-            if (tmpMealArrayList.get(index).getName().equals(mealName)) {
-                tmpMealArrayList.get(index).addFood(ingredientsName, ingredientsQuantity, ingredientsUnit, ingredientsKCal);
-                tmpMealArrayList.get(index).changeRelation(mealQuantity, mealUnit, mealKCal);
+            if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
+                tmpMealArrayList.get(index).addFood(ingredient);
 
                 index = tmpMealArrayList.size();
             }
         }
-        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile);
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, userName);
     }
 
 //    public void editMeal() {
@@ -119,13 +119,13 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
-    public void addRelationToFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
+    public void addRelationToFood(String userName, String foodName, Integer foodQuantity, String foodUnit) {
         File tmpFoodListFile = new File(userName + "Food.xml");
         ArrayList<Food> tmpFoodArrayList;
         tmpFoodArrayList = getFoodList(userName);
         for (int index = 0; index < tmpFoodArrayList.size(); index++) {
             if (tmpFoodArrayList.get(index).getName().equals(foodName)) {
-                tmpFoodArrayList.get(index).addRelation(foodQuantity, foodUnit, foodKCal);
+                tmpFoodArrayList.get(index).addRelation(foodQuantity, foodUnit);
 
                 index = tmpFoodArrayList.size();
             }
@@ -162,7 +162,7 @@ public class DataStorageController {
         return tmpDiaryEntryArrayList;
     }
 
-    public void addDiaryEntry(String userName, String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal) {
+    public void addDiaryEntry(String userName, Date timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal) {
         File tmpDiaryEntryListFile = new File(userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(userName);
@@ -177,7 +177,7 @@ public class DataStorageController {
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile);
     }
 
-    public void editDiaryEntry(String userName, String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
+    public void editDiaryEntry(String userName, Date timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
         File tmpDiaryEntryListFile = new File(userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(userName);
@@ -238,5 +238,32 @@ public class DataStorageController {
 
     //----------
 
+    public ArrayList<Unit> getUnitList(String userName) {
+        File tmpUnitListFile = new File(userName + "Unit.xml");
+        ArrayList<Unit> tmpUnitArrayList;
+        if (tmpUnitListFile.exists()) {
+            tmpUnitArrayList = mXMLReader.readUnit(tmpUnitListFile);
+        } else {
+            try {
+                tmpUnitListFile.createNewFile();
+            } catch (Exception exception) {
+                System.err.println(exception);
+            }
+            tmpUnitArrayList = new ArrayList<Unit>();
+        }
+        return tmpUnitArrayList;
+    }
 
+    public void addUnit(String userName, String unit, String unitShort) {
+        Unit tmpUnit = new Unit(unit, unitShort);
+        File tmpUnitListFile = new File(userName + "Unit.xml");
+        ArrayList<Unit> tmpUnitArrayList;
+        tmpUnitArrayList = getUnitList(userName);
+        tmpUnitArrayList.add(tmpUnit);
+        mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
+    }
+
+    /*public void editUnit(String userName, Character gender, Integer maxKCal, String language) {
+
+    }*/
 }

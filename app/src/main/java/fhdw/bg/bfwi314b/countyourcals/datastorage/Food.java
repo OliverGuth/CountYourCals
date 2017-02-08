@@ -12,12 +12,12 @@ public class Food {
     private String mName;
     private ArrayList<String> mUnit;
     private ArrayList<Integer> mQuantity;
-    private ArrayList<Integer> mKCal;
+    private Integer mKCal;
 
     public Food(String name) {
         mUnit = new ArrayList<String>();
         mQuantity = new ArrayList<Integer>();
-        mKCal = new ArrayList<Integer>();
+        mKCal = 0;
 
         mName = name;
     }
@@ -25,25 +25,23 @@ public class Food {
     public Food(String name, Integer quantity, String unit, Integer kCal) {
         mUnit = new ArrayList<String>();
         mQuantity = new ArrayList<Integer>();
-        mKCal = new ArrayList<Integer>();
 
         mName = name;
         mUnit.add(unit);
         mQuantity.add(quantity);
-        mKCal.add(kCal);
+        mKCal = kCal;
     }
 
-    public Food(String name, ArrayList<Integer> quantity, ArrayList<String> unit, ArrayList<Integer> kCal) {
+    public Food(String name, ArrayList<Integer> quantity, ArrayList<String> unit, Integer kCal) {
         mName = name;
         mUnit = (ArrayList<String>) unit.clone();
         mQuantity = (ArrayList<Integer>) quantity.clone();
-        mKCal = (ArrayList<Integer>) kCal.clone();
+        mKCal = kCal;
     }
 
-    public void addRelation(Integer quantity, String unit, Integer kCal) {
+    public void addRelation(Integer quantity, String unit) {
         mUnit.add(unit);
         mQuantity.add(quantity);
-        mKCal.add(kCal);
     }
 
     public String toString() {
@@ -62,7 +60,7 @@ public class Food {
         return mQuantity;
     }
 
-    public ArrayList<Integer> getKCal() {
+    public Integer getKCal() {
         return mKCal;
     }
 

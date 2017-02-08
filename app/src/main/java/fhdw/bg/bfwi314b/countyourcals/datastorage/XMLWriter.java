@@ -12,12 +12,14 @@ public class XMLWriter {
     private XMLDiaryEntryWriter xmlDiaryEntryWriter;
     private XMLFoodWriter xmlFoodWriter;
     private XMLMealWriter xmlMealWriter;
+    private XMLUnitWriter xmlUnitWriter;
     private XMLUserWriter xmlUserWriter;
 
     public XMLWriter() {
         xmlDiaryEntryWriter = new XMLDiaryEntryWriter();
         xmlFoodWriter = new XMLFoodWriter();
         xmlMealWriter = new XMLMealWriter();
+        xmlUnitWriter = new XMLUnitWriter();
         xmlUserWriter = new XMLUserWriter();
     }
 
@@ -37,9 +39,20 @@ public class XMLWriter {
         }
     }
 
-    public void writeMeal(ArrayList<Meal> mealArrayList, File file) {
+    public void writeMeal(ArrayList<Meal> mealArrayList, File file, String userName) {
         try {
+            for (int i = 0; i < mealArrayList.size(); i++) {
+                xmlFoodWriter.writeFood(mealArrayList.get(i).getIngredients(), new File(userName + mealArrayList.get(i).getIdentifier() + ".xml"));
+            }
             xmlMealWriter.writeMeal(mealArrayList, file);
+        } catch (Exception exception) {
+            System.err.println(exception);
+        }
+    }
+
+    public void writeUnit(ArrayList<Unit> unitArrayList, File file) {
+        try {
+            xmlUnitWriter.writeUnit(unitArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }

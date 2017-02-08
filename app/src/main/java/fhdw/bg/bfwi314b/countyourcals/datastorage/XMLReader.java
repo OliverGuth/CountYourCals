@@ -12,12 +12,14 @@ public class XMLReader {
     private XMLDiaryEntryReader xmlDiaryEntryReader;
     private XMLFoodReader xmlFoodReader;
     private XMLMealReader xmlMealReader;
+    private XMLUnitReader xmlUnitReader;
     private XMLUserReader xmlUserReader;
 
     public XMLReader() {
         xmlDiaryEntryReader = new XMLDiaryEntryReader();
         xmlFoodReader = new XMLFoodReader();
         xmlMealReader = new XMLMealReader();
+        xmlUnitReader = new XMLUnitReader();
         xmlUserReader = new XMLUserReader();
     }
 
@@ -39,9 +41,22 @@ public class XMLReader {
         return null;
     }
 
-    public ArrayList<Meal> readMeal(File file) {
+    public ArrayList<Meal> readMeal(File file, String userName) {
         try {
-            return xmlMealReader.readMeal(file);
+            ArrayList<Meal> mealArrayList;
+            mealArrayList = xmlMealReader.readMeal(file);
+            for (int i = 0; i < mealArrayList.size(); i++) {
+                mealArrayList.get(i).addFoodList(xmlFoodReader.readFood(new File(userName + mealArrayList.get(i).getIdentifier() + ".xml")));
+            }
+        } catch (Exception exception) {
+            System.err.println(exception);
+        }
+        return null;
+    }
+
+    public ArrayList<Unit> readUnit(File file) {
+        try {
+            return xmlUnitReader.readUnit(file);
         } catch (Exception exception) {
             System.err.println(exception);
         }

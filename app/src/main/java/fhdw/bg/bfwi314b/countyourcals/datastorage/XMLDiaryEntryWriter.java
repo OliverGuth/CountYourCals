@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Niko.
@@ -14,7 +15,7 @@ public class XMLDiaryEntryWriter {
     public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
         DiaryEntry tmpEntry;
-        String tmpTimeStamp;
+        Date tmpTimeStamp;
         String tmpName;
         Integer tmpQuantity;
         String tmpUnit;
@@ -37,7 +38,7 @@ public class XMLDiaryEntryWriter {
 
             fileWriter.write("<DiaryEntry>");
             fileWriter.write("\n");
-            fileWriter.write("<TimeStamp>" + tmpTimeStamp + "</TimeStamp>");
+            fileWriter.write("<TimeStamp>" + tmpTimeStamp.toString() + "</TimeStamp>");
             fileWriter.write("\n");
             fileWriter.write("<Name>" + tmpName + "</Name>");
             fileWriter.write("\n");

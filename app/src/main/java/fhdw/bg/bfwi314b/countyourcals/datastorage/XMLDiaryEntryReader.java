@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,19 +49,19 @@ public class XMLDiaryEntryReader {
 
         Node entryNode;
         NodeList entryChildNodes;
-        String tmpTimeStamp = "";
+        Date tmpTimeStamp = null;
         String tmpName = "";
-        Integer tmpQuantity = 0;
+        Integer tmpQuantity = null;
         String tmpUnit = "";
-        Integer tmpKCal = 0;
-        Integer tmpIdentifier = 0;
+        Integer tmpKCal = null;
+        Integer tmpIdentifier = null;
 
         ArrayList<DiaryEntry> diaryList = new ArrayList<DiaryEntry>();
 
         for (int i = 0; i < entryNodeList.getLength(); i++) {
             entryNode = entryNodeList.item(i);
             entryChildNodes = entryNode.getChildNodes();
-            tmpTimeStamp = entryChildNodes.item(0).getTextContent();
+            tmpTimeStamp = new Date(entryChildNodes.item(0).getTextContent());
             tmpName = entryChildNodes.item(1).getTextContent();
             tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getTextContent());
             tmpUnit = entryChildNodes.item(2).getTextContent();
@@ -68,12 +69,12 @@ public class XMLDiaryEntryReader {
             tmpIdentifier = Integer.parseInt(entryChildNodes.item(4).getTextContent());
 
             diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpQuantity, tmpUnit, tmpKCal, tmpIdentifier));
-            tmpTimeStamp = "";
+            tmpTimeStamp = null;
             tmpName = "";
-            tmpQuantity = 0;
+            tmpQuantity = null;
             tmpUnit = "";
-            tmpKCal = 0;
-            tmpIdentifier = 0;
+            tmpKCal = null;
+            tmpIdentifier = null;
         }
 
         return diaryList;

@@ -1,6 +1,7 @@
 package fhdw.bg.bfwi314b.countyourcals.datastorage;
 
 import java.security.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Niko.
@@ -8,14 +9,14 @@ import java.security.Timestamp;
 
 public class DiaryEntry {
 
-    private String mTimeStamp;
+    private Date mTimeStamp;
     private String mConsumedName;
     private Integer mConsumedQuantity;
     private String mConsumedUnit;
     private Integer mConsumedKCal;
     private Integer mIdentifier;
 
-    public DiaryEntry(String timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
+    public DiaryEntry(Date timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
         mTimeStamp = timeStamp;
         mConsumedName = consumedName;
         mConsumedQuantity = consumedQuantity;
@@ -28,7 +29,7 @@ public class DiaryEntry {
         return mConsumedName;
     }
 
-    public String getTimeStamp() {
+    public Date getTimeStamp() {
         return mTimeStamp;
     }
 

@@ -52,23 +52,23 @@ public class XMLFoodReader {
         String tmpName = "";
         ArrayList<String> tmpUnit = new ArrayList<String>();
         ArrayList<Integer> tmpQuantity = new ArrayList<Integer>();
-        ArrayList<Integer> tmpKCal = new ArrayList<Integer>();
+        Integer tmpKCal = null;
         ArrayList<Food> foodList = new ArrayList<Food>();
 
         for (int i = 0; i < foodNodeList.getLength(); i++) {
             foodNode = foodNodeList.item(i);
             foodChildNodes = foodNode.getChildNodes();
             tmpName = foodChildNodes.item(0).getTextContent();
-            for (int j = 1; j < foodChildNodes.getLength(); j++) {
+            tmpKCal = Integer.parseInt(foodChildNodes.item(1).getTextContent());
+            for (int j = 2; j < foodChildNodes.getLength(); j++) {
                 relationNode = foodChildNodes.item(j).getChildNodes();
                 tmpQuantity.add(Integer.parseInt(relationNode.item(0).getTextContent()));
                 tmpUnit.add(relationNode.item(1).getTextContent());
-                tmpKCal.add(Integer.parseInt(relationNode.item(2).getTextContent()));
             }
             foodList.add(new Food(tmpName, tmpQuantity, tmpUnit, tmpKCal));
             tmpQuantity.clear();
             tmpUnit.clear();
-            tmpKCal.clear();
+            tmpKCal = null;
             tmpName = "";
         }
 
