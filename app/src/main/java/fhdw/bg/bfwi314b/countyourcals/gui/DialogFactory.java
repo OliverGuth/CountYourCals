@@ -1,6 +1,7 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class DialogFactory {
     private AccountActivity accountActivity;
     private MainActivity mainActivity;
     private ManagerActivity managerActivity;
+
+    private boolean result;
 
     public DialogFactory(DiaryActivity diaryActivity)
     {
@@ -179,7 +182,7 @@ public class DialogFactory {
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(context, "Zum aktuellen Tag kopiert", Toast.LENGTH_LONG).show();
-                diaryActivity.entries.add(new DiaryEntry(new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime()),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
+                diaryActivity.entries.add(new DiaryEntry(Calendar.getInstance().getTime(),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
                 diaryActivity.updateView();
                 dialog.dismiss();
             }
@@ -192,10 +195,13 @@ public class DialogFactory {
         });
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                diaryActivity.entries.remove(diaryEntry);
-                diaryActivity.updateView();
-                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                BeShureDialog(context);
+                if(result == true) {
+                    diaryActivity.entries.remove(diaryEntry);
+                    diaryActivity.updateView();
+                    Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -343,6 +349,7 @@ public class DialogFactory {
                     CreateNewUserDialog(context, loginUserName.getText().toString());
                     dialog.dismiss();
                 }});
+        dialog.setCancelable(false);
         dialog.show();
     }
 
@@ -366,7 +373,30 @@ public class DialogFactory {
                 dialog.dismiss();
             }
         });
-
+        dialog.setCancelable(false);
         dialog.show();
+    }
+
+    public void BeShureDialog(final Context context)
+    {
+        final String s = "";
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setMessage("Sind Sie sich sicher?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                result = true;
+            }
+        });
+
+        builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                result = false;
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

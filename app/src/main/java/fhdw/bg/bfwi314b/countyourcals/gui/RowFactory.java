@@ -109,7 +109,7 @@ public class RowFactory {
 
             number.setText(i+1 + ".");
             name.setText(diaryEntries.get(i).getConsumedName());
-            date.setText(diaryEntries.get(i).getTimeStamp());
+            date.setText(diaryEntries.get(i).getTimeStamp().toString());
             calories.setText(diaryEntries.get(i).getConsumedKCal().toString() + " kcal");
 
             edit.setClickable(true);

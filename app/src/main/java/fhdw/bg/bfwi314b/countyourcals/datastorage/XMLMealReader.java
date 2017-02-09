@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 
 /**

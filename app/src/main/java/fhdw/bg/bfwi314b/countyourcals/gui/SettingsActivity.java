@@ -1,6 +1,7 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.R;
+import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 
 public class SettingsActivity extends Activity {
@@ -33,8 +35,8 @@ public class SettingsActivity extends Activity {
 
         buttonFactoryReset.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
-                //startActivity(intent);
+                new DataStorageController(SettingsActivity.this).factoryReset();
+
             }
         });
     }

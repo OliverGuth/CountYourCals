@@ -25,9 +25,21 @@
         android:id="@+id/DialogNewUnitName"
         android:layout_weight="2"
         android:maxLines="1"
-
         android:textColor="@color/Black"
         android:hint="Name"
+        android:textColorHint="@color/Grey" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:id="@+id/DialogNewUnitNameShort"
+        android:layout_weight="2"
+        android:maxLines="1"
+        android:maxLength="2"
+        android:textColor="@color/Black"
+        android:hint="Abkürzung (1-2 Buchstaben)"
         android:textColorHint="@color/Grey" />
 
     <Button

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 
 /**
