@@ -181,7 +181,7 @@ public class DiaryActivity extends Activity {
         entries = new ArrayList<DiaryEntry>();
         shwownEntries = new ArrayList<DiaryEntry>();
         Calendar cal = Calendar.getInstance();
-        entries.add(new DiaryEntry(cal.set(2017, 1,25));
+        /*entries.add(new DiaryEntry(cal.set(2017, 1,25));
         try {
             new SimpleDateFormat("dd.MM.yyyy").parse("24.01.2017"), "Wrap", 100, "Gramm", 600, 1
         } catch (ParseException e) {
@@ -217,7 +217,8 @@ public class DiaryActivity extends Activity {
         entries.add(new DiaryEntry(new Date("07.02.2017"), "Kaffee", 1, "Tasse", 200, 30));
         entries.add(new DiaryEntry(new Date("08.02.2017"), "Salat", 100, "Gramm", 100, 31));
 
-/*
+
+
         foods = new ArrayList<String>();
 
         foods.add(new Food("Pommes mit Schnitzel", 200, "Gramm", 400).getName());
