@@ -11,15 +11,17 @@ public class DiaryEntry {
 
     private Date mTimeStamp;
     private String mConsumedName;
-    private Integer mConsumedQuantity;
-    private String mConsumedUnit;
+    //private Integer mConsumedQuantity;
+    //private String mConsumedUnit;
+    private Unit mConsumedUnit;
     private Integer mConsumedKCal;
     private Integer mIdentifier;
 
-    public DiaryEntry(Date timeStamp, String consumedName, Integer consumedQuantity, String consumedUnit, Integer consumedKCal, Integer identifier) {
+    public DiaryEntry(Date timeStamp, String consumedName, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
         mTimeStamp = timeStamp;
         mConsumedName = consumedName;
-        mConsumedQuantity = consumedQuantity;
+        //mConsumedQuantity = consumedQuantity;
+        //mConsumedUnit = consumedUnit;
         mConsumedUnit = consumedUnit;
         mConsumedKCal = consumedKCal;
         mIdentifier = identifier;
@@ -41,15 +43,15 @@ public class DiaryEntry {
         this.mConsumedName = mConsumedName;
     }
 
-    public Integer getConsumedQuantity() {
+    /*public Integer getConsumedQuantity() {
         return mConsumedQuantity;
-    }
+    }*/
 
     public Integer getIdentifier() {
         return mIdentifier;
     }
 
-    public void setConsumedQuantity(Integer mConsumedQuantity) {
+    /*public void setConsumedQuantity(Integer mConsumedQuantity) {
         this.mConsumedQuantity = mConsumedQuantity;
     }
 
@@ -59,6 +61,14 @@ public class DiaryEntry {
 
     public void setConsumedUnit(String mConsumedUnit) {
         this.mConsumedUnit = mConsumedUnit;
+    }*/
+
+    public Unit getConsumedUnit() {
+        return mConsumedUnit;
+    }
+
+    public void setConsumedUnit(Unit unit) {
+        this.mConsumedUnit = unit;
     }
 
     public Integer getConsumedKCal() {

@@ -52,6 +52,7 @@ public class XMLUnitReader {
         NodeList unitChildNodes;
         String tmpUnit = "";
         String tmpUnitShort = "";
+        Integer tmpUnitQuantity = 0;
 
         ArrayList<Unit> unitList = new ArrayList<Unit>();
 
@@ -60,7 +61,8 @@ public class XMLUnitReader {
             unitChildNodes = unitNode.getChildNodes();
             tmpUnit = unitChildNodes.item(0).getTextContent();
             tmpUnitShort = unitChildNodes.item(1).getTextContent();
-            unitList.add(new Unit(tmpUnit, tmpUnitShort));
+            tmpUnitQuantity = Integer.parseInt(unitChildNodes.item(2).getTextContent());
+            unitList.add(new Unit(tmpUnit, tmpUnitShort, tmpUnitQuantity));
             tmpUnit = "";
             tmpUnitShort = "";
         }

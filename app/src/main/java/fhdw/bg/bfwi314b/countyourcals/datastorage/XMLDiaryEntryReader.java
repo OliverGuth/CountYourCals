@@ -20,6 +20,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -54,7 +55,9 @@ public class XMLDiaryEntryReader {
         Date tmpTimeStamp = null;
         String tmpName = "";
         Integer tmpQuantity = null;
-        String tmpUnit = "";
+        String tmpUnitName = "";
+        String tmpUnitShort = "";
+        Unit tmpUnit = null;
         Integer tmpKCal = null;
         Integer tmpIdentifier = null;
 
@@ -66,15 +69,19 @@ public class XMLDiaryEntryReader {
             tmpTimeStamp = new Date(entryChildNodes.item(0).getTextContent());
             tmpName = entryChildNodes.item(1).getTextContent();
             tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getTextContent());
-            tmpUnit = entryChildNodes.item(2).getTextContent();
-            tmpKCal = Integer.parseInt(entryChildNodes.item(3).getTextContent());
-            tmpIdentifier = Integer.parseInt(entryChildNodes.item(4).getTextContent());
+            tmpUnitName = entryChildNodes.item(3).getTextContent();
+            tmpUnitShort = entryChildNodes.item(4).getTextContent();
+            tmpUnit = new Unit(tmpUnitName, tmpUnitShort, tmpQuantity);
+            tmpKCal = Integer.parseInt(entryChildNodes.item(5).getTextContent());
+            tmpIdentifier = Integer.parseInt(entryChildNodes.item(6).getTextContent());
 
-            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpQuantity, tmpUnit, tmpKCal, tmpIdentifier));
+            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpUnit, tmpKCal, tmpIdentifier));
             tmpTimeStamp = null;
             tmpName = "";
             tmpQuantity = null;
-            tmpUnit = "";
+            tmpUnitName = "";
+            tmpUnitShort = "";
+            tmpUnit = null;
             tmpKCal = null;
             tmpIdentifier = null;
         }

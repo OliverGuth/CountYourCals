@@ -19,6 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -52,8 +53,10 @@ public class XMLFoodReader {
         NodeList foodChildNodes;
         NodeList relationNode;
         String tmpName = "";
-        ArrayList<String> tmpUnit = new ArrayList<String>();
-        ArrayList<Integer> tmpQuantity = new ArrayList<Integer>();
+        String tmpUnitName = "";
+        String tmpUnitShort = "";
+        Integer tmpQuantity = 0;
+        ArrayList<Unit> tmpUnits = new ArrayList<Unit>();
         Integer tmpKCal = null;
         ArrayList<Food> foodList = new ArrayList<Food>();
 
@@ -64,12 +67,14 @@ public class XMLFoodReader {
             tmpKCal = Integer.parseInt(foodChildNodes.item(1).getTextContent());
             for (int j = 2; j < foodChildNodes.getLength(); j++) {
                 relationNode = foodChildNodes.item(j).getChildNodes();
-                tmpQuantity.add(Integer.parseInt(relationNode.item(0).getTextContent()));
-                tmpUnit.add(relationNode.item(1).getTextContent());
+                tmpQuantity = Integer.parseInt(relationNode.item(0).getTextContent());
+                tmpUnitName = relationNode.item(1).getTextContent();
+                tmpUnitShort = relationNode.item(2).getTextContent();
+                tmpUnits.add(new Unit(tmpUnitName, tmpUnitShort, tmpQuantity));
             }
-            foodList.add(new Food(tmpName, tmpQuantity, tmpUnit, tmpKCal));
-            tmpQuantity.clear();
-            tmpUnit.clear();
+            foodList.add(new Food(tmpName, tmpUnits, tmpKCal));
+            //tmpQuantity.clear();
+            tmpUnits.clear();
             tmpKCal = null;
             tmpName = "";
         }

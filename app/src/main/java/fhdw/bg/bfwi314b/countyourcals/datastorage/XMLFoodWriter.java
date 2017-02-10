@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -17,8 +18,9 @@ public class XMLFoodWriter {
         FileWriter fileWriter = new FileWriter(file);
         Food tmpFood;
         String tmpName;
-        ArrayList<Integer> tmpQuantity;
-        ArrayList<String> tmpUnit;
+        //ArrayList<Integer> tmpQuantity;
+        //ArrayList<String> tmpUnit;
+        ArrayList<Unit> tmpUnit;
         Integer tmpKCal;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -29,8 +31,9 @@ public class XMLFoodWriter {
         for (int i = 0; i < foodArrayList.size(); i++) {
             tmpFood = foodArrayList.get(i);
             tmpName = tmpFood.getName();
-            tmpUnit = tmpFood.getUnit();
-            tmpQuantity = tmpFood.getQuantity();
+            //tmpUnit = tmpFood.getUnit();
+            //tmpQuantity = tmpFood.getQuantity();
+            tmpUnit = tmpFood.getUnits();
             tmpKCal = tmpFood.getKCal();
 
             fileWriter.write("<Food>");
@@ -42,9 +45,12 @@ public class XMLFoodWriter {
             for (int j = 0; j < tmpUnit.size(); j++) {
                 fileWriter.write("<Relation>");
                 fileWriter.write("\n");
-                fileWriter.write("<Quantity>" + tmpQuantity.get(j) + "</Quantity>");
+                //fileWriter.write("<Quantity>" + tmpQuantity.get(j) + "</Quantity>");
+                fileWriter.write("<Quantity>" + tmpUnit.get(j).getQuantity() + "</Quantity>");
                 fileWriter.write("\n");
-                fileWriter.write("<Unit>" + tmpUnit.get(j) + "</Unit>");
+                fileWriter.write("<Unit>" + tmpUnit.get(j).getUnit() + "</Unit>");
+                fileWriter.write("\n");
+                fileWriter.write("<Unit>" + tmpUnit.get(j).getUnitShort() + "</Unit>");
                 fileWriter.write("\n");
                 fileWriter.write("</Relation>");
                 fileWriter.write("\n");

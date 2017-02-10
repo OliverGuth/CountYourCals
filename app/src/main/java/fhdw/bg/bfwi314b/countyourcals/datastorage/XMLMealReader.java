@@ -20,6 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -54,8 +55,10 @@ public class XMLMealReader {
         NodeList tmpMealRelationNodes;
         String tmpName = "";
         Integer tmpIdentifier = 0;
-        ArrayList<Integer> tmpMealQuantity = new ArrayList<Integer>();
-        ArrayList<String> tmpMealUnit = new ArrayList<String>();
+        Integer tmpMealQuantity = 0;
+        String tmpMealUnitName = "";
+        String tmpMealUnitShort = "";
+        ArrayList<Unit> tmpMealUnits = new ArrayList<Unit>();
         //ArrayList<Food> tmpIngredientList = new ArrayList<Food>();
         ArrayList<Meal> mealList = new ArrayList<Meal>();
 
@@ -67,17 +70,23 @@ public class XMLMealReader {
             for (int j = 2; j < tmpMealChildNodes.getLength(); j++) {
                 tmpMealRelationNodes = tmpMealChildNodes.item(j).getChildNodes();
                 for (int k = 0; k < tmpMealRelationNodes.getLength(); k++) {
-                    tmpMealQuantity.add(Integer.parseInt(tmpMealRelationNodes.item(k).getChildNodes().item(0).getTextContent()));
-                    tmpMealUnit.add(tmpMealRelationNodes.item(k).getChildNodes().item(1).getTextContent());
+                    tmpMealQuantity = Integer.parseInt(tmpMealRelationNodes.item(k).getChildNodes().item(0).getTextContent());
+                    tmpMealUnitName = tmpMealRelationNodes.item(k).getChildNodes().item(1).getTextContent();
+                    tmpMealUnitShort = tmpMealRelationNodes.item(k).getChildNodes().item(2).getTextContent();
+                    tmpMealUnits.add(new Unit(tmpMealUnitName, tmpMealUnitShort, tmpMealQuantity));
                 }
             }
             //tmpIngredientList = this.readMealIngredients(new File(userName + tmpIdentifier + ".xml"));
             //mealList.add(new Meal(tmpName, tmpIdentifier, tmpMealQuantity, tmpMealUnit, tmpIngredientList));
-            mealList.add(new Meal(tmpName, tmpIdentifier, tmpMealQuantity, tmpMealUnit));
+            mealList.add(new Meal(tmpName, tmpIdentifier, tmpMealUnits));
             tmpName = "";
             tmpIdentifier = 0;
-            tmpMealQuantity.clear();
-            tmpMealUnit.clear();
+            //tmpMealQuantity.clear();
+            //tmpMealUnit.clear();
+            tmpMealUnitName = "";
+            tmpMealUnitShort = "";
+            tmpMealQuantity = 0;
+            tmpMealUnits.clear();
             //tmpIngredientList.clear();
         }
 

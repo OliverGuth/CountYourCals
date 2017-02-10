@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -19,8 +20,9 @@ public class XMLMealWriter {
         Meal tmpMeal;
         String tmpName;
         Integer tmpIdentifier;
-        ArrayList<Integer> tmpMealQuantity;
-        ArrayList<String> tmpMealUnit;
+        //ArrayList<Integer> tmpMealQuantity;
+        //ArrayList<String> tmpMealUnit;
+        ArrayList<Unit> tmpMealUnits;
         //ArrayList<Food> tmpIngredients;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -32,8 +34,9 @@ public class XMLMealWriter {
             tmpMeal = mealArrayList.get(i);
             tmpName = tmpMeal.getName();
             tmpIdentifier = tmpMeal.getIdentifier();
-            tmpMealQuantity = tmpMeal.getMealQuantity();
-            tmpMealUnit = tmpMeal.getMealUnit();
+            //tmpMealQuantity = tmpMeal.getMealQuantity();
+            //tmpMealUnit = tmpMeal.getMealUnit();
+            tmpMealUnits = tmpMeal.getMealUnits();
             //tmpIngredients = tmpMeal.getIngredients();
 
             fileWriter.write("<Meal>");
@@ -44,10 +47,13 @@ public class XMLMealWriter {
             fileWriter.write("\n");
             fileWriter.write("<MealRelations>");
             fileWriter.write("\n");
-            for (int j = 0; j < tmpMealUnit.size(); j++) {
-                fileWriter.write("<MealQuantity>" + tmpMealQuantity.get(j) + "</MealQuantity>");
+            for (int j = 0; j < tmpMealUnits.size(); j++) {
+                //fileWriter.write("<MealQuantity>" + tmpMealQuantity.get(j) + "</MealQuantity>");
+                fileWriter.write("<MealQuantity>" + tmpMealUnits.get(j).getQuantity() + "</MealQuantity>");
                 fileWriter.write("\n");
-                fileWriter.write("<MealUnit>" + tmpMealUnit.get(j) + "</MealUnit>");
+                fileWriter.write("<MealUnit>" + tmpMealUnits.get(j).getUnit() + "</MealUnit>");
+                fileWriter.write("\n");
+                fileWriter.write("<MealUnitShort>" + tmpMealUnits.get(j).getUnitShort() + "</MealUnitShort>");
                 fileWriter.write("\n");
             }
             fileWriter.write("</MealRelations>");

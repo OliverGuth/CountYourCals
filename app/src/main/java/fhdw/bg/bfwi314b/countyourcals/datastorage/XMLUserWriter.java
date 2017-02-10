@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.User;

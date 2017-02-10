@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
  * Created by Niko.
@@ -19,8 +20,9 @@ public class XMLDiaryEntryWriter {
         DiaryEntry tmpEntry;
         Date tmpTimeStamp;
         String tmpName;
-        Integer tmpQuantity;
-        String tmpUnit;
+        //Integer tmpQuantity;
+        //String tmpUnit;
+        Unit tmpUnit;
         Integer tmpKCal;
         Integer tmpIdentifier;
 
@@ -33,7 +35,7 @@ public class XMLDiaryEntryWriter {
             tmpEntry = entryArrayList.get(i);
             tmpTimeStamp = tmpEntry.getTimeStamp();
             tmpName = tmpEntry.getConsumedName();
-            tmpQuantity = tmpEntry.getConsumedQuantity();
+            //tmpQuantity = tmpEntry.getConsumedQuantity();
             tmpUnit = tmpEntry.getConsumedUnit();
             tmpKCal = tmpEntry.getConsumedKCal();
             tmpIdentifier = tmpEntry.getIdentifier();
@@ -44,9 +46,12 @@ public class XMLDiaryEntryWriter {
             fileWriter.write("\n");
             fileWriter.write("<Name>" + tmpName + "</Name>");
             fileWriter.write("\n");
-            fileWriter.write("<Quantity>" + tmpQuantity + "</Quantity>");
+            //fileWriter.write("<Quantity>" + tmpQuantity + "</Quantity>");
+            fileWriter.write("<Quantity>" + tmpUnit.getQuantity() + "</Quantity>");
             fileWriter.write("\n");
-            fileWriter.write("<Unit>" + tmpUnit + "</Unit>");
+            fileWriter.write("<Unit>" + tmpUnit.getUnit() + "</Unit>");
+            fileWriter.write("\n");
+            fileWriter.write("<UnitShort>" + tmpUnit.getUnitShort() + "</UnitShort>");
             fileWriter.write("\n");
             fileWriter.write("<KCal>" + tmpKCal + "</KCal>");
             fileWriter.write("\n");

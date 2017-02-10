@@ -18,6 +18,7 @@ public class XMLUnitWriter {
         Unit tmpUnit;
         String tmpUnitName;
         String tmpUnitShort;
+        Integer tmpUnitQuantity;
 
         fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         fileWriter.write("\n");
@@ -28,12 +29,15 @@ public class XMLUnitWriter {
             tmpUnit = unitArrayList.get(i);
             tmpUnitName = tmpUnit.getUnit();
             tmpUnitShort = tmpUnit.getUnitShort();
+            tmpUnitQuantity = tmpUnit.getQuantity();
 
             fileWriter.write("<Unit>");
             fileWriter.write("\n");
             fileWriter.write("<UnitName>" + tmpUnitName + "</UnitName>");
             fileWriter.write("\n");
             fileWriter.write("<UnitShort>" + tmpUnitShort + "</UnitShort>");
+            fileWriter.write("\n");
+            fileWriter.write("<UnitShort>" + tmpUnitQuantity + "</UnitShort>");
             fileWriter.write("\n");
             fileWriter.write("</Unit>");
             fileWriter.write("\n");

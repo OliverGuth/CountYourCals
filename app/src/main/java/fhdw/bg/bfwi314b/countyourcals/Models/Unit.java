@@ -5,10 +5,12 @@ public class Unit {
 
     private String mUnit;
     private String mUnitShorts;
+    private Integer mQuantity;
 
-    public Unit(String unit, String unitShort) {
+    public Unit(String unit, String unitShort, Integer quantity) {
         mUnit = unit;
         mUnitShorts = unitShort;
+        mQuantity = quantity;
     }
 
     public String toString() {
@@ -31,5 +33,8 @@ public class Unit {
 //		this.mUnitShorts = mUnitShorts;
 //	}
 
+    public Integer getQuantity() {
+        return mQuantity;
+    }
 
 }
