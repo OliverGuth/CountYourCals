@@ -38,7 +38,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="42.5">
+        android:layout_weight="45">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -46,28 +46,23 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/AccountMaxCalsText"
+                android:id="@+id/AccountNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Name: "
                 android:layout_weight="1"
-                android:text="@string/AccountMaxCalsText"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@color/Black"
-                android:gravity="center_vertical" />
-
-            <EditText
-                android:id="@+id/AccountMaxCalsValue"
+                android:textColor="@color/Black" />
+            <TextView
+                android:id="@+id/AccountNameValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Oliver Guth"
                 android:layout_weight="1"
-                android:text="2500"
-                android:inputType="numberDecimal"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@color/Black"
-                android:singleLine="true"
-                style="@style/Widget.AppCompat.EditText" />
+                android:textColor="@color/Black" />
 
         </LinearLayout>
 
@@ -103,23 +98,28 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/AccountNameText"
+                android:id="@+id/AccountMaxCalsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name: "
                 android:layout_weight="1"
+                android:text="@string/AccountMaxCalsText"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@color/Black" />
-            <TextView
-                android:id="@+id/AccountNameValue"
+                android:textColor="@color/Black"
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/AccountMaxCalsValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Oliver Guth"
                 android:layout_weight="1"
+                android:text="2500"
+                android:inputType="numberDecimal"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:textColor="@color/Black" />
+                android:textColor="@color/Black"
+                android:singleLine="true"
+                style="@style/Widget.AppCompat.EditText" />
 
         </LinearLayout>
 
@@ -132,6 +132,7 @@
         android:text="Ausloggen"
         android:textSize="18sp"
         android:textColor="@color/White"
-        android:layout_weight="12.5" />
+        android:layout_weight="10"
+        android:background="@color/Red" />
 
 </LinearLayout>

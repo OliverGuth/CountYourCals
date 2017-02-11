@@ -58,7 +58,7 @@ public class StatisticsActivity extends Activity {
             }});
 
         entries = new ArrayList<DiaryEntry>();
-        entries.add(new DiaryEntry(new Date("24.01.2017"), "Wrap", 100, "Gramm", 600, 1));
+        /*entries.add(new DiaryEntry(new Date("24.01.2017"), "Wrap", 100, "Gramm", 600, 1));
         entries.add(new DiaryEntry(new Date("25.01.2017"), "mein Gericht", 100, "Gramm", 200, 2));
         entries.add(new DiaryEntry(new Date("25.01.2017"), "Pommes", 100, "Gramm", 500, 3));
         entries.add(new DiaryEntry(new Date("25.01.2017"), "Pizza", 100, "Gramm", 723, 4));
@@ -88,7 +88,7 @@ public class StatisticsActivity extends Activity {
         entries.add(new DiaryEntry(new Date("06.02.2017"), "Brot", 100, "Gramm", 500, 29));
         entries.add(new DiaryEntry(new Date("07.02.2017"), "Kaffee", 1, "Tasse", 200, 30));
         entries.add(new DiaryEntry(new Date("08.02.2017"), "Salat", 100, "Gramm", 100, 31));
-
+*/
         updateView();
     }
 

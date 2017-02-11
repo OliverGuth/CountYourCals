@@ -225,7 +225,12 @@ public class DataStorageController {
         File tmpUserListFile = new File(context.getFilesDir() + "/User.xml");
         ArrayList<User> tmpUserArrayList;
         tmpUserArrayList = getUserList();
-        tmpUserArrayList.add(tmpUser);
+        if(tmpUserArrayList != null) tmpUserArrayList.add(tmpUser);
+        else
+        {
+            tmpUserArrayList = new ArrayList<User>();
+            tmpUserArrayList.add(tmpUser);
+        }
         mXMLWriter.writeUser(tmpUserArrayList, tmpUserListFile);
     }
 

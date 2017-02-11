@@ -13,6 +13,7 @@ import java.util.List;
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
 import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
+import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.ManagerState.*;
@@ -26,6 +27,7 @@ public class ManagerActivity extends Activity {
     private DialogFactory dialogFactory;
     private ManagerState state;
 
+    private User user;
     private Button food;
     private Button meal;
     private Button unit;
@@ -36,6 +38,7 @@ public class ManagerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
 
+        user = (User) this.getIntent().getSerializableExtra("user");
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
         units = new ArrayList<Unit>();
@@ -71,20 +74,20 @@ public class ManagerActivity extends Activity {
                 switch (state)
                 {
                     case FoodState:
-                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, units);
+                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, user);
                         break;
                     case MealsState:
-                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, foods);
+                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, user);
                         break;
                     case UnitsState:
-                        dialogFactory.CreateNewUnitDialog(ManagerActivity.this);
+                        dialogFactory.CreateNewUnitDialog(ManagerActivity.this, user);
                         break;
                 }
             }});
 
-        foods.add(new Food("Apfel", 200, "Gramm", 400));
-        foods.add(new Food("Hähnchenfleisch", 100, "Gramm", 200));
-        foods.add(new Food("Brot", 1, "Scheibe", 200));
+        //foods.add(new Food("Apfel", 200, "Gramm", 400));
+        //foods.add(new Food("Hähnchenfleisch", 100, "Gramm", 200));
+        //foods.add(new Food("Brot", 1, "Scheibe", 200));
 
         //meals.add(new Meal("Currywurst Pommes", 1, 200, "Gramm", 400, new ArrayList<String>(){"Wurst", "Pommes"}, ))
         updateView();
