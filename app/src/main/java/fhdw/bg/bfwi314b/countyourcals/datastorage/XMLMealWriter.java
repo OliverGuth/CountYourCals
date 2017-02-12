@@ -36,7 +36,7 @@ public class XMLMealWriter {
             tmpIdentifier = tmpMeal.getIdentifier();
             //tmpMealQuantity = tmpMeal.getMealQuantity();
             //tmpMealUnit = tmpMeal.getMealUnit();
-            tmpMealUnits = tmpMeal.getMealUnits();
+            tmpMealUnits = tmpMeal.getUnits();
             //tmpIngredients = tmpMeal.getIngredients();
 
             fileWriter.write("<Meal>");

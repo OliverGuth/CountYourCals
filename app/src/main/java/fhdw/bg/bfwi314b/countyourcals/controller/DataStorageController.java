@@ -6,11 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import android.content.Context;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.datastorage.*;
 
 /**
@@ -88,7 +84,7 @@ public class DataStorageController {
         tmpMealArrayList = getMealList(userName);
         for (int index = 0; index < tmpMealArrayList.size(); index++) {
             if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
-                tmpMealArrayList.get(index).addFood(ingredient);
+                tmpMealArrayList.get(index).addIngredient(ingredient);
 
                 index = tmpMealArrayList.size();
             }
@@ -158,7 +154,7 @@ public class DataStorageController {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         if (tmpDiaryEntryListFile.exists()) {
-            tmpDiaryEntryArrayList = mXMLReader.readDiaryEntry(tmpDiaryEntryListFile);
+            tmpDiaryEntryArrayList = mXMLReader.readDiaryEntry(tmpDiaryEntryListFile, userName);
         } else {
             try {
                 tmpDiaryEntryListFile.createNewFile();
@@ -170,7 +166,7 @@ public class DataStorageController {
         return tmpDiaryEntryArrayList;
     }
 
-    public void addDiaryEntry(String userName, Date timeStamp, String consumedName, Unit consumedUnit, Integer consumedKCal) {
+    public void addDiaryEntry(String userName, Date timeStamp, Consumable consumedObject, Unit consumedUnit, Integer consumedKCal) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(userName);
@@ -180,18 +176,18 @@ public class DataStorageController {
                 tmpIdentifier = tmpDiaryEntryArrayList.get(index).getIdentifier();
             }
         }
-        DiaryEntry tmpDiaryEntry = new DiaryEntry(timeStamp, consumedName, consumedUnit, consumedKCal, tmpIdentifier);
+        DiaryEntry tmpDiaryEntry = new DiaryEntry(timeStamp, consumedObject, consumedUnit, consumedKCal, tmpIdentifier);
         tmpDiaryEntryArrayList.add(tmpDiaryEntry);
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile);
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, userName);
     }
 
-    public void editDiaryEntry(String userName, Date timeStamp, String consumedName, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
+    public void editDiaryEntry(String userName, Date timeStamp, Consumable consumedObject, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + userName + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(userName);
         for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
             if (tmpDiaryEntryArrayList.get(index).getIdentifier() == identifier) {
-                tmpDiaryEntryArrayList.get(index).setConsumedName(consumedName);
+                tmpDiaryEntryArrayList.get(index).setConsumedObject(consumedObject);
                 //tmpDiaryEntryArrayList.get(index).setConsumedQuantity(consumedQuantity);
                 tmpDiaryEntryArrayList.get(index).setConsumedUnit(consumedUnit);
                 tmpDiaryEntryArrayList.get(index).setConsumedKCal(consumedKCal);
@@ -199,7 +195,7 @@ public class DataStorageController {
                 index = tmpDiaryEntryArrayList.size();
             }
         }
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile);
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, userName);
     }
 
     //----------

@@ -10,8 +10,8 @@ import android.widget.TableLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 import fhdw.bg.bfwi314b.countyourcals.R;
 

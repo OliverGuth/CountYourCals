@@ -3,11 +3,7 @@ package fhdw.bg.bfwi314b.countyourcals.datastorage;
 import java.io.File;
 import java.util.ArrayList;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 
 /**
  * Created by Niko.
@@ -29,9 +25,19 @@ public class XMLReader {
         xmlUserReader = new XMLUserReader();
     }
 
-    public ArrayList<DiaryEntry> readDiaryEntry(File file) {
+    public ArrayList<DiaryEntry> readDiaryEntry(File file, String userName) {
         try {
-            return xmlDiaryEntryReader.readDiaryEntry(file);
+            ArrayList<DiaryEntry> tmpDiaryEntryList;
+            tmpDiaryEntryList = xmlDiaryEntryReader.readDiaryEntry(file);
+            for (int i = 0; i < tmpDiaryEntryList.size(); i++) {
+                if (tmpDiaryEntryList.get(i).getConsumedType() == "Food") {
+                    ArrayList<Food> tmpFoodList = xmlFoodReader.readFood(new File(userName + "DE" + tmpDiaryEntryList.get(i).getIdentifier() + ".xml"));
+                    tmpDiaryEntryList.get(i).setConsumedObject(tmpFoodList.get(0));
+                } else if (tmpDiaryEntryList.get(i).getConsumedType() == "Meal") {
+                    ArrayList<Meal> tmpMealList = xmlMealReader.readMeal(new File(userName + "DE" + tmpDiaryEntryList.get(i).getIdentifier() + ".xml"));
+                    tmpDiaryEntryList.get(i).setConsumedObject(tmpMealList.get(0));
+                }
+            }
         } catch (Exception exception) {
             System.err.println(exception);
         }
@@ -52,7 +58,7 @@ public class XMLReader {
             ArrayList<Meal> mealArrayList;
             mealArrayList = xmlMealReader.readMeal(file);
             for (int i = 0; i < mealArrayList.size(); i++) {
-                mealArrayList.get(i).addFoodList(xmlFoodReader.readFood(new File(userName + mealArrayList.get(i).getIdentifier() + ".xml")));
+                mealArrayList.get(i).addIngredientList(xmlFoodReader.readFood(new File(userName + mealArrayList.get(i).getIdentifier() + ".xml")));
             }
         } catch (Exception exception) {
             System.err.println(exception);

@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
 
 /**
  * Created by Oliver Guth on 29.01.2017.

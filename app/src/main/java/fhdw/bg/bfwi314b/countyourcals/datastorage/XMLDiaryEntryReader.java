@@ -53,7 +53,7 @@ public class XMLDiaryEntryReader {
         Node entryNode;
         NodeList entryChildNodes;
         Date tmpTimeStamp = null;
-        String tmpName = "";
+        String tmpConsumedType = "";
         Integer tmpQuantity = null;
         String tmpUnitName = "";
         String tmpUnitShort = "";
@@ -67,17 +67,16 @@ public class XMLDiaryEntryReader {
             entryNode = entryNodeList.item(i);
             entryChildNodes = entryNode.getChildNodes();
             tmpTimeStamp = new Date(entryChildNodes.item(0).getTextContent());
-            tmpName = entryChildNodes.item(1).getTextContent();
-            tmpQuantity = Integer.parseInt(entryChildNodes.item(2).getTextContent());
-            tmpUnitName = entryChildNodes.item(3).getTextContent();
-            tmpUnitShort = entryChildNodes.item(4).getTextContent();
+            tmpQuantity = Integer.parseInt(entryChildNodes.item(1).getTextContent());
+            tmpUnitName = entryChildNodes.item(2).getTextContent();
+            tmpUnitShort = entryChildNodes.item(3).getTextContent();
             tmpUnit = new Unit(tmpUnitName, tmpUnitShort, tmpQuantity);
-            tmpKCal = Integer.parseInt(entryChildNodes.item(5).getTextContent());
-            tmpIdentifier = Integer.parseInt(entryChildNodes.item(6).getTextContent());
-
-            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpName, tmpUnit, tmpKCal, tmpIdentifier));
+            tmpKCal = Integer.parseInt(entryChildNodes.item(4).getTextContent());
+            tmpIdentifier = Integer.parseInt(entryChildNodes.item(5).getTextContent());
+            tmpConsumedType = entryChildNodes.item(6).getTextContent();
+            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpUnit, tmpKCal, tmpIdentifier, tmpConsumedType));
             tmpTimeStamp = null;
-            tmpName = "";
+            tmpConsumedType = "";
             tmpQuantity = null;
             tmpUnitName = "";
             tmpUnitShort = "";

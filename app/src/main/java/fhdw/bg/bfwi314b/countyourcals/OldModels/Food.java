@@ -1,14 +1,19 @@
-package fhdw.bg.bfwi314b.countyourcals.Models;
+package fhdw.bg.bfwi314b.countyourcals.OldModels;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko
+ * Created by Niko.
  */
 
-public class Food implements Consumable {
+public class Food {
 
     private String mName;
+    //private ArrayList<String> mUnit;
+    //private ArrayList<Integer> mQuantity;
     private ArrayList<Unit> mUnits;
     private Integer mKCal;
 
@@ -41,17 +46,27 @@ public class Food implements Consumable {
         mKCal = kCal;
     }
 
-    public String getName() {
-        return mName;
+    public void addUnit(Unit unit) {
+        //mUnit.add(unit);
+        //mQuantity.add(quantity);
+        mUnits.add(unit);
     }
 
     public String toString() {
         return mName;
     }
 
-    public void addUnit(Unit unit) {
-        mUnits.add(unit);
+    public String getName() {
+        return mName;
     }
+
+    /*public ArrayList<String> getUnit() {
+        return mUnit;
+    }
+
+    public ArrayList<Integer> getQuantity() {
+        return mQuantity;
+    }*/
 
     public ArrayList<Unit> getUnits() {
         return mUnits;
@@ -61,7 +76,4 @@ public class Food implements Consumable {
         return mKCal;
     }
 
-    public String getType() {
-        return "Food";
-    }
 }

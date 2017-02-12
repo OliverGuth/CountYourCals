@@ -3,30 +3,24 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.DiaryState.*;
 

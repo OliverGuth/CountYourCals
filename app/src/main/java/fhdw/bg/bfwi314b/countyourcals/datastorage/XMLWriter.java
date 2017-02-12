@@ -1,15 +1,9 @@
 package fhdw.bg.bfwi314b.countyourcals.datastorage;
 
-import android.content.Context;
-
 import java.io.File;
 import java.util.ArrayList;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 
 /**
  * Created by Niko.
@@ -31,8 +25,19 @@ public class XMLWriter {
         xmlUserWriter = new XMLUserWriter();
     }
 
-    public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file) {
+    public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file, String userName) {
         try {
+            for (int i = 0; i < entryArrayList.size(); i++) {
+                if (entryArrayList.get(i).getConsumedType() == "Food") {
+                    ArrayList<Food> tmpFoodList = new ArrayList<Food>();
+                    tmpFoodList.add((Food) entryArrayList.get(i).getConsumedObject());
+                    xmlFoodWriter.writeFood(tmpFoodList, new File(userName + "DE" + entryArrayList.get(i).getIdentifier() + ".xml"));
+                } else if (entryArrayList.get(i).getConsumedType() == "Meal") {
+                    ArrayList<Meal> tmpMealList = new ArrayList<Meal>();
+                    tmpMealList.add((Meal) entryArrayList.get(i).getConsumedObject());
+                    xmlMealWriter.writeMeal(tmpMealList, new File(userName + "DE" + entryArrayList.get(i).getIdentifier() + ".xml"));
+                }
+            }
             xmlDiaryEntryWriter.writeDiaryEntry(entryArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);

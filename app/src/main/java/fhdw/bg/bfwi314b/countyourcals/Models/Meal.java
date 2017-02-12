@@ -1,125 +1,97 @@
 package fhdw.bg.bfwi314b.countyourcals.Models;
 
-import org.xml.sax.InputSource;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
- * Created by Niko.
+ * Created by Niko
  */
 
-public class Meal {
+public class Meal implements Consumable {
 
     private String mName;
     private Integer mIdentifier;
-    //private ArrayList<Integer> mMealQuantity;
-    //private ArrayList<String> mMealUnit;
-    private ArrayList<Unit> mMealUnits;
-
-
-    //private Integer mMealKCal;
+    private ArrayList<Unit> mUnits;
     private ArrayList<Food> mIngredients;
-    private Integer mSumOfKCal;
+    private Integer mKCal;
 
     public Meal(String name, Integer identifier) {
         mName = name;
         mIdentifier = identifier;
-        //mMealQuantity = new ArrayList<Integer>();
-        //mMealUnit = new ArrayList<String>();
-        mMealUnits = new ArrayList<Unit>();
-        //mMealKCal = null;
+        mUnits = new ArrayList<Unit>();
         mIngredients = new ArrayList<Food>();
-        mSumOfKCal = null;
+        mKCal = 0;
     }
 
     public Meal(String name, Integer identifier, Unit mealUnit, ArrayList<Food> ingredients) {
         mName = name;
         mIdentifier = identifier;
-        //mMealQuantity = new ArrayList<Integer>();
-        //mMealQuantity.add(mealQuantity);
-        //mMealUnit = new ArrayList<String>();
-        //mMealUnit.add(mealUnit);
-        mMealUnits.add(mealUnit);
-        //mMealKCal = mealKCal;
+        mUnits.add(mealUnit);
         mIngredients = (ArrayList<Food>) ingredients.clone();
-        mSumOfKCal = 0;
-
+        mKCal = 0;
         for (int i = 0; i < mIngredients.size(); i++) {
-            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
+            mKCal = mKCal + mIngredients.get(i).getKCal();
         }
     }
 
     public Meal(String name, Integer identifier, ArrayList<Unit> mealUnits) {
         mName = name;
         mIdentifier = identifier;
-        //mMealQuantity = (ArrayList<Integer>) mealQuantity.clone();
-        mMealUnits = (ArrayList<Unit>) mealUnits.clone();
-        //mMealKCal = mealKCal;
+        mUnits = (ArrayList<Unit>) mealUnits.clone();
         mIngredients = new ArrayList<Food>();
-        mSumOfKCal = 0;
-
+        mKCal = 0;
         for (int i = 0; i < mIngredients.size(); i++) {
-            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
+            mKCal = mKCal + mIngredients.get(i).getKCal();
         }
     }
 
-    public Meal(String name, Integer identifier, ArrayList<Unit> mealUnit, /*Integer mealKCal,*/ ArrayList<Food> ingredients) {
+    public Meal(String name, Integer identifier, ArrayList<Unit> mealUnit, ArrayList<Food> ingredients) {
         mName = name;
         mIdentifier = identifier;
-        //mMealQuantity = (ArrayList<Integer>) mealQuantity.clone();
-        mMealUnits = (ArrayList<Unit>) mealUnit.clone();
-        //mMealKCal = mealKCal;
+        mUnits = (ArrayList<Unit>) mealUnit.clone();
         mIngredients = (ArrayList<Food>) ingredients.clone();
-        mSumOfKCal = 0;
-
+        mKCal = 0;
         for (int i = 0; i < mIngredients.size(); i++) {
-            mSumOfKCal = mSumOfKCal + mIngredients.get(i).getKCal();
+            mKCal = mKCal + mIngredients.get(i).getKCal();
         }
-    }
-
-    public void addFood(Food ingredient) {
-        mIngredients.add(ingredient);
-        mSumOfKCal = mSumOfKCal + ingredient.getKCal();
-    }
-
-    public void addFoodList(ArrayList<Food> ingredients) {
-        for (int i = 0; i < ingredients.size(); i++) {
-            mIngredients.add(ingredients.get(i));
-            mSumOfKCal = mSumOfKCal + ingredients.get(i).getKCal();
-        }
-    }
-
-    public void addUnit(Unit unit) {
-        mMealUnits.add(unit);
-    }
-
-    public String toString() {
-        return mName;
-    }
-
-    public Integer getSumOfKCal() {
-        return mSumOfKCal;
-    }
-
-    public ArrayList<Food> getIngredients() {
-        return mIngredients;
     }
 
     public String getName() {
         return mName;
     }
 
-    /*public ArrayList<Integer> getMealQuantity() {
-        return mMealQuantity;
+    public String toString() {
+        return mName;
     }
 
-    public ArrayList<String> getMealUnit() {
-        return mMealUnit;
-    }*/
+    public void addUnit(Unit unit) {
+        mUnits.add(unit);
+    }
 
-    public ArrayList<Unit> getMealUnits() {
-        return mMealUnits;
+    public ArrayList<Unit> getUnits() {
+        return mUnits;
+    }
+
+    public Integer getKCal() {
+        return mKCal;
+    }
+
+    public String getType() {
+        return "Meal";
+    }
+
+    public void addIngredient(Food ingredient) {
+        mIngredients.add(ingredient);
+    }
+
+    public void addIngredientList(ArrayList<Food> ingredients) {
+        for (int i = 0; i < ingredients.size(); i++) {
+            mIngredients.add(ingredients.get(i));
+            mKCal = mKCal + ingredients.get(i).getKCal();
+        }
+    }
+
+    public ArrayList<Food> getIngredients() {
+        return mIngredients;
     }
 
     public Integer getIdentifier() {

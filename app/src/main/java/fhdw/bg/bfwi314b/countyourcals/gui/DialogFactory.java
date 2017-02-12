@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
@@ -51,7 +50,7 @@ public class DialogFactory {
     public void CreateNewDiaryEntryDialog(final Context context, List<Food> foods, List<Meal> meals)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -76,7 +75,7 @@ public class DialogFactory {
     public void CreateNewFoodDialog(final Context context, List<Unit> units)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 /*
@@ -102,7 +101,7 @@ public class DialogFactory {
     public void CreateNewMealDialog(final Context context, List<Food> foods)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 /*
@@ -128,7 +127,7 @@ public class DialogFactory {
     public void CreateNewUnitDialog(final Context context)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -148,7 +147,7 @@ public class DialogFactory {
     public void CreateEditDiaryEntryDialog(final Context context, DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
 
         //load data from DiaryEntry
 
@@ -172,7 +171,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -215,7 +214,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -251,7 +250,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -287,7 +286,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);

@@ -1,34 +1,40 @@
 package fhdw.bg.bfwi314b.countyourcals.Models;
 
-import java.security.Timestamp;
 import java.util.Date;
 
 /**
- * Created by Niko.
+ * Created by Niko
  */
 
 public class DiaryEntry {
 
     private Date mTimeStamp;
-    private String mConsumedName;
-    //private Integer mConsumedQuantity;
-    //private String mConsumedUnit;
+    private Consumable mConsumedObject;
     private Unit mConsumedUnit;
     private Integer mConsumedKCal;
     private Integer mIdentifier;
+    private String mConsumedType;
 
-    public DiaryEntry(Date timeStamp, String consumedName, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
+    public DiaryEntry(Date timeStamp, Consumable consumed, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
         mTimeStamp = timeStamp;
-        mConsumedName = consumedName;
-        //mConsumedQuantity = consumedQuantity;
-        //mConsumedUnit = consumedUnit;
+        mConsumedObject = consumed;
         mConsumedUnit = consumedUnit;
         mConsumedKCal = consumedKCal;
         mIdentifier = identifier;
+        mConsumedType = mConsumedObject.getType();
+    }
+
+    public DiaryEntry(Date timeStamp, Unit consumedUnit, Integer consumedKCal, Integer identifier, String consumedType) {
+        mTimeStamp = timeStamp;
+        mConsumedObject = null;
+        mConsumedUnit = consumedUnit;
+        mConsumedKCal = consumedKCal;
+        mIdentifier = identifier;
+        mConsumedType = consumedType;
     }
 
     public String toString() {
-        return mConsumedName;
+        return mConsumedObject.toString();
     }
 
     public Date getTimeStamp() {
@@ -36,46 +42,39 @@ public class DiaryEntry {
     }
 
     public String getConsumedName() {
-        return mConsumedName;
+        return mConsumedObject.getName();
     }
 
-    public void setConsumedName(String mConsumedName) {
-        this.mConsumedName = mConsumedName;
+    public void setConsumedObject(Consumable consumedObject) {
+        mConsumedObject = consumedObject;
+        mConsumedType = mConsumedObject.getType();
     }
-
-    /*public Integer getConsumedQuantity() {
-        return mConsumedQuantity;
-    }*/
 
     public Integer getIdentifier() {
         return mIdentifier;
     }
-
-    /*public void setConsumedQuantity(Integer mConsumedQuantity) {
-        this.mConsumedQuantity = mConsumedQuantity;
-    }
-
-    public String getConsumedUnit() {
-        return mConsumedUnit;
-    }
-
-    public void setConsumedUnit(String mConsumedUnit) {
-        this.mConsumedUnit = mConsumedUnit;
-    }*/
 
     public Unit getConsumedUnit() {
         return mConsumedUnit;
     }
 
     public void setConsumedUnit(Unit unit) {
-        this.mConsumedUnit = unit;
+        mConsumedUnit = unit;
     }
 
     public Integer getConsumedKCal() {
         return mConsumedKCal;
     }
 
-    public void setConsumedKCal(Integer mConsumedKCal) {
-        this.mConsumedKCal = mConsumedKCal;
+    public void setConsumedKCal(Integer consumedKCal) {
+        mConsumedKCal = consumedKCal;
+    }
+
+    public Consumable getConsumedObject() {
+        return mConsumedObject;
+    }
+
+    public String getConsumedType() {
+        return mConsumedType;
     }
 }

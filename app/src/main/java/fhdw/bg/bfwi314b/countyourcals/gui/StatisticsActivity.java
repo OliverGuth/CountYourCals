@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.StatisticsState.*;
