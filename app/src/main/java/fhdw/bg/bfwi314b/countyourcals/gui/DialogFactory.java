@@ -18,7 +18,9 @@ import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
 import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
 import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
+import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.R;
+import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
  * Created by Oliver Guth on 02.02.2017.
@@ -29,22 +31,33 @@ public class DialogFactory {
     private AccountActivity accountActivity;
     private MainActivity mainActivity;
     private ManagerActivity managerActivity;
+    private DataStorageController controller;
 
     private boolean result;
 
     public DialogFactory(DiaryActivity diaryActivity)
     {
         this.diaryActivity = diaryActivity;
+        controller = new DataStorageController(this.diaryActivity.getBaseContext());
     }
 
-    public DialogFactory(AccountActivity accountActivity) { this.accountActivity = accountActivity; }
+    public DialogFactory(AccountActivity accountActivity)
+    {
+        this.accountActivity = accountActivity;
+        controller = new DataStorageController(this.accountActivity.getBaseContext());
+    }
 
     public DialogFactory(MainActivity mainActivity)
     {
         this.mainActivity = mainActivity;
+        controller = new DataStorageController(this.mainActivity.getBaseContext());
     }
 
-    public DialogFactory(ManagerActivity managerActivity) { this.managerActivity = managerActivity; }
+    public DialogFactory(ManagerActivity managerActivity)
+    {
+        this.managerActivity = managerActivity;
+        controller = new DataStorageController(this.managerActivity.getBaseContext());
+    }
 
 
     public void CreateNewDiaryEntryDialog(final Context context, List<Food> foods, List<Meal> meals)
@@ -64,15 +77,31 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-                //Eintrag überprüfen und Speichern
+                List<Unit> unitList = controller.getUnitList(user.getName());
+                boolean unitExists = false;
+                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                    if (unitList != null) {
+                        for (Unit unit : unitList) {
+                            if (name.getText().toString().trim().equals(unit.getUnit())) {
+                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                unitExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (unitExists == false) {
+                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
         dialog.show();
     }
 
-    public void CreateNewFoodDialog(final Context context, List<Unit> units)
+    public void CreateNewFoodDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
@@ -89,16 +118,32 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-                //Eintrag überprüfen und Speichern
+                List<Unit> unitList = controller.getUnitList(user.getName());
+                boolean unitExists = false;
+                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                    if (unitList != null) {
+                        for (Unit unit : unitList) {
+                            if (name.getText().toString().trim().equals(unit.getUnit())) {
+                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                unitExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (unitExists == false) {
+                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
         */
         dialog.show();
     }
 
-    public void CreateNewMealDialog(final Context context, List<Food> foods)
+    public void CreateNewMealDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
@@ -115,16 +160,32 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-                //Eintrag überprüfen und Speichern
+                List<Unit> unitList = controller.getUnitList(user.getName());
+                boolean unitExists = false;
+                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                    if (unitList != null) {
+                        for (Unit unit : unitList) {
+                            if (name.getText().toString().trim().equals(unit.getUnit())) {
+                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                unitExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (unitExists == false) {
+                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
         */
         dialog.show();
     }
 
-    public void CreateNewUnitDialog(final Context context)
+    public void CreateNewUnitDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
@@ -133,12 +194,29 @@ public class DialogFactory {
 
         final Button saveEntry = (Button) view.findViewById(R.id.DialogNewUnitSaveButton);
         final EditText name = (EditText) view.findViewById(R.id.DialogNewUnitName);
+        final EditText nameShort = (EditText) view.findViewById(R.id.DialogNewUnitNameShort);
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "Eintrag " + name.getText() + " gespeichert", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-                //Eintrag überprüfen und Speichern
+                List<Unit> unitList = controller.getUnitList(user.getName());
+                boolean unitExists = false;
+                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                    if (unitList != null) {
+                        for (Unit unit : unitList) {
+                            if (name.getText().toString().trim().equals(unit.getUnit())) {
+                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                unitExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (unitExists == false) {
+                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
         dialog.show();
@@ -181,7 +259,8 @@ public class DialogFactory {
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(context, "Zum aktuellen Tag kopiert", Toast.LENGTH_LONG).show();
-                diaryActivity.entries.add(new DiaryEntry(Calendar.getInstance().getTime(),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
+                //diaryActivity.entries.add(new DiaryEntry(Calendar.getInstance().getTime(),diaryEntry.getConsumedName(), diaryEntry.getConsumedQuantity(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal(), 1000));
+
                 diaryActivity.updateView();
                 dialog.dismiss();
             }
@@ -205,8 +284,6 @@ public class DialogFactory {
         });
 
         dialog.show();
-
-
     }
 
     public void CreateEditLineDialog(final Context context, final Food food)
@@ -329,24 +406,48 @@ public class DialogFactory {
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(loginUserName.getText().toString().trim().equals("Oliver"))
-                {
-                    Toast.makeText(context, "login successful", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
+                List<User> userlist = controller.getUserList();
+                if(userlist != null) {
+                    for (User user : userlist) {
+                        if (loginUserName.getText().toString().trim().equals(user.getName())) {
+                            Toast.makeText(context, "Eingeloggt als " + user.getName(), Toast.LENGTH_LONG).show();
+                            dialog.setCancelable(true);
+                            dialog.cancel();
+                            if (mainActivity != null)
+                                mainActivity.user = user;
+                            if (accountActivity != null) {
+                                accountActivity.user = user;
+                                accountActivity.fillUserData();
+                            }
+                            break;
+                        }
+                    }
                 }
-                else
+                if(mainActivity != null)
                 {
-                    Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
-                    CreateNewUserDialog(context, loginUserName.getText().toString());
-                    dialog.dismiss();
+                    if(mainActivity.user == null)
+                    {
+                        Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
+                        CreateNewUserDialog(context, loginUserName.getText().toString());
+                    }
                 }
+                if(accountActivity != null)
+                {
+                    if(accountActivity.user == null)
+                    {
+                        Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
+                        CreateNewUserDialog(context, loginUserName.getText().toString());
+                    }
+                }
+
+
             }
         });
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                     CreateNewUserDialog(context, loginUserName.getText().toString());
-                    dialog.dismiss();
+
                 }});
         dialog.setCancelable(false);
         dialog.show();
@@ -368,11 +469,27 @@ public class DialogFactory {
 
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "User created", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                List<User> userlist = controller.getUserList();
+                boolean userExists = false;
+                if(!name.getText().toString().equals("") && !maxCals.getText().toString().equals("")) {
+                    if (userlist != null) {
+                        for (User user : userlist) {
+                            if (name.getText().toString().trim().equals(user.getName())) {
+                                Toast.makeText(context, "User " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                userExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (userExists == false) {
+                        controller.addUser(name.getText().toString(), gender.getSelectedItem().toString().charAt(0), Integer.parseInt(maxCals.getText().toString()), language.getSelectedItem().toString());
+
+                        Toast.makeText(context, "User angelegt", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
-        dialog.setCancelable(false);
         dialog.show();
     }
 

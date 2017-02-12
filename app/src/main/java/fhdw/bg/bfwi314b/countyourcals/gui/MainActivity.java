@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     private List<User> users;
     private List<Food> foods;
     private List<Meal> meals;
-    private User user;
+    public User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +37,10 @@ public class MainActivity extends Activity {
         controller = new DataStorageController(MainActivity.this);
 
         users = new ArrayList<User>();
-        foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
-        controller.addUser("Oliver", 'M', 2500, "Deutsch");
         users = controller.getUserList();
 
-        Toast.makeText(MainActivity.this, "Anzahl user: " + users.size(),Toast.LENGTH_LONG).show();
-        user = new User("Oliver", 'M', 2500, "Deutsch");
-        //dialogFactory.CreateLoginDialog(MainActivity.this);
-        //User holen
+        dialogFactory.CreateLoginDialog(MainActivity.this);
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.BayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");
@@ -74,6 +69,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if(user != null) {
                     Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
                 else
@@ -85,7 +81,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if(user != null) {
                     Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
-                    //intent.putExtra("user", (Parcelable)user);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
                 else
@@ -97,7 +93,8 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if(user != null) {
                     Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("user", user);
+                    startActivityForResult(intent, 1);
                 }
                 else
                     dialogFactory.CreateLoginDialog(MainActivity.this);
@@ -127,5 +124,10 @@ public class MainActivity extends Activity {
                     }});
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == 1) user = (User) data.getSerializableExtra("user");
     }
 }

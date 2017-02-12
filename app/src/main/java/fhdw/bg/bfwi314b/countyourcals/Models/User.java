@@ -4,7 +4,7 @@ package fhdw.bg.bfwi314b.countyourcals.Models;
  * Created by Niko.
  */
 
-public class User {
+public class User implements java.io.Serializable{
 
     private String mName;
     private Character mGender;
