@@ -6,17 +6,15 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
+import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.Food;
+import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.R;
@@ -60,10 +58,10 @@ public class DialogFactory {
     }
 
 
-    public void CreateNewDiaryEntryDialog(final Context context, List<Food> foods, List<Meal> meals)
+    public void CreateNewDiaryEntryDialog(final Context context, final User user)
     {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
+        /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -77,34 +75,29 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Unit> unitList = controller.getUnitList(user.getName());
-                boolean unitExists = false;
-                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
-                    if (unitList != null) {
-                        for (Unit unit : unitList) {
-                            if (name.getText().toString().trim().equals(unit.getUnit())) {
-                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
-                                unitExists = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (unitExists == false) {
-                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+                List<Food> foodList = controller.getFoodList(user.getName());
+                List<Meal> unitList = controller.getMealList(user.getName());
+                if(((food.getSelectedItemPosition() != 0 && meal.getSelectedItemPosition() == 0) || (food.getSelectedItemPosition() == 0 && meal.getSelectedItemPosition() != 0)) && !(food.getSelectedItemPosition() == 0 && meal.getSelectedItemPosition() == 0))
+                {
+                    if(!quantity.getText().toString().equals(""))
+                    {
+                        if(Integer.parseInt(quantity.getText().toString()) > 0)
+                            controller.addDiaryEntry(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
 
-                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+                            Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
                     }
                 }
             }
         });
         dialog.show();
+        */
     }
 
     public void CreateNewFoodDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 /*
@@ -146,7 +139,7 @@ public class DialogFactory {
     public void CreateNewMealDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 /*
@@ -188,7 +181,7 @@ public class DialogFactory {
     public void CreateNewUnitDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -198,21 +191,22 @@ public class DialogFactory {
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Unit> unitList = controller.getUnitList(user.getName());
+                List<Unit> unitList = controller.getUnitList(user);
                 boolean unitExists = false;
                 if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
                     if (unitList != null) {
                         for (Unit unit : unitList) {
                             if (name.getText().toString().trim().equals(unit.getUnit())) {
-                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Eintrag " + unit.getUnit() + " existiert bereits", Toast.LENGTH_LONG).show();
                                 unitExists = true;
                                 break;
                             }
                         }
                     }
                     if (unitExists == false) {
-                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
-
+                        Unit unit = new Unit(name.getText().toString(), nameShort.getText().toString(), 0);
+                        controller.addUnit(unit, user);
+                        managerActivity.updateView();
                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
@@ -225,7 +219,7 @@ public class DialogFactory {
     public void CreateEditDiaryEntryDialog(final Context context, DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
 
         //load data from DiaryEntry
 
@@ -249,7 +243,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -291,7 +285,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -327,7 +321,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -363,7 +357,7 @@ public class DialogFactory {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_column, null);
+        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -482,7 +476,8 @@ public class DialogFactory {
                         }
                     }
                     if (userExists == false) {
-                        controller.addUser(name.getText().toString(), gender.getSelectedItem().toString().charAt(0), Integer.parseInt(maxCals.getText().toString()), language.getSelectedItem().toString());
+                        User user = new User(name.getText().toString(), gender.getSelectedItem().toString().charAt(0), Integer.parseInt(maxCals.getText().toString()), language.getSelectedItem().toString());
+                        controller.addUser(user);
 
                         Toast.makeText(context, "User angelegt", Toast.LENGTH_LONG).show();
                         dialog.dismiss();

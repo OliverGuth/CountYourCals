@@ -50,9 +50,7 @@ public class AccountActivity extends Activity {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 user = null;
-                name.setTag("workInProgress" );
                 name.setText("");
-                name.setTag(null);
                 gender.setText("");
                 maxCals.setText("");
                 dialogFactory.CreateLoginDialog(AccountActivity.this);
@@ -75,7 +73,7 @@ public class AccountActivity extends Activity {
     public void onBackPressed() {
         if(Integer.parseInt(maxCals.getText().toString()) != user.getMaxKCal())
         {
-            controller.editUser(user.getName(),user.getGender(),Integer.parseInt(maxCals.getText().toString()), user.getLanguage());
+            controller.editUser(user);
             user.setMaxKCal(Integer.parseInt(maxCals.getText().toString()));
     }
         fillUserData();

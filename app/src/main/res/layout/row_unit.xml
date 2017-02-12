@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/UnitTableRow"
+    android:background="@color/White"
+    android:weightSum="100"
+    android:longClickable="true">
+
+    <TextView
+        android:text="1."
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/UnitLineNumber"
+        android:layout_weight="5"
+        android:textSize="18sp"
+        android:textColor="@color/Black"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:text="Einheit 1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="85"
+        android:textSize="18sp"
+        android:textColor="@color/Black"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/UnitLineName" />
+
+
+    <include
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/image_button"
+        android:layout_weight="10"
+        android:layout_margin="3dp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/UnitButtonLineEdit" />
+
+</TableRow>

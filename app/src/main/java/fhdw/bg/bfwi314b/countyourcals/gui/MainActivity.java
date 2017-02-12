@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
                 buttonNewEntry.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         if(user != null) {
-                            dialogFactory.CreateNewDiaryEntryDialog(MainActivity.this, foods, meals);
+                            dialogFactory.CreateNewDiaryEntryDialog(MainActivity.this, user);
                         }
                         else
                             dialogFactory.CreateLoginDialog(MainActivity.this);

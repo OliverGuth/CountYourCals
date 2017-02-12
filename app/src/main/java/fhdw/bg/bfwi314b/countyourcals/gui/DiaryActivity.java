@@ -51,7 +51,7 @@ public class DiaryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-        rowFactory = new RowFactory(this);
+        rowFactory = new RowFactory(this, user);
         dialogFactory = new DialogFactory(this);
 
         foods = new ArrayList<Food>();
@@ -162,7 +162,7 @@ public class DiaryActivity extends Activity {
 
 
         newEntry.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { dialogFactory.CreateNewDiaryEntryDialog(DiaryActivity.this, foods, meals); }});
+            public void onClick(View v) { dialogFactory.CreateNewDiaryEntryDialog(DiaryActivity.this, user); }});
 
         maxDiff.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

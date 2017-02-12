@@ -42,7 +42,7 @@ public class ManagerActivity extends Activity {
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
         units = new ArrayList<Unit>();
-        rowFactory = new RowFactory(this);
+        rowFactory = new RowFactory(this, user);
         dialogFactory = new DialogFactory(this);
 
         food = (Button) findViewById(R.id.ManagerButtonFood);
@@ -100,15 +100,15 @@ public class ManagerActivity extends Activity {
         {
             case FoodState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
-                rowFactory.FillFoodTableLayout(table, foods, ManagerActivity.this);
+                rowFactory.FillFoodTableLayout(table, ManagerActivity.this);
                 break;
             case MealsState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                rowFactory.FillMealTableLayout(table, meals, ManagerActivity.this);
+                rowFactory.FillMealTableLayout(table, ManagerActivity.this);
                 break;
             case UnitsState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                rowFactory.FillUnitTableLayout(table, units, ManagerActivity.this);
+                rowFactory.FillUnitTableLayout(table, ManagerActivity.this);
                 break;
         }
     }
