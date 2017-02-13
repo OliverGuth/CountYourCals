@@ -13,6 +13,7 @@ public class Unit {
         mQuantity = quantity;
     }
 
+    @Override
     public String toString() {
         return mUnit;
     }

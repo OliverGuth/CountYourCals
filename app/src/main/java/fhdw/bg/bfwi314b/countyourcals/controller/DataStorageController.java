@@ -117,12 +117,15 @@ public class DataStorageController {
         return tmpFoodArrayList;
     }
 
-    public void addFood(String foodName, Unit foodUnit, Integer foodKCal, User user) {
-        Food tmpFood = new Food(foodName, foodUnit, foodKCal);
+    public void addFood(Food food, User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
-        ArrayList<Food> tmpFoodArrayList;
-        tmpFoodArrayList = getFoodList(user);
-        tmpFoodArrayList.add(tmpFood);
+        ArrayList<Food> tmpFoodArrayList = getFoodList(user);
+        if(tmpFoodArrayList != null) tmpFoodArrayList.add(food);
+        else
+        {
+            tmpFoodArrayList = new ArrayList<Food>();
+            tmpFoodArrayList.add(food);
+        }
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
@@ -153,11 +156,11 @@ public class DataStorageController {
 
     //----------
 
-    public ArrayList<DiaryEntry> getDiaryEntryList(String userName) {
-        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + userName + "DiaryEntry.xml");
+    public ArrayList<DiaryEntry> getDiaryEntryList(User user) {
+        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         if (tmpDiaryEntryListFile.exists()) {
-            tmpDiaryEntryArrayList = mXMLReader.readDiaryEntry(tmpDiaryEntryListFile, userName);
+            tmpDiaryEntryArrayList = mXMLReader.readDiaryEntry(tmpDiaryEntryListFile, user.getName());
         } else {
             try {
                 tmpDiaryEntryListFile.createNewFile();
@@ -169,28 +172,27 @@ public class DataStorageController {
         return tmpDiaryEntryArrayList;
     }
 
-    public void addDiaryEntry(String userName, Date timeStamp, String consumedName, Unit consumedUnit, Integer consumedKCal) {
-        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + userName + "DiaryEntry.xml");
+    public void addDiaryEntry(DiaryEntry diaryEntry, User user) {
+        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
-        tmpDiaryEntryArrayList = getDiaryEntryList(userName);
+        tmpDiaryEntryArrayList = getDiaryEntryList(user);
         Integer tmpIdentifier = 0;
         for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
             if (tmpIdentifier < tmpDiaryEntryArrayList.get(index).getIdentifier()) {
                 tmpIdentifier = tmpDiaryEntryArrayList.get(index).getIdentifier();
             }
         }
-        DiaryEntry tmpDiaryEntry = new DiaryEntry(timeStamp, consumedName, consumedUnit, consumedKCal, tmpIdentifier);
-        tmpDiaryEntryArrayList.add(tmpDiaryEntry);
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, userName);
+        tmpDiaryEntryArrayList.add(diaryEntry);
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
     }
 
     public void editDiaryEntry(DiaryEntry diaryEntry, User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
-        tmpDiaryEntryArrayList = getDiaryEntryList(user.getName());
+        tmpDiaryEntryArrayList = getDiaryEntryList(user);
         for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
             if (tmpDiaryEntryArrayList.get(index).getIdentifier() == diaryEntry.getIdentifier()) {
-                tmpDiaryEntryArrayList.get(index).setConsumedName(diaryEntry.getConsumedName());
+                //tmpDiaryEntryArrayList.get(index).setConsumedName(diaryEntry.getConsumedName());
                 //tmpDiaryEntryArrayList.get(index).setConsumedQuantity(consumedQuantity);
                 tmpDiaryEntryArrayList.get(index).setConsumedUnit(diaryEntry.getConsumedUnit());
                 tmpDiaryEntryArrayList.get(index).setConsumedKCal(diaryEntry.getConsumedKCal());
@@ -198,7 +200,7 @@ public class DataStorageController {
                 index = tmpDiaryEntryArrayList.size();
             }
         }
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, userName);
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
     }
 
     //----------
@@ -278,6 +280,34 @@ public class DataStorageController {
         mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
     }
 
+    public void editUnit(Unit oldUnit, Unit newUnit, User user) {
+        File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
+        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);;
+        if(tmpUnitArrayList != null) {
+            for (int index = 0; index < tmpUnitArrayList.size(); index++) {
+                if (tmpUnitArrayList.get(index).getUnit().equals(oldUnit.getUnit())) {
+                    tmpUnitArrayList.set(index, newUnit);
+                }
+            }
+        }
+        mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
+
+    }
+
+    public void deleteUnit(Unit unit, User user) {
+        File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
+        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);;
+        if(tmpUnitArrayList != null)
+        for (int index = 0; index < tmpUnitArrayList.size(); index++) {
+            if (unit.getUnit().equals(tmpUnitArrayList.get(index).getUnit()))
+            {
+                tmpUnitArrayList.remove(index);
+                break;
+            }
+        }
+        mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
+    }
+
     public void factoryReset()
     {
         if(context.getFilesDir().isDirectory())
@@ -285,7 +315,4 @@ public class DataStorageController {
             for (File child : context.getFilesDir().listFiles()) if(child.getName().contains(".xml")) child.delete();
         }
     }
-    /*public void editUnit(String userName, Character gender, Integer maxKCal, String language) {
-
-    }*/
 }

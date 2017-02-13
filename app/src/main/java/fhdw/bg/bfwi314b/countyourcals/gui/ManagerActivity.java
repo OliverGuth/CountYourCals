@@ -8,12 +8,11 @@ import android.widget.Button;
 import android.widget.TableLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
+
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.ManagerState.*;
@@ -34,6 +33,12 @@ public class ManagerActivity extends Activity {
     private TableLayout table;
 
     @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        outState.putBoolean("RESTART", true);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
@@ -42,7 +47,7 @@ public class ManagerActivity extends Activity {
         foods = new ArrayList<Food>();
         meals = new ArrayList<Meal>();
         units = new ArrayList<Unit>();
-        rowFactory = new RowFactory(this, user);
+        rowFactory = new RowFactory(this);
         dialogFactory = new DialogFactory(this);
 
         food = (Button) findViewById(R.id.ManagerButtonFood);
@@ -51,7 +56,8 @@ public class ManagerActivity extends Activity {
         table = (TableLayout)this.findViewById(R.id.ManagerTableLayout);
         Button newEntry = (Button) findViewById(R.id.ManagerButtonNewEntry);
 
-        state = MealsState;
+        if (savedInstanceState == null) state = MealsState;
+
 
         food.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -100,17 +106,20 @@ public class ManagerActivity extends Activity {
         {
             case FoodState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
-                rowFactory.FillFoodTableLayout(table, ManagerActivity.this);
+                rowFactory.FillFoodTableLayout(table, user, ManagerActivity.this);
                 break;
             case MealsState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                rowFactory.FillMealTableLayout(table, ManagerActivity.this);
+                rowFactory.FillMealTableLayout(table, user, ManagerActivity.this);
                 break;
             case UnitsState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                rowFactory.FillUnitTableLayout(table, ManagerActivity.this);
+                rowFactory.FillUnitTableLayout(table, user, ManagerActivity.this);
                 break;
         }
+        //DiaryEntry entryFood = new DiaryEntry(Calendar.getInstance().getTime(), new Food("Apfel"), 200, 1);
+        //DiaryEntry entry = new DiaryEntry(Calendar.getInstance().getTime(), new Meal("Apfel", 2), 200, 1);
+
     }
 
     private void highlightState(int color1, int color2, int color3)

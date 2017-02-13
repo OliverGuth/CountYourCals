@@ -3,7 +3,6 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,7 +28,7 @@ public class DiaryActivity extends Activity {
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
     public List<DiaryEntry> entries;
-    private List<DiaryEntry> shwownEntries;
+    private List<DiaryEntry> shownEntries;
     private List<Food> foods;
     private List<Meal> meals;
     private User user;
@@ -51,7 +50,7 @@ public class DiaryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-        rowFactory = new RowFactory(this, user);
+        rowFactory = new RowFactory(this);
         dialogFactory = new DialogFactory(this);
 
         foods = new ArrayList<Food>();
@@ -173,7 +172,7 @@ public class DiaryActivity extends Activity {
 
 
         entries = new ArrayList<DiaryEntry>();
-        shwownEntries = new ArrayList<DiaryEntry>();
+        shownEntries = new ArrayList<DiaryEntry>();
         Calendar cal = Calendar.getInstance();
         /*entries.add(new DiaryEntry(cal.set(2017, 1,25));
         try {
@@ -252,64 +251,39 @@ public class DiaryActivity extends Activity {
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
         Calendar cal = Calendar.getInstance();
 
-        shwownEntries.clear();
+        shownEntries.clear();
         switch(diaryState)
         {
             case DayState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue);
                 ArrowsVisible(true);
-                for (DiaryEntry entry:entries) { if(timeStamp.equals(entry.getTimeStamp())) shwownEntries.add(entry); }
                 date.setText(timeStamp);
-                rowFactory.FillDiaryTableLayout(table, shwownEntries, DiaryActivity.this);
+                rowFactory.FillDiaryTableLayout(table, diaryState, selectedDate, user, DiaryActivity.this);
             break;
             case WeekState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
                 ArrowsVisible(true);
-
                 cal.setTime(selectedDate);
-
                 int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
                 int currentYear = cal.get(Calendar.YEAR);
-
-                for (DiaryEntry entry:entries)
-                    {
-                        cal.setTime(entry.getTimeStamp());
-
-                        int entryWeek = cal.get(Calendar.WEEK_OF_YEAR);
-                        int entryYear = cal.get(Calendar.YEAR);
-                        if(currentWeek == entryWeek && currentYear == entryYear) shwownEntries.add(entry);
-                    }
-
-                    date.setText("KW "+ currentWeek + " " + currentYear);
-
-                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
+                date.setText("KW "+ currentWeek + " " + currentYear);
+                rowFactory.FillDiaryTableLayout(table, diaryState, selectedDate, user, DiaryActivity.this);
                 break;
-                case MonthState:
-                    highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                    ArrowsVisible(true);
-
-                    cal.setTime(selectedDate);
-                    int currentMonth = cal.get(Calendar.MONTH);
-                    currentYear = cal.get(Calendar.YEAR);
-
-                    for (DiaryEntry entry:entries)
-                    {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-                        cal.setTime(entry.getTimeStamp());
-                        int entrymonth = cal.get(Calendar.MONTH);
-                        int entryYear = cal.get(Calendar.YEAR);
-                        if(currentMonth == entrymonth && currentYear == entryYear) shwownEntries.add(entry);
-                    }
-                    date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
-                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
+            case MonthState:
+                highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
+                ArrowsVisible(true);
+                cal.setTime(selectedDate);
+                int currentMonth = cal.get(Calendar.MONTH);
+                currentYear = cal.get(Calendar.YEAR);
+                date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
+                rowFactory.FillDiaryTableLayout(table, diaryState, selectedDate, user, DiaryActivity.this);
                 break;
-                case AllState:
-                    highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                    ArrowsVisible(false);
-
-                    shwownEntries.addAll(entries);
-                    date.setText("");
-                    rowFactory.FillDiaryTableDateLayout(table, shwownEntries, DiaryActivity.this);
+            case AllState:
+                highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
+                ArrowsVisible(false);
+                shownEntries.addAll(entries);
+                date.setText("");
+                rowFactory.FillDiaryTableLayout(table, diaryState, selectedDate, user, DiaryActivity.this);
                 break;
             }
             updateSumMaxFields();
@@ -319,7 +293,7 @@ public class DiaryActivity extends Activity {
         int i = 0;
         int max = 0;
 
-        for(DiaryEntry entry: shwownEntries) i = i + entry.getConsumedKCal();
+        for(DiaryEntry entry: shownEntries) i = i + entry.getConsumedKCal();
         sum.setText(i + " kcal");
 
         if(diaryState == DayState)

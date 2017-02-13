@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this,R.id.MainButtonFoodDetail, R.color.BayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");
-        buttonFoodDetail.setImageResource(R.id.button_image, R.drawable.food);
+        buttonFoodDetail.setImageResource(R.id.button_image, R.drawable.manager);
 
         ButtonTextImage buttonDiary = new ButtonTextImage(this,R.id.MainButtonDiaryDetail, R.color.BayerBlue);
         buttonDiary.setText(R.id.button_text, "Tagebuch");

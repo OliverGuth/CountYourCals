@@ -4,39 +4,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/UnitTableRow"
+    android:id="@+id/FoodTableRow"
     android:background="@color/White"
     android:weightSum="100"
     android:longClickable="true">
 
-    <TextView
-        android:text="1."
+    <EditText
+        android:inputType="number"
+        android:ems="10"
+        android:text="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/UnitLineValue"
-        android:layout_weight="5"
+        android:id="@+id/FoodLineQuantity"
+        android:layout_weight="40"
         android:textSize="18sp"
         android:textColor="@color/Black"
+        android:hint="Menge"
         android:layout_gravity="center_vertical" />
 
-    <TextView
-        android:text="Einheit 1"
+    <Spinner
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="85"
-        android:textSize="18sp"
-        android:textColor="@color/Black"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/UnitLineName" />
-
+        android:id="@+id/FoodLineUnitSpinner"
+        android:layout_weight="47"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/spinner_border"
+        android:layout_gravity="center_vertical" />
 
     <include
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         layout="@layout/image_button"
-        android:layout_weight="10"
+        android:layout_weight="13"
         android:layout_margin="3dp"
         android:layout_gravity="center_vertical"
-        android:id="@+id/UnitButtonLineEdit" />
+        android:id="@+id/FoodButtonLineDelete" />
 
 </TableRow>

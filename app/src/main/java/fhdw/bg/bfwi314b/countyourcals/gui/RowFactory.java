@@ -3,13 +3,20 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.Food;
@@ -28,43 +35,89 @@ public class RowFactory {
 
     private DialogFactory dialogFactory;
     private DataStorageController controller;
-    private User user;
 
 
-    public RowFactory(AccountActivity accountActivity, User user)
+    public RowFactory(AccountActivity accountActivity)
     {
         dialogFactory = new DialogFactory(accountActivity);
         controller = new DataStorageController(accountActivity);
-        this.user = user;
     }
 
-    public RowFactory(MainActivity mainActivity, User user)
+    public RowFactory(MainActivity mainActivity)
     {
         dialogFactory = new DialogFactory(mainActivity);
         controller = new DataStorageController(mainActivity);
-        this.user = user;
     }
 
-    public RowFactory(ManagerActivity managerActivity, User user)
+    public RowFactory(ManagerActivity managerActivity)
     {
         dialogFactory = new DialogFactory(managerActivity);
         controller = new DataStorageController(managerActivity);
-        this.user = user;
     }
 
-    public RowFactory(DiaryActivity diaryActivity, User user)
+    public RowFactory(DiaryActivity diaryActivity)
     {
         dialogFactory = new DialogFactory(diaryActivity);
         controller = new DataStorageController(diaryActivity);
-        this.user = user;
     }
 
-    public void FillDiaryTableLayout(TableLayout table, final List<DiaryEntry> diaryEntries, final Context context)
+    public RowFactory()
+    { }
+
+
+    public void FillDiaryTableLayout(TableLayout table, DiaryState diaryState, Date selectedDate, User user, final Context context)
     {
         table.removeAllViews();
-        for(int i = 0; i < diaryEntries.size(); i++)
+        List<DiaryEntry> entriesAll = controller.getDiaryEntryList(user);
+        List<DiaryEntry> entriesShown = new ArrayList<DiaryEntry>();
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
+        Calendar cal = Calendar.getInstance();
+
+        switch (diaryState)
         {
-            final DiaryEntry diaryEntry = diaryEntries.get(i);
+            case DayState:
+                for (DiaryEntry entry:entriesAll) { if(timeStamp.equals(entry.getTimeStamp())) entriesShown.add(entry); }
+                break;
+
+            case WeekState:
+                cal.setTime(selectedDate);
+
+                int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
+                int currentYear = cal.get(Calendar.YEAR);
+
+                for (DiaryEntry entry:entriesAll)
+                {
+                    cal.setTime(entry.getTimeStamp());
+
+                    int entryWeek = cal.get(Calendar.WEEK_OF_YEAR);
+                    int entryYear = cal.get(Calendar.YEAR);
+                    if(currentWeek == entryWeek && currentYear == entryYear) entriesShown.add(entry);
+                }
+                break;
+
+            case MonthState:
+                cal.setTime(selectedDate);
+                int currentMonth = cal.get(Calendar.MONTH);
+                currentYear = cal.get(Calendar.YEAR);
+
+                for (DiaryEntry entry:entriesAll)
+                {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                    cal.setTime(entry.getTimeStamp());
+                    int entrymonth = cal.get(Calendar.MONTH);
+                    int entryYear = cal.get(Calendar.YEAR);
+                    if(currentMonth == entrymonth && currentYear == entryYear) entriesShown.add(entry);
+                }
+                break;
+
+            case AllState:
+                entriesShown.addAll(entriesAll);
+                break;
+        }
+
+        for(int i = 0; i < entriesShown.size(); i++)
+        {
+            final DiaryEntry diaryEntry = entriesShown.get(i);
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TableRow row = (TableRow) inflater.inflate(R.layout.row_diary_entry_no_date,null);
             TextView number = (TextView) row.getChildAt(0);
@@ -78,15 +131,15 @@ public class RowFactory {
 
 
             number.setText(i+1 + ".");
-            name.setText(diaryEntries.get(i).getConsumedName());
-            calories.setText(diaryEntries.get(i).getConsumedKCal().toString() + " kcal");
+            name.setText(entriesShown.get(i).getConsumedName());
+            calories.setText(entriesShown.get(i).getConsumedKCal().toString() + " kcal");
 
             edit.setClickable(true);
             row.setLongClickable(true);
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
+                    dialogFactory.CreateDiaryEntryLineDialog(context, diaryEntry);
                 return true;
                 }
 
@@ -94,7 +147,7 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
+                    dialogFactory.CreateDiaryEntryLineDialog(context, diaryEntry);
                     }
 
             });
@@ -102,54 +155,7 @@ public class RowFactory {
         }
     }
 
-    public void FillDiaryTableDateLayout(TableLayout table, final List<DiaryEntry> diaryEntries, final Context context)
-    {
-        table.removeAllViews();
-        for(int i = 0; i < diaryEntries.size(); i++)
-        {
-            final DiaryEntry diaryEntry = diaryEntries.get(i);
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TableRow row = (TableRow) inflater.inflate(R.layout.row_diary_entry_date,null);
-            TextView number = (TextView) row.getChildAt(0);
-            TextView name = (TextView) row.getChildAt(1);
-            TextView date = (TextView) row.getChildAt(2);
-            TextView calories = (TextView) row.getChildAt(3);
-            RelativeLayout edit = (RelativeLayout) row.getChildAt(4);
-
-            ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
-            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
-
-
-
-            number.setText(i+1 + ".");
-            name.setText(diaryEntries.get(i).getConsumedName());
-            date.setText(diaryEntries.get(i).getTimeStamp().toString());
-            calories.setText(diaryEntries.get(i).getConsumedKCal().toString() + " kcal");
-
-            edit.setClickable(true);
-            row.setLongClickable(true);
-
-            row.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
-                    return true;
-                }
-
-            });
-
-            edit.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, diaryEntry);
-                }
-
-            });
-            table.addView(row);
-        }
-    }
-
-
-
-    public void FillMealTableLayout(TableLayout table, final Context context)
+    public void FillMealTableLayout(TableLayout table, final User user, final Context context)
     {
         List<Meal> meals = controller.getMealList(user);
         if(meals != null) {
@@ -161,21 +167,20 @@ public class RowFactory {
                 TextView name = (TextView) row.getChildAt(1);
                 TextView calories = (TextView) row.getChildAt(2);
                 RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
-
                 ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
                 edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
 
 
                 number.setText(i + 1 + ".");
-                name.setText(meals.get(i).getName());
-                calories.setText(meals.get(i).getName());
+                name.setText(meal.getName());
+                calories.setText(meal.getName());
 
                 edit.setClickable(true);
                 row.setLongClickable(true);
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateEditLineDialog(context, meal);
+                        dialogFactory.CreateMealLineDialog(context, meal, user);
                         return true;
                     }
 
@@ -183,7 +188,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateEditLineDialog(context, meal);
+                        dialogFactory.CreateMealLineDialog(context, meal, user);
                     }
 
                 });
@@ -192,49 +197,51 @@ public class RowFactory {
         }
     }
 
-    public void FillFoodTableLayout(TableLayout table, final Context context)
+    public void FillFoodTableLayout(TableLayout table, final User user, final Context context)
     {
-        List<Food> foods = controller.getFoodList(user);
-        for(int i = 0; i < foods.size(); i++)
+        final List<Food> foods = controller.getFoodList(user);
+        if(foods != null)
         {
-            final Food food = foods.get(i);
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TableRow row = (TableRow) inflater.inflate(R.layout.row_food ,null);
-            TextView number = (TextView) row.getChildAt(0);
-            TextView name = (TextView) row.getChildAt(1);
-            RelativeLayout edit = (RelativeLayout) row.getChildAt(2);
+            for (int i = 0; i < foods.size(); i++)
+            {
+                final Food food = foods.get(i);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                TableRow row = (TableRow) inflater.inflate(R.layout.row_food, null);
+                TextView number = (TextView) row.getChildAt(0);
+                TextView name = (TextView) row.getChildAt(1);
+                RelativeLayout edit = (RelativeLayout) row.getChildAt(2);
 
-            ((ImageView)edit.getChildAt(0)).setImageResource((R.drawable.edit));
-            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
+                ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
+                edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
 
 
+                number.setText(i + 1 + ".");
+                name.setText(foods.get(i).getName());
 
-            number.setText(i+1 + ".");
-            name.setText(foods.get(i).getName());
+                edit.setClickable(true);
+                row.setLongClickable(true);
 
-            edit.setClickable(true);
-            row.setLongClickable(true);
+                row.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        dialogFactory.CreateFoodLineDialog(context, food, user);
+                        return true;
+                    }
 
-            row.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, food);
-                    return true;
-                }
+                });
 
-            });
+                edit.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        dialogFactory.CreateFoodLineDialog(context, food, user);
+                    }
 
-            edit.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dialogFactory.CreateEditLineDialog(context, food);
-                }
-
-            });
-            table.addView(row);
+                });
+                table.addView(row);
+            }
         }
     }
 
-    public void FillUnitTableLayout(TableLayout table, final Context context) {
-        List<Unit> units = controller.getUnitList(user);
+    public void FillUnitTableLayout(TableLayout table, final User user, final Context context) {
+        final List<Unit> units = controller.getUnitList(user);
         if (units != null)
         {
             for (int i = 0; i < units.size(); i++)
@@ -251,14 +258,14 @@ public class RowFactory {
 
 
                 number.setText(i + 1 + ".");
-                name.setText(units.get(i).getUnit());
+                name.setText(unit.getUnit());
 
                 edit.setClickable(true);
                 row.setLongClickable(true);
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateEditLineDialog(context, unit);
+                        dialogFactory.CreateUnitLineDialog(context, unit, user);
                         return true;
                     }
 
@@ -266,12 +273,44 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateEditLineDialog(context, unit);
+                        dialogFactory.CreateUnitLineDialog(context, unit, user);
                     }
 
                 });
                 table.addView(row);
             }
+        }
+    }
+    public void AddRowFoodDialogTableLayout(TableLayout table, final User user, final Context context) {
+        final List<Unit> units = controller.getUnitList(user);
+        if (units != null)
+        {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            TableRow row = (TableRow) inflater.inflate(R.layout.row_food_unit, null);
+            EditText quantity = (EditText) row.getChildAt(0);
+            Spinner unit = (Spinner) row.getChildAt(1);
+            RelativeLayout delete = (RelativeLayout) row.getChildAt(2);
+
+            ((ImageView)delete.getChildAt(0)).setImageResource((R.drawable.delete));
+            delete.setBackgroundColor(context.getResources().getColor(R.color.Red));
+
+            quantity.setText("");
+
+
+            ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            unit.setAdapter(adapter);
+
+            delete.setClickable(true);
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Toast.makeText(context, "delete", Toast.LENGTH_LONG);
+                }
+
+            });
+            table.addView(row, table.getChildCount()-1);
         }
     }
 }
