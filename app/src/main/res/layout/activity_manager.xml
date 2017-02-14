@@ -64,6 +64,7 @@
         android:layout_weight="10" />
 
     <View style="@style/Divider"/>
+
     <android.support.v4.widget.NestedScrollView
         tools:context="fhdw.bg.bfwi314b.countyourcals.gui.DiaryActivity"
         android:layout_width="match_parent"

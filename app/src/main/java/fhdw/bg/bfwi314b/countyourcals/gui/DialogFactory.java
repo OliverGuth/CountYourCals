@@ -34,7 +34,6 @@ public class DialogFactory
     private MainActivity mainActivity;
     private ManagerActivity managerActivity;
     private DataStorageController controller;
-    private RowFactory rowFactory;
 
     private boolean result;
 
@@ -62,11 +61,7 @@ public class DialogFactory
         controller = new DataStorageController(this.managerActivity.getBaseContext());
     }
 
-    public DialogFactory(Context context)
-    {
-        controller = new DataStorageController(context);
-        rowFactory = new RowFactory();
-    }
+
 
     //---- Diary ----
 
@@ -112,7 +107,7 @@ public class DialogFactory
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
         final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
@@ -152,7 +147,7 @@ public class DialogFactory
     public void CreateEditDiaryEntryDialog(final Context context, DiaryEntry diaryEntry)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
 
         //load data from DiaryEntry
 
@@ -172,90 +167,182 @@ public class DialogFactory
 
     //---- Meal ----
 
-    public void CreateNewMealDialog(final Context context, final User user)
+    public void CreateNewMealDialog(final Context context, final RowFactory rowFactory, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
-/*
-        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
-        final DatePicker date = (DatePicker) view.findViewById(R.id.DialogNewEntryDatePicker);
-        final Spinner food = (Spinner) view.findViewById(R.id.DialogNewEntryFoodSpinner);
-        final Spinner meal = (Spinner) view.findViewById(R.id.DialogNewEntryMealSpinner);
-        final EditText quantity = (EditText) view.findViewById(R.id.DialogNewEntryQuanitityValue);
-        final Spinner unit = (Spinner) view.findViewById(R.id.DialogNewEntryUnitSpinner);
-        final EditText calories = (EditText) view.findViewById(R.id.DialogNewEntryCaloriesValue);
+
+        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewMealSaveButton);
+        final EditText name = (EditText) view.findViewById(R.id.DialogNewMealName);
+        final EditText cals = (EditText) view.findViewById(R.id.DialogNewMealCalories);
+        final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
+        final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
+
+        newFood.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rowFactory.AddRowMealDialogTableLayout(table, user, context);
+            }
+        });
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Unit> unitList = controller.getUnitList(user.getName());
-                boolean unitExists = false;
-                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
-                    if (unitList != null) {
-                        for (Unit unit : unitList) {
-                            if (name.getText().toString().trim().equals(unit.getUnit())) {
-                                Toast.makeText(context, "Eintrag " + user.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
-                                unitExists = true;
+                boolean readyForSaving = true;
+                List<Meal> mealList = controller.getMealList(user);
+                boolean mealExists = false;
+                if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1) {
+                    if (mealList != null) {
+                        for (Meal meal : mealList) {
+                            if (name.getText().toString().trim().equals(meal.getName())) {
+                                //Toast.makeText(context, "Eintrag " + food.getUnit() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                mealExists = true;
                                 break;
                             }
                         }
                     }
-                    if (unitExists == false) {
-                        controller.addUnit(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+                    if (mealExists == false)
+                    {
+                        List<Food> foodList = new ArrayList<Food>();
+                        for(int i = 0; i<table.getChildCount()-1; i++) {
+                            EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
+                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
+                            if(!quantity.getText().toString().equals(""))
+                            {
+                                Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
+                                for (Unit unit : unitList)
+                                {
+                                    if (unit.getUnit().equals(newUnit.getUnit())) {
+                                        readyForSaving = false;
+                                        Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                if (readyForSaving) unitList.add(newUnit);
 
+                            }
+                        }
+                        Food food = new Food(name.getText().toString(), (ArrayList<Unit>)unitList, Integer.parseInt(cals.getText().toString()));
+                        controller.addFood(food, user);
+                        managerActivity.updateView();
                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 }
             }
         });
-        */
         dialog.show();
     }
 
-    public void CreateMealLineDialog(final Context context, final Meal meal, final User user)
+    public void CreateMealLineDialog(final Context context, final Meal meal, final RowFactory rowFactory, final User user)
     {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
-        final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
 
-        copy.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_LONG).show();
-            }
-        });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                CreateEditMealDialog(context, meal, rowFactory, user);
                 Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
+                dialog.cancel();
             }
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                managerActivity.meals.remove(meal);
+                controller.deleteMeal(meal, user);
                 managerActivity.updateView();
                 Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                dialog.cancel();
             }
         });
 
         dialog.show();
     }
 
-    //---- Food ----
-
-    public void CreateNewFoodDialog(final Context context, final User user)
+    public void CreateEditMealDialog(final Context context, final Meal meal, final RowFactory rowFactory, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
+        dialogBuilder.setView(view);
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewMealSaveButton);
+        final EditText name = (EditText) view.findViewById(R.id.DialogNewMealName);
+        final EditText cals = (EditText) view.findViewById(R.id.DialogNewMealCalories);
+        final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
+        final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
+
+        name.setText(meal.getName());
+        cals.setText(meal.getKCal().toString());
+
+        for (Food food : meal.getIngredients())
+        {
+            rowFactory.AddRowMealDialogTableLayout(table, food, user, context);
+        }
+
+        newFood.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rowFactory.AddRowMealDialogTableLayout(table, user, context);
+            }
+        });
+
+        saveEntry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                boolean readyForSaving = true;
+                List<Food> foodList = controller.getFoodList(user);
+                List<Unit> unitList = new ArrayList<Unit>();
+                boolean foodExists = false;
+                if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1)
+                {
+                    for(int i = 0; i<table.getChildCount()-1; i++)
+                    {
+                        EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
+                        Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
+
+                        if(quantity.getText().toString().equals(""))
+                        {
+                            readyForSaving = false;
+                            Toast.makeText(context, "Menge nicht angegeben", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
+                            for (Unit unit : unitList) {
+                                if (unit.getUnit().equals(newUnit.getUnit()))
+                                {
+                                    readyForSaving = false;
+                                    Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            if (readyForSaving) unitList.add(newUnit);
+                        }
+                    }
+                }
+                if(readyForSaving)
+                {
+                    Food newFood = new Food(name.getText().toString(), (ArrayList<Unit>) unitList, Integer.parseInt(cals.getText().toString()));
+                    controller.editFood(food, newFood, user);
+                    managerActivity.updateView();
+                    Toast.makeText(context, "Eintrag " + food.getName() + " editiert", Toast.LENGTH_LONG).show();
+                    dialog.cancel();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    //---- Food ----
+
+    public void CreateNewFoodDialog(final Context context, final RowFactory rowFactory, final User user)
+    {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -273,6 +360,7 @@ public class DialogFactory
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                boolean readyForSaving = true;
                 List<Food> foodList = controller.getFoodList(user);
                 boolean foodExists = false;
                 if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1) {
@@ -290,8 +378,20 @@ public class DialogFactory
                         List<Unit> unitList = new ArrayList<Unit>();
                         for(int i = 0; i<table.getChildCount()-1; i++) {
                             EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
-                            Spinner unit = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
-                            unitList.add(new Unit(((Unit)unit.getSelectedItem()).getUnit(), ((Unit)unit.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString())));
+                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
+                            if(!quantity.getText().toString().equals(""))
+                            {
+                                Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
+                                for (Unit unit : unitList)
+                                {
+                                    if (unit.getUnit().equals(newUnit.getUnit())) {
+                                        readyForSaving = false;
+                                        Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                if (readyForSaving) unitList.add(newUnit);
+
+                            }
                         }
                         Food food = new Food(name.getText().toString(), (ArrayList<Unit>)unitList, Integer.parseInt(cals.getText().toString()));
                         controller.addFood(food, user);
@@ -305,36 +405,104 @@ public class DialogFactory
         dialog.show();
     }
 
-    public void CreateFoodLineDialog(final Context context, final Food food, final User user)
+    public void CreateEditFoodDialog(final Context context, final Food food, final RowFactory rowFactory, final User user)
+    {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_food_entry, null);
+        dialogBuilder.setView(view);
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewFoodSaveButton);
+        final EditText name = (EditText) view.findViewById(R.id.DialogNewFoodName);
+        final EditText cals = (EditText) view.findViewById(R.id.DialogNewFoodCalories);
+        final Button newUnit = (Button) view.findViewById(R.id.DialogNewFoodAddNewUnitButton);
+        final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewFoodTableView);
+
+        name.setText(food.getName());
+        cals.setText(food.getKCal().toString());
+
+        for (Unit unit : food.getUnits())
+        {
+            rowFactory.AddRowFoodDialogTableLayout(table, unit, user, context);
+        }
+
+        newUnit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rowFactory.AddRowFoodDialogTableLayout(table, user, context);
+            }
+        });
+
+        saveEntry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                boolean readyForSaving = true;
+                List<Food> foodList = controller.getFoodList(user);
+                List<Unit> unitList = new ArrayList<Unit>();
+                boolean foodExists = false;
+                if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1)
+                {
+                    for(int i = 0; i<table.getChildCount()-1; i++)
+                    {
+                        EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
+                        Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
+
+                        if(quantity.getText().toString().equals(""))
+                        {
+                            readyForSaving = false;
+                            Toast.makeText(context, "Menge nicht angegeben", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
+                            for (Unit unit : unitList) {
+                                if (unit.getUnit().equals(newUnit.getUnit()))
+                                {
+                                    readyForSaving = false;
+                                    Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            if (readyForSaving) unitList.add(newUnit);
+                        }
+                    }
+                }
+                if(readyForSaving)
+                {
+                    Food newFood = new Food(name.getText().toString(), (ArrayList<Unit>) unitList, Integer.parseInt(cals.getText().toString()));
+                    controller.editFood(food, newFood, user);
+                    managerActivity.updateView();
+                    Toast.makeText(context, "Eintrag " + food.getName() + " editiert", Toast.LENGTH_LONG).show();
+                    dialog.cancel();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    public void CreateFoodLineDialog(final Context context, final Food food, final RowFactory rowFactory, final User user)
     {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
-        final Button copy = (Button) view.findViewById(R.id.EditColumnButtonCopy);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
 
-        copy.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(context, "copy", Toast.LENGTH_LONG).show();
-            }
-        });
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                CreateEditFoodDialog(context, food, rowFactory, user);
                 Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
+                dialog.cancel();
             }
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                managerActivity.foods.remove(food);
+                controller.deleteFood(food, user);
                 managerActivity.updateView();
                 Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                dialog.cancel();
             }
         });
 
@@ -346,7 +514,7 @@ public class DialogFactory
     public void CreateNewUnitDialog(final Context context, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -384,7 +552,7 @@ public class DialogFactory
     public void CreateEditUnitDialog(final Context context, final Unit oldUnit, final User user)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
 
 
@@ -429,7 +597,7 @@ public class DialogFactory
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
         final Button edit = (Button) view.findViewById(R.id.EditColumnButtonEdit);
         final Button delete = (Button) view.findViewById(R.id.EditColumnButtonDelete);
 

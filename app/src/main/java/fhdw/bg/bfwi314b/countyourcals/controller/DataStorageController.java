@@ -37,6 +37,8 @@ public class DataStorageController {
         this.context = context;
     }
 
+    //---- Meal ----
+
     public ArrayList<Meal> getMealList(User user) {
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
@@ -55,16 +57,41 @@ public class DataStorageController {
 
     public void addMeal(Meal meal, User user) {
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
-        ArrayList<Meal> tmpMealArrayList;
-        tmpMealArrayList = getMealList(user);
-        Integer tmpIdentifier = 0;
-        for (int index = 0; index < tmpMealArrayList.size(); index++) {
-            if (tmpIdentifier < tmpMealArrayList.get(index).getIdentifier()) {
-                tmpIdentifier = tmpMealArrayList.get(index).getIdentifier();
+        ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        if(tmpMealArrayList != null) tmpMealArrayList.add(meal);
+        else
+        {
+            tmpMealArrayList = new ArrayList<Meal>();
+            tmpMealArrayList.add(meal);
+        }
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, user.getName());
+    }
+
+    public void editMeal(Meal oldMeal, Meal newMeal, User user) {
+        File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
+        ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        if (tmpMealArrayList != null) {
+            for (int index = 0; index < tmpMealArrayList.size(); index++) {
+                if (tmpMealArrayList.get(index).getName().equals(oldMeal.getName())) {
+                    tmpMealArrayList.set(index, newMeal);
+                }
             }
         }
-        tmpMealArrayList.add(meal);
-        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, user.getName());
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpFoodListFile, user.getName());
+    }
+
+    public void deleteMeal(Meal meal, User user) {
+        File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
+        ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        if(tmpMealArrayList != null)
+            for (int index = 0; index < tmpMealArrayList.size(); index++) {
+                if (meal.getName().equals(tmpMealArrayList.get(index).getName()))
+                {
+                    tmpMealArrayList.remove(index);
+                    break;
+                }
+            }
+        mXMLWriter.writeMeal(tmpMealArrayList, tmpFoodListFile, user.getName());
     }
 
     public void addRelationToMeal(Integer mealIdentifier, Unit mealUnit, User user) {
@@ -95,11 +122,7 @@ public class DataStorageController {
         mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, user.getName());
     }
 
-//    public void editMeal() {
-//
-//    }
-
-    //----------
+    //---- Food ----
 
     public ArrayList<Food> getFoodList(User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
@@ -129,6 +152,33 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
+    public void editFood(Food oldFood, Food newFood, User user) {
+        File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
+        ArrayList<Food> tmpFoodArrayList = getFoodList(user);
+        if (tmpFoodArrayList != null) {
+            for (int index = 0; index < tmpFoodArrayList.size(); index++) {
+                if (tmpFoodArrayList.get(index).getName().equals(oldFood.getName())) {
+                    tmpFoodArrayList.set(index, newFood);
+                }
+            }
+        }
+        mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
+    }
+
+    public void deleteFood(Food food, User user) {
+        File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
+        ArrayList<Food> tmpFoodArrayList = getFoodList(user);
+        if(tmpFoodArrayList != null)
+            for (int index = 0; index < tmpFoodArrayList.size(); index++) {
+                if (food.getName().equals(tmpFoodArrayList.get(index).getName()))
+                {
+                    tmpFoodArrayList.remove(index);
+                    break;
+                }
+            }
+        mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
+    }
+
     public void addRelationToFood(String foodName, Unit foodUnit, User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
         ArrayList<Food> tmpFoodArrayList;
@@ -143,18 +193,7 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
-//    public void editFood(String userName, String foodName, Integer foodQuantity, String foodUnit, Integer foodKCal) {
-//    	File tmpFoodListFile = new File(userName + "Food.xml");
-//        ArrayList<Food> tmpFoodArrayList;
-//        tmpFoodArrayList = getFoodList(userName);
-//        for(int index = 0; index < tmpFoodArrayList.size(); index++){
-//        	if(tmpFoodArrayList.get(index).getName().equals(userName)){
-//
-//        	}
-//        }
-//    }
-
-    //----------
+    //---- DiaryEntry ----
 
     public ArrayList<DiaryEntry> getDiaryEntryList(User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
@@ -203,7 +242,7 @@ public class DataStorageController {
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
     }
 
-    //----------
+    //---- User -----
 
     public ArrayList<User> getUserList() {
         File tmpUserListFile = new File(context.getFilesDir() + "/User.xml");
@@ -249,7 +288,7 @@ public class DataStorageController {
         mXMLWriter.writeUser(tmpUserArrayList, tmpUserListFile);
     }
 
-    //----------
+    //---- Unit -----
 
     public ArrayList<Unit> getUnitList(User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
@@ -282,7 +321,7 @@ public class DataStorageController {
 
     public void editUnit(Unit oldUnit, Unit newUnit, User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
-        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);;
+        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);
         if(tmpUnitArrayList != null) {
             for (int index = 0; index < tmpUnitArrayList.size(); index++) {
                 if (tmpUnitArrayList.get(index).getUnit().equals(oldUnit.getUnit())) {
@@ -296,7 +335,7 @@ public class DataStorageController {
 
     public void deleteUnit(Unit unit, User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
-        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);;
+        ArrayList<Unit> tmpUnitArrayList = getUnitList(user);
         if(tmpUnitArrayList != null)
         for (int index = 0; index < tmpUnitArrayList.size(); index++) {
             if (unit.getUnit().equals(tmpUnitArrayList.get(index).getUnit()))

@@ -56,6 +56,13 @@
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/DialogNewMealCalories" />
+
     <Button
         android:text="Speichern"
         android:layout_width="match_parent"

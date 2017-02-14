@@ -61,10 +61,6 @@ public class RowFactory {
         controller = new DataStorageController(diaryActivity);
     }
 
-    public RowFactory()
-    { }
-
-
     public void FillDiaryTableLayout(TableLayout table, DiaryState diaryState, Date selectedDate, User user, final Context context)
     {
         table.removeAllViews();
@@ -157,7 +153,8 @@ public class RowFactory {
 
     public void FillMealTableLayout(TableLayout table, final User user, final Context context)
     {
-        List<Meal> meals = controller.getMealList(user);
+        final RowFactory rowFactory = this;
+        final List<Meal> meals = controller.getMealList(user);
         if(meals != null) {
             for (int i = 0; i < meals.size(); i++) {
                 final Meal meal = meals.get(i);
@@ -167,6 +164,7 @@ public class RowFactory {
                 TextView name = (TextView) row.getChildAt(1);
                 TextView calories = (TextView) row.getChildAt(2);
                 RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
+
                 ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
                 edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
 
@@ -180,7 +178,7 @@ public class RowFactory {
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateMealLineDialog(context, meal, user);
+                        dialogFactory.CreateMealLineDialog(context, meal, rowFactory, user);
                         return true;
                     }
 
@@ -188,7 +186,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateMealLineDialog(context, meal, user);
+                        dialogFactory.CreateMealLineDialog(context, meal, rowFactory, user);
                     }
 
                 });
@@ -200,6 +198,7 @@ public class RowFactory {
     public void FillFoodTableLayout(TableLayout table, final User user, final Context context)
     {
         final List<Food> foods = controller.getFoodList(user);
+        final RowFactory rowFactory = this;
         if(foods != null)
         {
             for (int i = 0; i < foods.size(); i++)
@@ -209,7 +208,8 @@ public class RowFactory {
                 TableRow row = (TableRow) inflater.inflate(R.layout.row_food, null);
                 TextView number = (TextView) row.getChildAt(0);
                 TextView name = (TextView) row.getChildAt(1);
-                RelativeLayout edit = (RelativeLayout) row.getChildAt(2);
+                TextView calories = (TextView) row.getChildAt(2);
+                RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
 
                 ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
                 edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
@@ -217,13 +217,14 @@ public class RowFactory {
 
                 number.setText(i + 1 + ".");
                 name.setText(foods.get(i).getName());
+                calories.setText(foods.get(i).getKCal().toString());
 
                 edit.setClickable(true);
                 row.setLongClickable(true);
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateFoodLineDialog(context, food, user);
+                        dialogFactory.CreateFoodLineDialog(context, food, rowFactory, user);
                         return true;
                     }
 
@@ -231,7 +232,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateFoodLineDialog(context, food, user);
+                        dialogFactory.CreateFoodLineDialog(context, food, rowFactory, user);
                     }
 
                 });
@@ -281,36 +282,83 @@ public class RowFactory {
             }
         }
     }
-    public void AddRowFoodDialogTableLayout(TableLayout table, final User user, final Context context) {
-        final List<Unit> units = controller.getUnitList(user);
+
+    public void AddRowFoodDialogTableLayout(final TableLayout table, final User user, final Context context) {
+        List<Unit> units = controller.getUnitList(user);
+        List<Unit> usedUnits = new ArrayList<Unit>();
+
+        if(table.getChildCount() > 1)
+        for(int i = 0; i < (table.getChildCount()-1); i++)
+            usedUnits.add((Unit)((Spinner)((TableRow)table.getChildAt(i)).getChildAt(1)).getSelectedItem());
+        units.removeAll(usedUnits);
+
         if (units != null)
         {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TableRow row = (TableRow) inflater.inflate(R.layout.row_food_unit, null);
-            EditText quantity = (EditText) row.getChildAt(0);
-            Spinner unit = (Spinner) row.getChildAt(1);
-            RelativeLayout delete = (RelativeLayout) row.getChildAt(2);
+            if((table.getChildCount() -1) < units.size())
+            {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final TableRow row = (TableRow) inflater.inflate(R.layout.row_food_unit, null);
+                EditText quantity = (EditText) row.getChildAt(0);
+                Spinner unit = (Spinner) row.getChildAt(1);
+                RelativeLayout delete = (RelativeLayout) row.getChildAt(2);
 
-            ((ImageView)delete.getChildAt(0)).setImageResource((R.drawable.delete));
-            delete.setBackgroundColor(context.getResources().getColor(R.color.Red));
+                ((ImageView) delete.getChildAt(0)).setImageResource((R.drawable.delete));
+                delete.setBackgroundColor(context.getResources().getColor(R.color.Red));
 
-            quantity.setText("");
+                quantity.setText("");
 
 
-            ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
+                ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
 
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            unit.setAdapter(adapter);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                unit.setAdapter(adapter);
 
-            delete.setClickable(true);
+                delete.setClickable(true);
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Toast.makeText(context, "delete", Toast.LENGTH_LONG);
-                }
+                delete.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        table.removeView(row);
+                        Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
+                    }
 
-            });
-            table.addView(row, table.getChildCount()-1);
+                });
+                table.addView(row, table.getChildCount() - 1);
+            }
+            else
+                Toast.makeText(context, "Bitte weitere Einheiten hinzufügen", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void AddRowFoodDialogTableLayout(final TableLayout table, Unit unit, final User user, final Context context)
+    {
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final TableRow row = (TableRow) inflater.inflate(R.layout.row_food_unit, null);
+        EditText quantity = (EditText) row.getChildAt(0);
+        Spinner unitSpinner = (Spinner) row.getChildAt(1);
+        RelativeLayout delete = (RelativeLayout) row.getChildAt(2);
+
+        ((ImageView) delete.getChildAt(0)).setImageResource((R.drawable.delete));
+        delete.setBackgroundColor(context.getResources().getColor(R.color.Red));
+
+        quantity.setText(unit.getQuantity().toString());
+        List<Unit> units = new ArrayList<Unit>();
+        units.add(unit);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(adapter);
+
+        delete.setClickable(true);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                table.removeView(row);
+                Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
+            }
+
+        });
+        table.addView(row, table.getChildCount() - 1);
     }
 }

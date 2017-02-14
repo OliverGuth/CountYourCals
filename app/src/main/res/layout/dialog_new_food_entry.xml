@@ -23,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:inputType="none"
-        android:ems="10"
         android:id="@+id/DialogNewFoodName"
         android:maxLines="1"
 
@@ -32,37 +31,34 @@
         android:textColorHint="@color/Grey"
         android:layout_weight="10" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/DialogNewFoodTableView">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <Button
-                    android:text="Entsprechung hinzufügen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/DialogNewFoodAddNewUnitButton"
-                    android:layout_weight="1" />
-            </TableRow>
-        </TableLayout>
-    </android.support.v4.widget.NestedScrollView>
-
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:inputType="number"
-        android:ems="10"
+        android:ems="0"
         android:id="@+id/DialogNewFoodCalories"
-        android:hint="Kalorien" />
+        android:hint="Kalorien"
+        android:layout_weight="10" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/DialogNewFoodTableView"
+        android:layout_weight="50"
+        android:isScrollContainer="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:text="Entsprechung hinzufügen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/DialogNewFoodAddNewUnitButton"
+                android:layout_weight="1" />
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:text="Speichern"

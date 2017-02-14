@@ -19,9 +19,6 @@ import static fhdw.bg.bfwi314b.countyourcals.gui.ManagerState.*;
 
 public class ManagerActivity extends Activity {
 
-    public List<Food> foods;
-    public List<Meal> meals;
-    public List<Unit> units;
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
     private ManagerState state;
@@ -44,9 +41,6 @@ public class ManagerActivity extends Activity {
         setContentView(R.layout.activity_manager);
 
         user = (User) this.getIntent().getSerializableExtra("user");
-        foods = new ArrayList<Food>();
-        meals = new ArrayList<Meal>();
-        units = new ArrayList<Unit>();
         rowFactory = new RowFactory(this);
         dialogFactory = new DialogFactory(this);
 
@@ -80,22 +74,16 @@ public class ManagerActivity extends Activity {
                 switch (state)
                 {
                     case FoodState:
-                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, user);
+                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, rowFactory, user);
                         break;
                     case MealsState:
-                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, user);
+                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, rowFactory, user);
                         break;
                     case UnitsState:
                         dialogFactory.CreateNewUnitDialog(ManagerActivity.this, user);
                         break;
                 }
             }});
-
-        //foods.add(new Food("Apfel", 200, "Gramm", 400));
-        //foods.add(new Food("Hähnchenfleisch", 100, "Gramm", 200));
-        //foods.add(new Food("Brot", 1, "Scheibe", 200));
-
-        //meals.add(new Meal("Currywurst Pommes", 1, 200, "Gramm", 400, new ArrayList<String>(){"Wurst", "Pommes"}, ))
         updateView();
     }
 
@@ -107,19 +95,16 @@ public class ManagerActivity extends Activity {
             case FoodState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
                 rowFactory.FillFoodTableLayout(table, user, ManagerActivity.this);
-                break;
+            break;
             case MealsState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
                 rowFactory.FillMealTableLayout(table, user, ManagerActivity.this);
-                break;
+            break;
             case UnitsState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
                 rowFactory.FillUnitTableLayout(table, user, ManagerActivity.this);
-                break;
+            break;
         }
-        //DiaryEntry entryFood = new DiaryEntry(Calendar.getInstance().getTime(), new Food("Apfel"), 200, 1);
-        //DiaryEntry entry = new DiaryEntry(Calendar.getInstance().getTime(), new Meal("Apfel", 2), 200, 1);
-
     }
 
     private void highlightState(int color1, int color2, int color3)

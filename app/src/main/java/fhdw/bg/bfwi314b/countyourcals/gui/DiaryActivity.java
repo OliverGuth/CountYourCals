@@ -94,7 +94,7 @@ public class DiaryActivity extends Activity {
         all.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 diaryState = AllState;
-                selectedDate = Calendar.getInstance().getTime();
+                //selectedDate = Calendar.getInstance().getTime();
                 updateView();
             }});
         before.setOnClickListener(new View.OnClickListener() {
@@ -274,7 +274,7 @@ public class DiaryActivity extends Activity {
                 ArrowsVisible(true);
                 cal.setTime(selectedDate);
                 int currentMonth = cal.get(Calendar.MONTH);
-                currentYear = cal.get(Calendar.YEAR);
+                currentYear = cal.get(Calendar.YEAR);//------------------------------------------------------------->behindert
                 date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
                 rowFactory.FillDiaryTableLayout(table, diaryState, selectedDate, user, DiaryActivity.this);
                 break;
