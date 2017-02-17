@@ -4,29 +4,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/FoodTableRow"
+    android:id="@+id/MealTableRow"
     android:background="@color/White"
     android:weightSum="100"
     android:longClickable="true">
 
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/MealLineFoodSpinner"
+        android:layout_weight="40"
+        android:padding="2dp"
+        android:background="@drawable/spinner_border"
+        android:layout_gravity="center_vertical" />
+
     <EditText
         android:inputType="number"
-        android:ems="10"
+        android:ems="0"
         android:text="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/FoodLineQuantity"
-        android:layout_weight="40"
+        android:id="@+id/MealLineQuantity"
+        android:layout_weight="20"
         android:textSize="18sp"
         android:textColor="@color/Black"
         android:hint="Menge"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:gravity="right|center_vertical" />
 
     <Spinner
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/FoodLineUnitSpinner"
-        android:layout_weight="50"
+        android:id="@+id/MealLineUnitSpinner"
+        android:layout_weight="30"
         android:padding="2dp"
         android:background="@drawable/spinner_border"
         android:layout_gravity="center_vertical" />
@@ -38,6 +48,6 @@
         android:layout_weight="10"
         android:layout_margin="3dp"
         android:layout_gravity="center_vertical"
-        android:id="@+id/FoodButtonLineDelete" />
+        android:id="@+id/MealButtonLineDelete" />
 
 </TableRow>

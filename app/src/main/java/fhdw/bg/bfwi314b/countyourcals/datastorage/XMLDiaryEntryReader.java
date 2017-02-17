@@ -53,7 +53,6 @@ public class XMLDiaryEntryReader {
         Node entryNode;
         NodeList entryChildNodes;
         Date tmpTimeStamp = null;
-        String tmpConsumedType = "";
         Integer tmpQuantity = null;
         String tmpUnitName = "";
         String tmpUnitShort = "";
@@ -72,11 +71,8 @@ public class XMLDiaryEntryReader {
             tmpUnitShort = entryChildNodes.item(3).getTextContent();
             tmpUnit = new Unit(tmpUnitName, tmpUnitShort, tmpQuantity);
             tmpKCal = Integer.parseInt(entryChildNodes.item(4).getTextContent());
-            tmpIdentifier = Integer.parseInt(entryChildNodes.item(5).getTextContent());
-            tmpConsumedType = entryChildNodes.item(6).getTextContent();
-            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpUnit, tmpKCal, tmpIdentifier, tmpConsumedType));
+            diaryList.add(new DiaryEntry(tmpTimeStamp, tmpUnit, tmpKCal));
             tmpTimeStamp = null;
-            tmpConsumedType = "";
             tmpQuantity = null;
             tmpUnitName = "";
             tmpUnitShort = "";

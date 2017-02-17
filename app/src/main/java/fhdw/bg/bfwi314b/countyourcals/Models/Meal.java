@@ -6,53 +6,39 @@ import java.util.ArrayList;
  * Created by Niko
  */
 
-public class Meal implements Consumable {
+public class Meal{
 
     private String mName;
-    private Integer mIdentifier;
-    private ArrayList<Unit> mUnits;
     private ArrayList<Food> mIngredients;
+    private ArrayList<Unit> mUnits;
     private Integer mKCal;
 
-    public Meal(String name, Integer identifier) {
+    public Meal(String name) {
         mName = name;
-        mIdentifier = identifier;
         mUnits = new ArrayList<Unit>();
         mIngredients = new ArrayList<Food>();
         mKCal = 0;
     }
 
-    public Meal(String name, Integer identifier, Unit mealUnit, ArrayList<Food> ingredients) {
+    public Meal(String name, Unit mealUnit, ArrayList<Food> ingredients, int KCal) {
         mName = name;
-        mIdentifier = identifier;
         mUnits.add(mealUnit);
         mIngredients = (ArrayList<Food>) ingredients.clone();
-        mKCal = 0;
-        for (int i = 0; i < mIngredients.size(); i++) {
-            mKCal = mKCal + mIngredients.get(i).getKCal();
-        }
+        mKCal = KCal;
     }
 
-    public Meal(String name, Integer identifier, ArrayList<Unit> mealUnits) {
+    public Meal(String name, ArrayList<Unit> mealUnits, int KCal) {
         mName = name;
-        mIdentifier = identifier;
         mUnits = (ArrayList<Unit>) mealUnits.clone();
         mIngredients = new ArrayList<Food>();
-        mKCal = 0;
-        for (int i = 0; i < mIngredients.size(); i++) {
-            mKCal = mKCal + mIngredients.get(i).getKCal();
-        }
+        mKCal = KCal;
     }
 
-    public Meal(String name, Integer identifier, ArrayList<Unit> mealUnit, ArrayList<Food> ingredients) {
+    public Meal(String name, ArrayList<Food> ingredients, ArrayList<Unit> mealUnit, int KCal) {
         mName = name;
-        mIdentifier = identifier;
         mUnits = (ArrayList<Unit>) mealUnit.clone();
         mIngredients = (ArrayList<Food>) ingredients.clone();
-        mKCal = 0;
-        for (int i = 0; i < mIngredients.size(); i++) {
-            mKCal = mKCal + mIngredients.get(i).getKCal();
-        }
+        mKCal = KCal;
     }
 
     public String getName() {
@@ -75,10 +61,6 @@ public class Meal implements Consumable {
         return mKCal;
     }
 
-    public String getType() {
-        return "Meal";
-    }
-
     public void addIngredient(Food ingredient) {
         mIngredients.add(ingredient);
     }
@@ -86,7 +68,6 @@ public class Meal implements Consumable {
     public void addIngredientList(ArrayList<Food> ingredients) {
         for (int i = 0; i < ingredients.size(); i++) {
             mIngredients.add(ingredients.get(i));
-            mKCal = mKCal + ingredients.get(i).getKCal();
         }
     }
 
@@ -94,7 +75,4 @@ public class Meal implements Consumable {
         return mIngredients;
     }
 
-    public Integer getIdentifier() {
-        return mIdentifier;
-    }
 }

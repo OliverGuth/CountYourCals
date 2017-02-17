@@ -54,7 +54,7 @@ public class XMLMealReader {
         NodeList tmpMealChildNodes;
         NodeList tmpMealRelationNodes;
         String tmpName = "";
-        Integer tmpIdentifier = 0;
+        Integer tmpMealKcal = 0;
         Integer tmpMealQuantity = 0;
         String tmpMealUnitName = "";
         String tmpMealUnitShort = "";
@@ -66,21 +66,19 @@ public class XMLMealReader {
             mealNode = mealNodeList.item(i);
             tmpMealChildNodes = mealNode.getChildNodes();
             tmpName = tmpMealChildNodes.item(0).getTextContent();
-            tmpIdentifier = Integer.parseInt(tmpMealChildNodes.item(1).getTextContent());
+            tmpMealKcal = Integer.parseInt(tmpMealChildNodes.item(1).getTextContent());
             for (int j = 2; j < tmpMealChildNodes.getLength(); j++) {
                 tmpMealRelationNodes = tmpMealChildNodes.item(j).getChildNodes();
-                for (int k = 0; k < tmpMealRelationNodes.getLength(); k++) {
-                    tmpMealQuantity = Integer.parseInt(tmpMealRelationNodes.item(k).getChildNodes().item(0).getTextContent());
-                    tmpMealUnitName = tmpMealRelationNodes.item(k).getChildNodes().item(1).getTextContent();
-                    tmpMealUnitShort = tmpMealRelationNodes.item(k).getChildNodes().item(2).getTextContent();
-                    tmpMealUnits.add(new Unit(tmpMealUnitName, tmpMealUnitShort, tmpMealQuantity));
-                }
+                tmpMealQuantity = Integer.parseInt(tmpMealRelationNodes.item(0).getChildNodes().item(0).getTextContent());
+                tmpMealUnitName = tmpMealRelationNodes.item(1).getChildNodes().item(0).getTextContent();
+                tmpMealUnitShort = tmpMealRelationNodes.item(2).getChildNodes().item(0).getTextContent();
+                tmpMealUnits.add(new Unit(tmpMealUnitName, tmpMealUnitShort, tmpMealQuantity));
             }
             //tmpIngredientList = this.readMealIngredients(new File(userName + tmpIdentifier + ".xml"));
             //mealList.add(new Meal(tmpName, tmpIdentifier, tmpMealQuantity, tmpMealUnit, tmpIngredientList));
-            mealList.add(new Meal(tmpName, tmpIdentifier, tmpMealUnits));
+            mealList.add(new Meal(tmpName, tmpMealUnits, tmpMealKcal));
             tmpName = "";
-            tmpIdentifier = 0;
+            tmpMealKcal = 0;
             //tmpMealQuantity.clear();
             //tmpMealUnit.clear();
             tmpMealUnitName = "";
@@ -91,57 +89,5 @@ public class XMLMealReader {
         }
 
         return mealList;
-    }
-
-    public ArrayList<Food> readMealIngredients(File file) throws ParserConfigurationException, IOException, SAXException {
-        XMLReader xmlReader = new XMLReader();
-        return xmlReader.readFood(file);
-
-        /*BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String line = bufferedReader.readLine();
-        String mealIngredientsXML = "";
-        while (line != null) {
-            mealIngredientsXML = mealIngredientsXML + line /*+ System.getProperty("line.Seperator")*//*;
-            line = bufferedReader.readLine();
-        }
-        bufferedReader.close();
-
-        Document document;
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputSource inputSource = new InputSource();
-        inputSource.setCharacterStream(new StringReader(mealIngredientsXML));
-        document = documentBuilder.parse(inputSource);
-
-        Element xmlData = document.getDocumentElement();
-        NodeList mealIngredientsNodeList = xmlData.getElementsByTagName("MealIngredient");
-
-        Node mealIngredientNode;
-        NodeList tmpMealIngredientChildNodes;
-        NodeList tmpMealIngredientRelationNodes;
-        String tmpName = "";
-        Integer tmpIngredientKCal = 0;
-        ArrayList<Integer> tmpMealIngredientQuantity = new ArrayList<Integer>();
-        ArrayList<String> tmpMealIngredientUnit = new ArrayList<String>();
-        ArrayList<Food> mealIngredientList = new ArrayList<Food>();
-
-        for (int i = 0; i < mealIngredientsNodeList.getLength(); i++) {
-            mealIngredientNode = mealIngredientsNodeList.item(i);
-            tmpMealIngredientChildNodes = mealIngredientNode.getChildNodes();
-            tmpName = tmpMealIngredientChildNodes.item(0).getTextContent();
-            tmpIngredientKCal = Integer.parseInt(tmpMealIngredientChildNodes.item(1).getTextContent());
-            for (int j = 2; j < tmpMealIngredientChildNodes.getLength(); j++) {
-                tmpMealIngredientRelationNodes = tmpMealIngredientChildNodes.item(j).getChildNodes();
-                tmpMealIngredientQuantity.add(Integer.parseInt(tmpMealIngredientRelationNodes.item(0).getTextContent()));
-                tmpMealIngredientUnit.add(tmpMealIngredientRelationNodes.item(1).getTextContent());
-            }
-            mealIngredientList.add(new Food(tmpName, tmpMealIngredientQuantity, tmpMealIngredientUnit, tmpIngredientKCal));
-            tmpName = "";
-            tmpIngredientKCal = 0;
-            tmpMealIngredientQuantity.clear();
-            tmpMealIngredientUnit.clear();
-        }
-
-        return mealIngredientList;*/
     }
 }

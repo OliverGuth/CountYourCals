@@ -24,8 +24,8 @@
             android:id="@+id/ManagerButtonMeal"
             android:layout_weight="34"
             android:background="@color/BayerGreen"
-            android:layout_margin="5dp"
-            android:textColor="@color/White" />
+            android:textColor="@color/White"
+            android:layout_margin="5dp" />
 
         <Button
             android:text="Lebensmittel"
@@ -78,6 +78,7 @@
 
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <View style="@style/Divider"/>
 
     <Button

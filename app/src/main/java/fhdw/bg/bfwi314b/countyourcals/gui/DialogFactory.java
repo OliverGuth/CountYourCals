@@ -176,7 +176,6 @@ public class DialogFactory
 
         final Button saveEntry = (Button) view.findViewById(R.id.DialogNewMealSaveButton);
         final EditText name = (EditText) view.findViewById(R.id.DialogNewMealName);
-        final EditText cals = (EditText) view.findViewById(R.id.DialogNewMealCalories);
         final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
         final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
 
@@ -191,11 +190,12 @@ public class DialogFactory
                 boolean readyForSaving = true;
                 List<Meal> mealList = controller.getMealList(user);
                 boolean mealExists = false;
-                if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1) {
-                    if (mealList != null) {
+                if(!name.getText().toString().equals("") && table.getChildCount() >1) {
+                    if (mealList != null)
+                    {
                         for (Meal meal : mealList) {
                             if (name.getText().toString().trim().equals(meal.getName())) {
-                                //Toast.makeText(context, "Eintrag " + food.getUnit() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Eintrag " + meal.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
                                 mealExists = true;
                                 break;
                             }
@@ -204,28 +204,159 @@ public class DialogFactory
                     if (mealExists == false)
                     {
                         List<Food> foodList = new ArrayList<Food>();
+                        List<Unit> unitList = new ArrayList<Unit>();
+                        List<Food> allfoodsList = controller.getFoodList(user);
                         for(int i = 0; i<table.getChildCount()-1; i++) {
-                            EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
-                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
+                            Spinner foodSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(0);
+                            EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(1);
+                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(2);
                             if(!quantity.getText().toString().equals(""))
                             {
-                                Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
-                                for (Unit unit : unitList)
+                                Food newFood = (Food)foodSpinner.getSelectedItem();
+                                for (Food food : foodList)
                                 {
-                                    if (unit.getUnit().equals(newUnit.getUnit())) {
+                                    if (food.getName().equals(newFood.getName())) {
                                         readyForSaving = false;
-                                        Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                if (readyForSaving) unitList.add(newUnit);
+                                if (readyForSaving)
+                                {
+                                    foodList.add(newFood);
+
+                                    Unit newUnit = (Unit) unitSpinner.getSelectedItem();
+                                    newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                                    unitList.add(newUnit);
+                                }
 
                             }
                         }
-                        Food food = new Food(name.getText().toString(), (ArrayList<Unit>)unitList, Integer.parseInt(cals.getText().toString()));
-                        controller.addFood(food, user);
+                        int cals = 0;
+                        for (int i = 0; i<foodList.size(); i++)
+                        {
+                            for (Food food : allfoodsList)
+                            {
+                                if(foodList.get(i).getName().equals(food.getName()))
+                                {
+                                    for (Unit newUnit : foodList.get(i).getUnits())
+                                    {
+                                        for (Unit unit : food.getUnits())
+                                        {
+                                            if (newUnit.getUnit().equals(unit.getUnit()))
+                                                cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>)foodList, (ArrayList<Unit>)unitList, cals);
+                        controller.addMeal(meal, user);
                         managerActivity.updateView();
                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+                        dialog.cancel();
+                    }
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    public void CreateEditMealDialog(final Context context, final Meal meal, final RowFactory rowFactory, final User user)
+    {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
+        dialogBuilder.setView(view);
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewMealSaveButton);
+        final EditText name = (EditText) view.findViewById(R.id.DialogNewMealName);
+        final EditText cals = (EditText) view.findViewById(R.id.DialogNewMealCalories);
+        final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
+        final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
+
+        name.setText(meal.getName());
+        cals.setText(meal.getKCal().toString());
+
+        for (int i = 0; i < meal.getIngredients().size(); i++)
+        {
+            rowFactory.AddRowMealDialogTableLayout(table, meal.getIngredients().get(i), meal.getUnits().get(i), user, context);
+        }
+
+        newFood.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rowFactory.AddRowMealDialogTableLayout(table, user, context);
+            }
+        });
+
+        saveEntry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                boolean readyForSaving = true;
+                List<Meal> mealList = controller.getMealList(user);
+                boolean mealExists = false;
+                if(!name.getText().toString().equals("") && table.getChildCount() >1) {
+                    if (mealList != null)
+                    {
+                        for (Meal meal : mealList) {
+                            if (name.getText().toString().trim().equals(meal.getName())) {
+                                Toast.makeText(context, "Eintrag " + meal.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                mealExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (mealExists == false)
+                    {
+                        List<Food> foodList = new ArrayList<Food>();
+                        List<Unit> unitList = new ArrayList<Unit>();
+                        List<Food> allfoodsList = controller.getFoodList(user);
+                        for(int i = 0; i<table.getChildCount()-1; i++) {
+                            Spinner foodSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(0);
+                            EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(1);
+                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(2);
+                            if(!quantity.getText().toString().equals(""))
+                            {
+                                Food newFood = (Food)foodSpinner.getSelectedItem();
+                                for (Food food : foodList)
+                                {
+                                    if (food.getName().equals(newFood.getName())) {
+                                        readyForSaving = false;
+                                        Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                if (readyForSaving)
+                                {
+                                    foodList.add(newFood);
+
+                                    Unit newUnit = (Unit) unitSpinner.getSelectedItem();
+                                    newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                                    unitList.add(newUnit);
+                                }
+
+                            }
+                        }
+                        int cals = 0;
+                        for (int i = 0; i<foodList.size(); i++)
+                        {
+                            for (Food food : allfoodsList)
+                            {
+                                if(foodList.get(i).getName().equals(food.getName()))
+                                {
+                                    for (Unit newUnit : foodList.get(i).getUnits())
+                                    {
+                                        for (Unit unit : food.getUnits())
+                                        {
+                                            if (newUnit.getUnit().equals(unit.getUnit()))
+                                                cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>)foodList, (ArrayList<Unit>)unitList, cals);
+                        controller.addMeal(meal, user);
+                        managerActivity.updateView();
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
                     }
                 }
             }
@@ -265,78 +396,6 @@ public class DialogFactory
         dialog.show();
     }
 
-    public void CreateEditMealDialog(final Context context, final Meal meal, final RowFactory rowFactory, final User user)
-    {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
-        dialogBuilder.setView(view);
-        final AlertDialog dialog = dialogBuilder.create();
-
-        final Button saveEntry = (Button) view.findViewById(R.id.DialogNewMealSaveButton);
-        final EditText name = (EditText) view.findViewById(R.id.DialogNewMealName);
-        final EditText cals = (EditText) view.findViewById(R.id.DialogNewMealCalories);
-        final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
-        final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
-
-        name.setText(meal.getName());
-        cals.setText(meal.getKCal().toString());
-
-        for (Food food : meal.getIngredients())
-        {
-            rowFactory.AddRowMealDialogTableLayout(table, food, user, context);
-        }
-
-        newFood.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                rowFactory.AddRowMealDialogTableLayout(table, user, context);
-            }
-        });
-
-        saveEntry.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                boolean readyForSaving = true;
-                List<Food> foodList = controller.getFoodList(user);
-                List<Unit> unitList = new ArrayList<Unit>();
-                boolean foodExists = false;
-                if(!name.getText().toString().equals("") && !cals.getText().toString().equals("") && table.getChildCount() >1)
-                {
-                    for(int i = 0; i<table.getChildCount()-1; i++)
-                    {
-                        EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(0);
-                        Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(1);
-
-                        if(quantity.getText().toString().equals(""))
-                        {
-                            readyForSaving = false;
-                            Toast.makeText(context, "Menge nicht angegeben", Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            Unit newUnit = new Unit(((Unit) unitSpinner.getSelectedItem()).getUnit(), ((Unit) unitSpinner.getSelectedItem()).getUnitShort(), Integer.parseInt(quantity.getText().toString()));
-                            for (Unit unit : unitList) {
-                                if (unit.getUnit().equals(newUnit.getUnit()))
-                                {
-                                    readyForSaving = false;
-                                    Toast.makeText(context, "Entsprechung " + unit.getUnit() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                            if (readyForSaving) unitList.add(newUnit);
-                        }
-                    }
-                }
-                if(readyForSaving)
-                {
-                    Food newFood = new Food(name.getText().toString(), (ArrayList<Unit>) unitList, Integer.parseInt(cals.getText().toString()));
-                    controller.editFood(food, newFood, user);
-                    managerActivity.updateView();
-                    Toast.makeText(context, "Eintrag " + food.getName() + " editiert", Toast.LENGTH_LONG).show();
-                    dialog.cancel();
-                }
-            }
-        });
-        dialog.show();
-    }
-
     //---- Food ----
 
     public void CreateNewFoodDialog(final Context context, final RowFactory rowFactory, final User user)
@@ -357,6 +416,7 @@ public class DialogFactory
                 rowFactory.AddRowFoodDialogTableLayout(table, user, context);
             }
         });
+
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -463,6 +523,12 @@ public class DialogFactory
                             if (readyForSaving) unitList.add(newUnit);
                         }
                     }
+                }
+
+                if(table.getChildCount() == 1)
+                {
+                    readyForSaving = false;
+                    Toast.makeText(context, "keine Entsprechung angegeben", Toast.LENGTH_LONG).show();
                 }
                 if(readyForSaving)
                 {

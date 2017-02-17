@@ -19,7 +19,7 @@ public class XMLMealWriter {
         FileWriter fileWriter = new FileWriter(file);
         Meal tmpMeal;
         String tmpName;
-        Integer tmpIdentifier;
+        Integer tmpKcal;
         //ArrayList<Integer> tmpMealQuantity;
         //ArrayList<String> tmpMealUnit;
         ArrayList<Unit> tmpMealUnits;
@@ -33,17 +33,17 @@ public class XMLMealWriter {
         for (int i = 0; i < mealArrayList.size(); i++) {
             tmpMeal = mealArrayList.get(i);
             tmpName = tmpMeal.getName();
-            tmpIdentifier = tmpMeal.getIdentifier();
             //tmpMealQuantity = tmpMeal.getMealQuantity();
             //tmpMealUnit = tmpMeal.getMealUnit();
             tmpMealUnits = tmpMeal.getUnits();
             //tmpIngredients = tmpMeal.getIngredients();
+            tmpKcal = tmpMeal.getKCal();
 
             fileWriter.write("<Meal>");
             fileWriter.write("\n");
             fileWriter.write("<Name>" + tmpName + "</Name>");
             fileWriter.write("\n");
-            fileWriter.write("<Identifier>" + tmpIdentifier + "</Identifier>");
+            fileWriter.write("<kCal>" + tmpKcal + "</kCal>");
             fileWriter.write("\n");
             fileWriter.write("<MealRelations>");
             fileWriter.write("\n");
@@ -66,58 +66,5 @@ public class XMLMealWriter {
         fileWriter.write("\n");
         fileWriter.flush();
         fileWriter.close();
-    }
-
-    public void writeIngredient(ArrayList<Food> ingredientArrayList, File file) throws IOException {
-        XMLWriter xmlWriter = new XMLWriter();
-        xmlWriter.writeFood(ingredientArrayList, file);
-
-        /*FileWriter fileWriter = new FileWriter(file);
-        Food tmpFood;
-        String tmpName;
-        ArrayList<Integer> tmpIngredientQuantity;
-        ArrayList<String> tmpIngredientUnit;
-        Integer tmpIngredientKCal;
-
-        fileWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        fileWriter.write("\n");
-        fileWriter.write("<Ingredients>");
-        fileWriter.write("\n");
-
-        for (int i = 0; i < ingredientArrayList.size(); i++) {
-            tmpFood = ingredientArrayList.get(i);
-            tmpName = tmpFood.getName();
-            tmpIngredientKCal = tmpFood.getKCal();
-            tmpIngredientQuantity = tmpFood.getQuantity();
-            tmpIngredientUnit = tmpFood.getUnit();
-
-            fileWriter.write("</Ingredient>");
-            fileWriter.write("\n");
-            fileWriter.write("<Name>" + tmpName + "</Name>");
-            fileWriter.write("\n");
-            fileWriter.write("<KCal>" + tmpIngredientKCal + "</KCal>");
-            fileWriter.write("\n");
-            fileWriter.write("<Relations>");
-            fileWriter.write("\n");
-            for (int j = 0; j < tmpIngredientQuantity.size(); j++) {
-                fileWriter.write("<Relation>");
-                fileWriter.write("\n");
-                fileWriter.write("<Quantity>" + tmpIngredientQuantity.get(j) + "</Quantity>");
-                fileWriter.write("\n");
-                fileWriter.write("<Unit>" + tmpIngredientUnit.get(j) + "</Unit>");
-                fileWriter.write("\n");
-                fileWriter.write("</Relation>");
-                fileWriter.write("\n");
-            }
-            fileWriter.write("</Relations>");
-            fileWriter.write("\n");
-            fileWriter.write("</Ingredient>");
-            fileWriter.write("\n");
-        }
-
-        fileWriter.write("</Ingredients>");
-        fileWriter.write("\n");
-        fileWriter.flush();
-        fileWriter.close();*/
     }
 }

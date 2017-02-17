@@ -32,8 +32,8 @@ public class DataStorageController {
 
 
     public DataStorageController(Context context) {
-        mXMLReader = new XMLReader();
-        mXMLWriter = new XMLWriter();
+        mXMLReader = new XMLReader(context);
+        mXMLWriter = new XMLWriter(context);
         this.context = context;
     }
 
@@ -94,26 +94,14 @@ public class DataStorageController {
         mXMLWriter.writeMeal(tmpMealArrayList, tmpFoodListFile, user.getName());
     }
 
-    public void addRelationToMeal(Integer mealIdentifier, Unit mealUnit, User user) {
+
+
+    public void addFoodToMeal(String mealName, Integer mealQuantity, Food ingredient, User user) {
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         tmpMealArrayList = getMealList(user);
         for (int index = 0; index < tmpMealArrayList.size(); index++) {
-            if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
-                tmpMealArrayList.get(index).addUnit(mealUnit);
-
-                index = tmpMealArrayList.size();
-            }
-        }
-        mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, user.getName());
-    }
-
-    public void addFoodToMeal(Integer mealIdentifier, Integer mealQuantity, Food ingredient, User user) {
-        File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
-        ArrayList<Meal> tmpMealArrayList;
-        tmpMealArrayList = getMealList(user);
-        for (int index = 0; index < tmpMealArrayList.size(); index++) {
-            if (tmpMealArrayList.get(index).getIdentifier() == mealIdentifier) {
+            if (tmpMealArrayList.get(index).getName() == mealName) {
                 tmpMealArrayList.get(index).addIngredient(ingredient);
 
                 index = tmpMealArrayList.size();
@@ -179,19 +167,6 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
-    public void addRelationToFood(String foodName, Unit foodUnit, User user) {
-        File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
-        ArrayList<Food> tmpFoodArrayList;
-        tmpFoodArrayList = getFoodList(user);
-        for (int index = 0; index < tmpFoodArrayList.size(); index++) {
-            if (tmpFoodArrayList.get(index).getName().equals(foodName)) {
-                tmpFoodArrayList.get(index).addUnit(foodUnit);
-
-                index = tmpFoodArrayList.size();
-            }
-        }
-        mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
-    }
 
     //---- DiaryEntry ----
 
@@ -212,17 +187,18 @@ public class DataStorageController {
     }
 
     public void addDiaryEntry(DiaryEntry diaryEntry, User user) {
-        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
+       /* File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(user);
-        Integer tmpIdentifier = 0;
+        Date tmpdate = null;
         for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
-            if (tmpIdentifier < tmpDiaryEntryArrayList.get(index).getIdentifier()) {
-                tmpIdentifier = tmpDiaryEntryArrayList.get(index).getIdentifier();
+            if (tmpdate.get < tmpDiaryEntryArrayList.get(index).getTimeStamp()) {
+                tmpIdentifier = tmpDiaryEntryArrayList.get(index).getTimeStamp();
             }
         }
         tmpDiaryEntryArrayList.add(diaryEntry);
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
+    */
     }
 
     public void editDiaryEntry(DiaryEntry diaryEntry, User user) {
@@ -230,7 +206,7 @@ public class DataStorageController {
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
         tmpDiaryEntryArrayList = getDiaryEntryList(user);
         for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
-            if (tmpDiaryEntryArrayList.get(index).getIdentifier() == diaryEntry.getIdentifier()) {
+            if (tmpDiaryEntryArrayList.get(index).getTimeStamp() == diaryEntry.getTimeStamp()) {
                 //tmpDiaryEntryArrayList.get(index).setConsumedName(diaryEntry.getConsumedName());
                 //tmpDiaryEntryArrayList.get(index).setConsumedQuantity(consumedQuantity);
                 tmpDiaryEntryArrayList.get(index).setConsumedUnit(diaryEntry.getConsumedUnit());

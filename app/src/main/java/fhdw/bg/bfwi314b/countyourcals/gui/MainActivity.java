@@ -12,9 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 

@@ -3,6 +3,8 @@ package fhdw.bg.bfwi314b.countyourcals.datastorage;
 import java.io.File;
 import java.util.ArrayList;
 
+import android.content.Context;
+
 import fhdw.bg.bfwi314b.countyourcals.Models.*;
 
 /**
@@ -11,34 +13,37 @@ import fhdw.bg.bfwi314b.countyourcals.Models.*;
 
 public class XMLWriter {
 
-    private XMLDiaryEntryWriter xmlDiaryEntryWriter;
-    private XMLFoodWriter xmlFoodWriter;
-    private XMLMealWriter xmlMealWriter;
-    private XMLUnitWriter xmlUnitWriter;
-    private XMLUserWriter xmlUserWriter;
+    private XMLDiaryEntryWriter mXMLDiaryEntryWriter;
+    private XMLFoodWriter mXMLFoodWriter;
+    private XMLMealWriter mXMLMealWriter;
+    private XMLUnitWriter mXMLUnitWriter;
+    private XMLUserWriter mXMLUserWriter;
+    private Context mContext;
 
-    public XMLWriter() {
-        xmlDiaryEntryWriter = new XMLDiaryEntryWriter();
-        xmlFoodWriter = new XMLFoodWriter();
-        xmlMealWriter = new XMLMealWriter();
-        xmlUnitWriter = new XMLUnitWriter();
-        xmlUserWriter = new XMLUserWriter();
+    public XMLWriter(Context context) {
+        mXMLDiaryEntryWriter = new XMLDiaryEntryWriter();
+        mXMLFoodWriter = new XMLFoodWriter();
+        mXMLMealWriter = new XMLMealWriter();
+        mXMLUnitWriter = new XMLUnitWriter();
+        mXMLUserWriter = new XMLUserWriter();
+        mContext = context;
     }
 
     public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file, String userName) {
         try {
             for (int i = 0; i < entryArrayList.size(); i++) {
-                if (entryArrayList.get(i).getConsumedType() == "Food") {
+                if (!(entryArrayList.get(i).getConsumedFood().equals(null))) {
                     ArrayList<Food> tmpFoodList = new ArrayList<Food>();
-                    tmpFoodList.add((Food) entryArrayList.get(i).getConsumedObject());
-                    xmlFoodWriter.writeFood(tmpFoodList, new File(userName + "DE" + entryArrayList.get(i).getIdentifier() + ".xml"));
-                } else if (entryArrayList.get(i).getConsumedType() == "Meal") {
+                    tmpFoodList.add(entryArrayList.get(i).getConsumedFood());
+                    this.writeFood(tmpFoodList, new File(mContext.getFilesDir() + "/" + userName + "DEF" + entryArrayList.get(i).getTimeStamp() + ".xml"));
+                }
+                if (!(entryArrayList.get(i).getConsumedMeal().equals(null))) {
                     ArrayList<Meal> tmpMealList = new ArrayList<Meal>();
-                    tmpMealList.add((Meal) entryArrayList.get(i).getConsumedObject());
-                    xmlMealWriter.writeMeal(tmpMealList, new File(userName + "DE" + entryArrayList.get(i).getIdentifier() + ".xml"));
+                    tmpMealList.add(entryArrayList.get(i).getConsumedMeal());
+                    this.writeMeal(tmpMealList, new File(mContext.getFilesDir() + "/" + userName + "DEM" + entryArrayList.get(i).getTimeStamp() + ".xml"), (userName + entryArrayList.get(i).getTimeStamp() + "DEM"));
                 }
             }
-            xmlDiaryEntryWriter.writeDiaryEntry(entryArrayList, file);
+            mXMLDiaryEntryWriter.writeDiaryEntry(entryArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }
@@ -46,7 +51,7 @@ public class XMLWriter {
 
     public void writeFood(ArrayList<Food> foodArrayList, File file) {
         try {
-            xmlFoodWriter.writeFood(foodArrayList, file);
+            mXMLFoodWriter.writeFood(foodArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }
@@ -55,9 +60,9 @@ public class XMLWriter {
     public void writeMeal(ArrayList<Meal> mealArrayList, File file, String userName) {
         try {
             for (int i = 0; i < mealArrayList.size(); i++) {
-                xmlFoodWriter.writeFood(mealArrayList.get(i).getIngredients(), new File(userName + mealArrayList.get(i).getIdentifier() + ".xml"));
+                mXMLFoodWriter.writeFood(mealArrayList.get(i).getIngredients(), new File(mContext.getFilesDir() + "/" + userName + mealArrayList.get(i).getName() + "Foods.xml"));
             }
-            xmlMealWriter.writeMeal(mealArrayList, file);
+            mXMLMealWriter.writeMeal(mealArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }
@@ -65,7 +70,7 @@ public class XMLWriter {
 
     public void writeUnit(ArrayList<Unit> unitArrayList, File file) {
         try {
-            xmlUnitWriter.writeUnit(unitArrayList, file);
+            mXMLUnitWriter.writeUnit(unitArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }
@@ -73,7 +78,7 @@ public class XMLWriter {
 
     public void writeUser(ArrayList<User> userArrayList, File file) {
         try {
-            xmlUserWriter.writeUser(userArrayList, file);
+            mXMLUserWriter.writeUser(userArrayList, file);
         } catch (Exception exception) {
             System.err.println(exception);
         }

@@ -22,20 +22,16 @@ public class Unit {
         return mUnit;
     }
 
-//	public void setUnit(String mUnit) {
-//		this.mUnit = mUnit;
-//	}
-
     public String getUnitShort() {
         return mUnitShorts;
     }
-
-//	public void setUnitShorts(String mUnitShorts) {
-//		this.mUnitShorts = mUnitShorts;
-//	}
 
     public Integer getQuantity() {
         return mQuantity;
     }
 
+    public void setQuantity(int quantity)
+    {
+        mQuantity = quantity;
+    }
 }

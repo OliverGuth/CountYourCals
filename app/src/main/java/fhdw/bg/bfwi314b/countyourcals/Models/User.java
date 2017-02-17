@@ -11,10 +11,6 @@ public class User implements java.io.Serializable{
     private Integer mMaxKCal;
     private String mLanguage;
 
-    public User(String name) {
-        mName = name;
-    }
-
     public User(String name, Character gender, Integer maxKCal, String language) {
         mName = name;
         mGender = gender;

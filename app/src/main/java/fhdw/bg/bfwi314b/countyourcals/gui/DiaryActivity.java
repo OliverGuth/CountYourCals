@@ -15,11 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Food;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.DiaryState.*;
 

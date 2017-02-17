@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fhdw.bg.bfwi314b.countyourcals.OldModels.DiaryEntry;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.StatisticsState.*;

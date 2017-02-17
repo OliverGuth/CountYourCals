@@ -9,32 +9,55 @@ import java.util.Date;
 public class DiaryEntry {
 
     private Date mTimeStamp;
-    private Consumable mConsumedObject;
+    private Food mConsumedFood;
+    private Meal mConsumedMeal;
     private Unit mConsumedUnit;
     private Integer mConsumedKCal;
-    private Integer mIdentifier;
-    private String mConsumedType;
 
-    public DiaryEntry(Date timeStamp, Consumable consumed, Unit consumedUnit, Integer consumedKCal, Integer identifier) {
+    public DiaryEntry(Date timeStamp, Food consumedFood, Unit consumedUnit, Integer consumedKCal) {
         mTimeStamp = timeStamp;
-        mConsumedObject = consumed;
+        mConsumedFood = consumedFood;
+        mConsumedMeal = null;
         mConsumedUnit = consumedUnit;
         mConsumedKCal = consumedKCal;
-        mIdentifier = identifier;
-        mConsumedType = mConsumedObject.getType();
     }
 
-    public DiaryEntry(Date timeStamp, Unit consumedUnit, Integer consumedKCal, Integer identifier, String consumedType) {
+    public DiaryEntry(Date timeStamp, Meal consumedMeal, Unit consumedUnit, Integer consumedKCal) {
         mTimeStamp = timeStamp;
-        mConsumedObject = null;
+        mConsumedFood = null;
+        mConsumedMeal = consumedMeal;
         mConsumedUnit = consumedUnit;
         mConsumedKCal = consumedKCal;
-        mIdentifier = identifier;
-        mConsumedType = consumedType;
+    }
+
+    public DiaryEntry(Date timeStamp, Food consumedFood, Meal consumedMeal, Unit consumedUnit, Integer consumedKCal) {
+        mTimeStamp = timeStamp;
+        mConsumedFood = consumedFood;
+        mConsumedMeal = consumedMeal;
+        mConsumedUnit = consumedUnit;
+        mConsumedKCal = consumedKCal;
+    }
+
+    public DiaryEntry(Date timeStamp, Unit consumedUnit, Integer consumedKCal) {
+        mTimeStamp = timeStamp;
+        mConsumedFood = null;
+        mConsumedMeal = null;
+        mConsumedUnit = consumedUnit;
+        mConsumedKCal = consumedKCal;
     }
 
     public String toString() {
-        return mConsumedObject.toString();
+        if (mConsumedFood.equals(null) && mConsumedMeal.equals(null)) {
+            return null;
+        } else if (mConsumedFood.equals(null)) {
+            return mConsumedMeal.toString();
+        } else if (mConsumedMeal.equals(null)) {
+            return mConsumedFood.toString();
+        } else if (!(mConsumedFood.equals(null) && mConsumedMeal.equals(null))) {
+            return mConsumedFood.toString() + mConsumedMeal.toString();
+        } else {
+            return null;
+        }
     }
 
     public Date getTimeStamp() {
@@ -42,16 +65,17 @@ public class DiaryEntry {
     }
 
     public String getConsumedName() {
-        return mConsumedObject.getName();
-    }
-
-    public void setConsumedObject(Consumable consumedObject) {
-        mConsumedObject = consumedObject;
-        mConsumedType = mConsumedObject.getType();
-    }
-
-    public Integer getIdentifier() {
-        return mIdentifier;
+        if (mConsumedFood.equals(null) && mConsumedMeal.equals(null)) {
+            return null;
+        } else if (mConsumedFood.equals(null)) {
+            return mConsumedMeal.getName();
+        } else if (mConsumedMeal.equals(null)) {
+            return mConsumedFood.getName();
+        } else if (!(mConsumedFood.equals(null) && mConsumedMeal.equals(null))) {
+            return mConsumedFood.getName() + mConsumedMeal.getName();
+        } else {
+            return null;
+        }
     }
 
     public Unit getConsumedUnit() {
@@ -70,11 +94,19 @@ public class DiaryEntry {
         mConsumedKCal = consumedKCal;
     }
 
-    public Consumable getConsumedObject() {
-        return mConsumedObject;
+    public Food getConsumedFood() {
+        return mConsumedFood;
     }
 
-    public String getConsumedType() {
-        return mConsumedType;
+    public Meal getConsumedMeal() {
+        return mConsumedMeal;
+    }
+
+    public void setConsumedFood(Food consumedFood) {
+        mConsumedFood = consumedFood;
+    }
+
+    public void setConsumedMeal(Meal consumedMeal) {
+        mConsumedMeal = consumedMeal;
     }
 }
