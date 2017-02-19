@@ -323,6 +323,8 @@ public class DataStorageController {
         mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
     }
 
+    //-----------------
+
     public void factoryReset()
     {
         if(context.getFilesDir().isDirectory())

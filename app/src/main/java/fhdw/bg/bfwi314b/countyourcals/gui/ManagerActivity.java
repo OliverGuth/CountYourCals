@@ -30,16 +30,20 @@ public class ManagerActivity extends Activity {
     private TableLayout table;
 
     @Override
-    protected void onSaveInstanceState (Bundle outState) {
-        outState.putBoolean("RESTART", true);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
+    }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        initializeActivity();
+    }
+
+    private void initializeActivity()
+    {
         user = (User) this.getIntent().getSerializableExtra("user");
         rowFactory = new RowFactory(this);
         dialogFactory = new DialogFactory(this);
@@ -50,7 +54,7 @@ public class ManagerActivity extends Activity {
         table = (TableLayout)this.findViewById(R.id.ManagerTableLayout);
         Button newEntry = (Button) findViewById(R.id.ManagerButtonNewEntry);
 
-        if (savedInstanceState == null) state = MealsState;
+        if (state == null) state = MealsState;
 
 
         food.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +78,13 @@ public class ManagerActivity extends Activity {
                 switch (state)
                 {
                     case FoodState:
-                        dialogFactory.CreateNewFoodDialog(ManagerActivity.this, rowFactory, user);
+                        dialogFactory.CreateNewFoodDialog(rowFactory, user);
                         break;
                     case MealsState:
-                        dialogFactory.CreateNewMealDialog(ManagerActivity.this, rowFactory, user);
+                        dialogFactory.CreateNewMealDialog(rowFactory, user);
                         break;
                     case UnitsState:
-                        dialogFactory.CreateNewUnitDialog(ManagerActivity.this, user);
+                        dialogFactory.CreateNewUnitDialog(user);
                         break;
                 }
             }});
@@ -105,6 +109,18 @@ public class ManagerActivity extends Activity {
                 rowFactory.FillUnitTableLayout(table, user, ManagerActivity.this);
             break;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable("state", state);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        state = (ManagerState) savedInstanceState.getSerializable("state");
     }
 
     private void highlightState(int color1, int color2, int color3)

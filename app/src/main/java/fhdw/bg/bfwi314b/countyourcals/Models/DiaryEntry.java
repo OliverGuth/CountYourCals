@@ -46,6 +46,7 @@ public class DiaryEntry {
         mConsumedKCal = consumedKCal;
     }
 
+    @Override
     public String toString() {
         if (mConsumedFood.equals(null) && mConsumedMeal.equals(null)) {
             return null;

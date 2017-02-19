@@ -50,11 +50,7 @@ public class AccountActivity extends Activity {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 user = null;
-                name.setText("");
-                gender.setText("");
-                maxCals.setText("");
-                dialogFactory.CreateLoginDialog(AccountActivity.this);
-
+                finish();
         }});
     }
 
@@ -70,16 +66,21 @@ public class AccountActivity extends Activity {
         }
     }
 
-    public void onBackPressed() {
-        if(Integer.parseInt(maxCals.getText().toString()) != user.getMaxKCal())
-        {
-            controller.editUser(user);
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (user != null) {
             user.setMaxKCal(Integer.parseInt(maxCals.getText().toString()));
-    }
-        fillUserData();
-        Intent intent = new Intent();
-        intent.putExtra("user", user);
-        setResult(1, intent);
-        finish();
+            controller.editUser(user);
+            fillUserData();
+            Intent intent = new Intent();
+            intent.putExtra("user", user);
+            setResult(1, intent);
+            finish();
+        } else {
+            Intent intent = new Intent();
+            setResult(2, intent);
+            finish();
+        }
     }
 }

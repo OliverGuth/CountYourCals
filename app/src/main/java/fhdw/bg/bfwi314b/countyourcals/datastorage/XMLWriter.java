@@ -61,6 +61,7 @@ public class XMLWriter {
         try {
             for (int i = 0; i < mealArrayList.size(); i++) {
                 mXMLFoodWriter.writeFood(mealArrayList.get(i).getIngredients(), new File(mContext.getFilesDir() + "/" + userName + mealArrayList.get(i).getName() + "Foods.xml"));
+                mXMLUnitWriter.writeUnit(mealArrayList.get(i).getUnits(), new File(mContext.getFilesDir() + "/" + userName + mealArrayList.get(i).getName() + "Units.xml"));
             }
             mXMLMealWriter.writeMeal(mealArrayList, file);
         } catch (Exception exception) {

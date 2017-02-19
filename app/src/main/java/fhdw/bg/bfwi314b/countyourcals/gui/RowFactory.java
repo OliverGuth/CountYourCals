@@ -60,7 +60,7 @@ public class RowFactory {
     }
 
     public void FillDiaryTableLayout(TableLayout table, DiaryState diaryState, Date selectedDate, User user, final Context context) {
-        table.removeAllViews();
+        /*table.removeAllViews();
         List<DiaryEntry> entriesAll = controller.getDiaryEntryList(user);
         List<DiaryEntry> entriesShown = new ArrayList<DiaryEntry>();
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
@@ -131,7 +131,7 @@ public class RowFactory {
 
             row.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    dialogFactory.CreateDiaryEntryLineDialog(context, diaryEntry);
+                    dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
                     return true;
                 }
 
@@ -139,12 +139,13 @@ public class RowFactory {
 
             edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    dialogFactory.CreateDiaryEntryLineDialog(context, diaryEntry);
+                    dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
                 }
 
             });
             table.addView(row);
         }
+        */
     }
 
     public void FillMealTableLayout(TableLayout table, final User user, final Context context) {
@@ -173,7 +174,7 @@ public class RowFactory {
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateMealLineDialog(context, meal, rowFactory, user);
+                        dialogFactory.CreateMealLineDialog(meal, rowFactory, user);
                         return true;
                     }
 
@@ -181,7 +182,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateMealLineDialog(context, meal, rowFactory, user);
+                        dialogFactory.CreateMealLineDialog(meal, rowFactory, user);
                     }
 
                 });
@@ -216,7 +217,7 @@ public class RowFactory {
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateFoodLineDialog(context, food, rowFactory, user);
+                        dialogFactory.CreateFoodLineDialog(food, rowFactory, user);
                         return true;
                     }
 
@@ -224,7 +225,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateFoodLineDialog(context, food, rowFactory, user);
+                        dialogFactory.CreateFoodLineDialog(food, rowFactory, user);
                     }
 
                 });
@@ -256,7 +257,7 @@ public class RowFactory {
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateUnitLineDialog(context, unit, user);
+                        dialogFactory.CreateUnitLineDialog(unit, user);
                         return true;
                     }
 
@@ -264,7 +265,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateUnitLineDialog(context, unit, user);
+                        dialogFactory.CreateUnitLineDialog(unit, user);
                     }
 
                 });

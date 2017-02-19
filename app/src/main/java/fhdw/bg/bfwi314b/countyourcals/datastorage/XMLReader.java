@@ -66,9 +66,12 @@ public class XMLReader {
         ArrayList<Meal> mealArrayList = null;
         try {
             mealArrayList = mXMLMealReader.readMeal(file);
+
             boolean b = true;
             for (int i = 0; i < mealArrayList.size(); i++) {
+                mealArrayList.get(i).getUnits().clear();
                 mealArrayList.get(i).addIngredientList(mXMLFoodReader.readFood(new File(mContext.getFilesDir() + "/" + userName + mealArrayList.get(i).getName() + "Foods.xml")));
+                mealArrayList.get(i).getUnits().addAll(mXMLUnitReader.readUnit(new File(mContext.getFilesDir() + "/" + userName + mealArrayList.get(i).getName() + "Units.xml")));
             }
         } catch (Exception exception) {
             System.err.println(exception);
