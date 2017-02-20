@@ -51,65 +51,62 @@ public class RowFactory {
         List<DiaryEntry> entriesAll = controller.getDiaryEntryList(user);
         List<DiaryEntry> entriesShown = new ArrayList<DiaryEntry>();
 
-        for (DiaryEntry entry : entriesAll)
-        {
-            if (entry.getTimeStamp().compareTo(beginningDate)>= 0 && entry.getTimeStamp().compareTo(endDate)<= 0)
-                entriesShown.add(entry);
-        }
-
-
-
-        for (int i = 0; i < entriesShown.size(); i++) {
-            final DiaryEntry diaryEntry = entriesShown.get(i);
-            TableRow row;
-            TextView number;
-            TextView name;
-            TextView calories;
-            TextView date;
-            RelativeLayout edit;
-
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (state == DiaryState.DayState)
-            {
-                row = (TableRow) inflater.inflate(R.layout.row_diary_entry_no_date, null);
-                edit = (RelativeLayout) row.getChildAt(3);
-                date = null;
+        if(entriesAll != null) {
+            for (DiaryEntry entry : entriesAll) {
+                if (entry.getTimeStamp().compareTo(beginningDate) >= 0 && entry.getTimeStamp().compareTo(endDate) <= 0)
+                    entriesShown.add(entry);
             }
-            else
-            {
-                row = (TableRow) inflater.inflate(R.layout.row_diary_entry_date, null);
-                date = (TextView) row.getChildAt(3);
-                edit = (RelativeLayout) row.getChildAt(4);
+
+            for (int i = 0; i < entriesShown.size(); i++) {
+                final DiaryEntry diaryEntry = entriesShown.get(i);
+                TableRow row;
+                TextView number;
+                TextView name;
+                TextView calories;
+                TextView date;
+                RelativeLayout edit;
+
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                if (state == DiaryState.DayState) {
+                    row = (TableRow) inflater.inflate(R.layout.row_diary_entry_no_date, null);
+                    edit = (RelativeLayout) row.getChildAt(3);
+                    date = null;
+                } else {
+                    row = (TableRow) inflater.inflate(R.layout.row_diary_entry_date, null);
+                    date = (TextView) row.getChildAt(3);
+                    edit = (RelativeLayout) row.getChildAt(4);
+                }
+                number = (TextView) row.getChildAt(0);
+                name = (TextView) row.getChildAt(1);
+                calories = (TextView) row.getChildAt(2);
+
+                number.setText(i + 1 + ".");
+                name.setText(diaryEntry.getConsumedName());
+                calories.setText(diaryEntry.getConsumedKCal().toString() + " kcal");
+                if (date != null)
+                    date.setText(new SimpleDateFormat("dd.MM.yyyy").format(diaryEntry.getTimeStamp()));
+                ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
+                edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
+
+                edit.setClickable(true);
+                row.setLongClickable(true);
+
+                row.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
+                        return true;
+                    }
+
+                });
+
+                edit.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
+                    }
+
+                });
+                table.addView(row);
             }
-            number = (TextView) row.getChildAt(0);
-            name = (TextView) row.getChildAt(1);
-            calories = (TextView) row.getChildAt(2);
-
-            number.setText(i + 1 + ".");
-            name.setText(diaryEntry.getConsumedName());
-            calories.setText(diaryEntry.getConsumedKCal().toString() + " kcal");
-            ////////if(date != null) date.setText(diaryEntry.getConsumedKCal().toString() + " kcal");
-            ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
-            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
-
-            edit.setClickable(true);
-            row.setLongClickable(true);
-
-            row.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
-                    return true;
-                }
-
-            });
-
-            edit.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
-                }
-
-            });
-            table.addView(row);
         }
     }
 
@@ -396,7 +393,7 @@ public class RowFactory {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 List<Unit> units = new ArrayList<Unit>();
                 units.add(unit);
-                ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item,  units);
+                ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 unitSpinner.setAdapter(adapter);
             }

@@ -80,7 +80,7 @@ public class DialogFactory
 
         newFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rowFactory.AddRowMealDialogTableLayout(table, user, context);
+                rowFactory.AddRowMealDialogTableLayout(table, user);
             }
         });
 
@@ -176,12 +176,12 @@ public class DialogFactory
 
         for (int i = 0; i < oldMeal.getIngredients().size(); i++)
         {
-            rowFactory.AddRowMealDialogEditTableLayout(table, oldMeal.getIngredients().get(i), oldMeal.getUnits().get(i), user, context);
+            rowFactory.AddRowMealDialogEditTableLayout(table, oldMeal.getIngredients().get(i), oldMeal.getUnits().get(i), user);
         }
 
         newFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rowFactory.AddRowMealDialogTableLayout(table, user, context);
+                rowFactory.AddRowMealDialogTableLayout(table, user);
             }
         });
 
@@ -290,7 +290,7 @@ public class DialogFactory
 
         newUnit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rowFactory.AddRowFoodDialogTableLayout(table, user, context);
+                rowFactory.AddRowFoodDialogTableLayout(table, user);
             }
         });
 
@@ -360,12 +360,12 @@ public class DialogFactory
 
         for (Unit unit : food.getUnits())
         {
-            rowFactory.AddRowFoodDialogEditTableLayout(table, unit, user, context);
+            rowFactory.AddRowFoodDialogEditTableLayout(table, unit, user);
         }
 
         newUnit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rowFactory.AddRowFoodDialogTableLayout(table, user, context);
+                rowFactory.AddRowFoodDialogTableLayout(table, user);
             }
         });
 

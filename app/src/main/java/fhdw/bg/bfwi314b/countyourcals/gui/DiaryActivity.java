@@ -185,6 +185,9 @@ public class DiaryActivity extends Activity {
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
         Calendar cal = Calendar.getInstance();
 
+        Date start;
+        Date end;
+
         switch(state)
         {
             case DayState:
@@ -192,7 +195,7 @@ public class DiaryActivity extends Activity {
                 ArrowsVisible(true);
                 maxDiffVisible(true);
                 date.setText(timeStamp);
-                rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
+                rowFactory.FillDiaryTableLayout(table, state, selectedDate, selectedDate, user);
             break;
             case WeekState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
@@ -200,7 +203,16 @@ public class DiaryActivity extends Activity {
                 maxDiffVisible(false);
                 cal.setTime(selectedDate);
                 date.setText("KW "+ cal.get(Calendar.WEEK_OF_YEAR) + " " + cal.get(Calendar.YEAR));
-                rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
+
+                cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+                setTimeToBeginningOfDay(cal);
+                start = cal.getTime();
+                cal.add(Calendar.WEEK_OF_YEAR, 1);
+                cal.add(Calendar.DATE, -1);
+                setTimeToEndofDay(cal);
+                end = cal.getTime();
+
+                rowFactory.FillDiaryTableLayout(table, state, start, end, user);
                 break;
             case MonthState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
@@ -208,18 +220,48 @@ public class DiaryActivity extends Activity {
                 maxDiffVisible(false);
                 cal.setTime(selectedDate);
                 date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + cal.get(Calendar.YEAR));
-                rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
+
+                cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+                setTimeToBeginningOfDay(cal);
+                start = cal.getTime();
+                cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+                setTimeToEndofDay(cal);
+                end = cal.getTime();
+
+                rowFactory.FillDiaryTableLayout(table, state, start, end, user);
                 break;
             case AllState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
                 ArrowsVisible(false);
                 maxDiffVisible(false);
                 date.setText("");
-                rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
+
+                cal.set(Calendar.YEAR, cal.getActualMinimum(Calendar.YEAR));
+                setTimeToBeginningOfDay(cal);
+                start = cal.getTime();
+                cal.set(Calendar.YEAR, cal.getActualMaximum(Calendar.YEAR));
+                setTimeToEndofDay(cal);
+                end = cal.getTime();
+
+                rowFactory.FillDiaryTableLayout(table, state, start, end, user);
                 break;
             }
             updateSumMaxFields();
         }
+
+    private static void setTimeToBeginningOfDay(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+    }
+
+    private static void setTimeToEndofDay(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+    }
 
     private void updateSumMaxFields()
     {

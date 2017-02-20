@@ -98,15 +98,15 @@ public class ManagerActivity extends Activity {
         {
             case FoodState:
                 highlightState(R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
-                rowFactory.FillFoodTableLayout(table, user, ManagerActivity.this);
+                rowFactory.FillFoodTableLayout(table, user);
             break;
             case MealsState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                rowFactory.FillMealTableLayout(table, user, ManagerActivity.this);
+                rowFactory.FillMealTableLayout(table, user);
             break;
             case UnitsState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                rowFactory.FillUnitTableLayout(table, user, ManagerActivity.this);
+                rowFactory.FillUnitTableLayout(table, user);
             break;
         }
     }

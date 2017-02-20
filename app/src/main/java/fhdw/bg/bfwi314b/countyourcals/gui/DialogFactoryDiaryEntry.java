@@ -1,9 +1,21 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import java.util.List;
+
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
+import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
@@ -22,38 +34,79 @@ public class DialogFactoryDiaryEntry {
 
     public void CreateNewDiaryEntryDialog(final User user)
     {
-        /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
         final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
         final DatePicker date = (DatePicker) view.findViewById(R.id.DialogNewEntryDatePicker);
-        final Spinner food = (Spinner) view.findViewById(R.id.DialogNewEntryFoodSpinner);
-        final Spinner meal = (Spinner) view.findViewById(R.id.DialogNewEntryMealSpinner);
+        final Spinner foodSpinner = (Spinner) view.findViewById(R.id.DialogNewEntryFoodSpinner);
+        final Spinner mealSpinner = (Spinner) view.findViewById(R.id.DialogNewEntryMealSpinner);
         final EditText quantity = (EditText) view.findViewById(R.id.DialogNewEntryQuanitityValue);
-        final Spinner unit = (Spinner) view.findViewById(R.id.DialogNewEntryUnitSpinner);
+        final Spinner unitSpinner = (Spinner) view.findViewById(R.id.DialogNewEntryUnitSpinner);
         final EditText calories = (EditText) view.findViewById(R.id.DialogNewEntryCaloriesValue);
+
+        final List<Food> foodList = controller.getFoodList(user);
+        final List<Meal> mealList = controller.getMealList(user);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, foodList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foodSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, mealList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mealSpinner.setAdapter(adapter);
+
+        foodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                unitSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                unitSpinner.setAdapter(null);
+            }
+
+        });
+
+        mealSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                unitSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                unitSpinner.setAdapter(null);
+            }
+
+        });
 
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Food> foodList = controller.getFoodList(user.getName());
-                List<Meal> unitList = controller.getMealList(user.getName());
-                if(((food.getSelectedItemPosition() != 0 && meal.getSelectedItemPosition() == 0) || (food.getSelectedItemPosition() == 0 && meal.getSelectedItemPosition() != 0)) && !(food.getSelectedItemPosition() == 0 && meal.getSelectedItemPosition() == 0))
-                {
-                    if(!quantity.getText().toString().equals(""))
-                    {
-                        if(Integer.parseInt(quantity.getText().toString()) > 0)
-                            controller.addDiaryEntry(user.getName(), name.getText().toString(), nameShort.getText().toString(), 0);
+
+
+                if (!(foodList == null || mealList == null)) {
+
+                        if (!quantity.getText().toString().equals("")) {
+                            if (Integer.parseInt(quantity.getText().toString()) > 0)
+
 
                             Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
-                    }
+                        }
+
                 }
             }
         });
         dialog.show();
-        */
+
     }
 
     public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry)
