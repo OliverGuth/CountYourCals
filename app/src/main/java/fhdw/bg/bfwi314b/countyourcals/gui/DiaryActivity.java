@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,8 +26,6 @@ public class DiaryActivity extends Activity {
 
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
-    public List<DiaryEntry> entries;
-    private List<DiaryEntry> shownEntries;
     private List<Food> foods;
     private List<Meal> meals;
     private User user;
@@ -175,7 +175,7 @@ public class DiaryActivity extends Activity {
                 updateSumMaxFields();
             }});
 
-        selectedDate = Calendar.getInstance().getTime();
+        if(selectedDate == null)selectedDate = Calendar.getInstance().getTime();
         updateView();
     }
 
@@ -184,11 +184,7 @@ public class DiaryActivity extends Activity {
         TextView date = (TextView) findViewById(R.id.DiaryTextDate);
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
         Calendar cal = Calendar.getInstance();
-        int currentWeek;
-        int currentMonth;
-        int currentYear;
 
-        shownEntries.clear();
         switch(state)
         {
             case DayState:
@@ -203,9 +199,7 @@ public class DiaryActivity extends Activity {
                 ArrowsVisible(true);
                 maxDiffVisible(false);
                 cal.setTime(selectedDate);
-                currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
-                currentYear = cal.get(Calendar.YEAR);
-                date.setText("KW "+ currentWeek + " " + currentYear);
+                date.setText("KW "+ cal.get(Calendar.WEEK_OF_YEAR) + " " + cal.get(Calendar.YEAR));
                 rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
                 break;
             case MonthState:
@@ -213,16 +207,13 @@ public class DiaryActivity extends Activity {
                 ArrowsVisible(true);
                 maxDiffVisible(false);
                 cal.setTime(selectedDate);
-                currentMonth = cal.get(Calendar.MONTH);
-                currentYear = cal.get(Calendar.YEAR);
-                date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + currentYear);
+                date.setText(new SimpleDateFormat("MMMM").format(selectedDate) + " " + cal.get(Calendar.YEAR));
                 rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
                 break;
             case AllState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
                 ArrowsVisible(false);
                 maxDiffVisible(false);
-                shownEntries.addAll(entries);
                 date.setText("");
                 rowFactory.FillDiaryTableLayout(table, state, selectedDate, user, DiaryActivity.this);
                 break;
@@ -232,14 +223,15 @@ public class DiaryActivity extends Activity {
 
     private void updateSumMaxFields()
     {
-        int i = 0;
+        int cals = 0;
         int max = 0;
 
-        for(DiaryEntry entry: shownEntries) i = i + entry.getConsumedKCal();
-        sum.setText(i + " kcal");
+        for (int i = 1; i<= table.getChildCount(); i++)
+            cals = cals + Integer.parseInt(((TextView)((TableRow)table.getChildAt(i)).getChildAt(2)).getText().toString().split(" ")[0]);
+        sum.setText(cals + " kcal");
 
         if (maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
-        else if (maxText.getText().equals("Diff.:")) maxValue.setText((user.getMaxKCal() - i) + " kcal");
+        else if (maxText.getText().equals("Diff.:")) maxValue.setText((user.getMaxKCal() - cals) + " kcal");
     }
 
     private void ArrowsVisible(boolean visible)
@@ -275,6 +267,7 @@ public class DiaryActivity extends Activity {
     {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable("state", state);
+        savedInstanceState.putString("date", new SimpleDateFormat("dd.MM.yyyy").format(selectedDate));
     }
 
     @Override
@@ -282,6 +275,11 @@ public class DiaryActivity extends Activity {
     {
         super.onRestoreInstanceState(savedInstanceState);
         state = (DiaryState) savedInstanceState.getSerializable("state");
+        try {
+            selectedDate = new SimpleDateFormat("dd.MM.yyyy").parse(savedInstanceState.getString("date"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void highlightState(int color1, int color2, int color3, int color4)

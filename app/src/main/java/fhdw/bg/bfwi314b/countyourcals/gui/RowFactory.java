@@ -37,94 +37,60 @@ public class RowFactory {
 
     private DialogFactory dialogFactory;
     private DataStorageController controller;
+    private Context context;
 
 
-    public RowFactory(AccountActivity accountActivity) {
-        dialogFactory = new DialogFactory(accountActivity);
-        controller = new DataStorageController(accountActivity);
+    public RowFactory(Context context) {
+        this.dialogFactory = new DialogFactory(context);
+        this.controller = new DataStorageController(context);
+        this.context = context;
     }
 
-    public RowFactory(MainActivity mainActivity) {
-        dialogFactory = new DialogFactory(mainActivity);
-        controller = new DataStorageController(mainActivity);
-    }
-
-    public RowFactory(ManagerActivity managerActivity) {
-        dialogFactory = new DialogFactory(managerActivity);
-        controller = new DataStorageController(managerActivity);
-    }
-
-    public RowFactory(DiaryActivity diaryActivity) {
-        dialogFactory = new DialogFactory(diaryActivity);
-        controller = new DataStorageController(diaryActivity);
-    }
-
-    public void FillDiaryTableLayout(TableLayout table, DiaryState diaryState, Date selectedDate, User user, final Context context) {
-        /*table.removeAllViews();
+    public void FillDiaryTableLayout(TableLayout table, DiaryState state, Date beginningDate, Date endDate, User user) {
+        table.removeAllViews();
         List<DiaryEntry> entriesAll = controller.getDiaryEntryList(user);
         List<DiaryEntry> entriesShown = new ArrayList<DiaryEntry>();
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(selectedDate);
-        Calendar cal = Calendar.getInstance();
 
-        switch (diaryState) {
-            case DayState:
-                for (DiaryEntry entry : entriesAll) {
-                    if (timeStamp.equals(entry.getTimeStamp())) entriesShown.add(entry);
-                }
-                break;
-
-            case WeekState:
-                cal.setTime(selectedDate);
-
-                int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
-                int currentYear = cal.get(Calendar.YEAR);
-
-                for (DiaryEntry entry : entriesAll) {
-                    cal.setTime(entry.getTimeStamp());
-
-                    int entryWeek = cal.get(Calendar.WEEK_OF_YEAR);
-                    int entryYear = cal.get(Calendar.YEAR);
-                    if (currentWeek == entryWeek && currentYear == entryYear)
-                        entriesShown.add(entry);
-                }
-                break;
-
-            case MonthState:
-                cal.setTime(selectedDate);
-                int currentMonth = cal.get(Calendar.MONTH);
-                currentYear = cal.get(Calendar.YEAR);
-
-                for (DiaryEntry entry : entriesAll) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-                    cal.setTime(entry.getTimeStamp());
-                    int entrymonth = cal.get(Calendar.MONTH);
-                    int entryYear = cal.get(Calendar.YEAR);
-                    if (currentMonth == entrymonth && currentYear == entryYear)
-                        entriesShown.add(entry);
-                }
-                break;
-
-            case AllState:
-                entriesShown.addAll(entriesAll);
-                break;
+        for (DiaryEntry entry : entriesAll)
+        {
+            if (entry.getTimeStamp().compareTo(beginningDate)>= 0 && entry.getTimeStamp().compareTo(endDate)<= 0)
+                entriesShown.add(entry);
         }
+
+
 
         for (int i = 0; i < entriesShown.size(); i++) {
             final DiaryEntry diaryEntry = entriesShown.get(i);
+            TableRow row;
+            TextView number;
+            TextView name;
+            TextView calories;
+            TextView date;
+            RelativeLayout edit;
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TableRow row = (TableRow) inflater.inflate(R.layout.row_diary_entry_no_date, null);
-            TextView number = (TextView) row.getChildAt(0);
-            TextView name = (TextView) row.getChildAt(1);
-            TextView calories = (TextView) row.getChildAt(2);
-            RelativeLayout edit = (RelativeLayout) row.getChildAt(3);
-
-            ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
-            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
-
+            if (state == DiaryState.DayState)
+            {
+                row = (TableRow) inflater.inflate(R.layout.row_diary_entry_no_date, null);
+                edit = (RelativeLayout) row.getChildAt(3);
+                date = null;
+            }
+            else
+            {
+                row = (TableRow) inflater.inflate(R.layout.row_diary_entry_date, null);
+                date = (TextView) row.getChildAt(3);
+                edit = (RelativeLayout) row.getChildAt(4);
+            }
+            number = (TextView) row.getChildAt(0);
+            name = (TextView) row.getChildAt(1);
+            calories = (TextView) row.getChildAt(2);
 
             number.setText(i + 1 + ".");
-            name.setText(entriesShown.get(i).getConsumedName());
-            calories.setText(entriesShown.get(i).getConsumedKCal().toString() + " kcal");
+            name.setText(diaryEntry.getConsumedName());
+            calories.setText(diaryEntry.getConsumedKCal().toString() + " kcal");
+            ////////if(date != null) date.setText(diaryEntry.getConsumedKCal().toString() + " kcal");
+            ((ImageView) edit.getChildAt(0)).setImageResource((R.drawable.edit));
+            edit.setBackgroundColor(context.getResources().getColor(R.color.Grey));
 
             edit.setClickable(true);
             row.setLongClickable(true);
@@ -145,10 +111,9 @@ public class RowFactory {
             });
             table.addView(row);
         }
-        */
     }
 
-    public void FillMealTableLayout(TableLayout table, final User user, final Context context) {
+    public void FillMealTableLayout(TableLayout table, final User user) {
         final RowFactory rowFactory = this;
         final List<Meal> meals = controller.getMealList(user);
         if (meals != null) {
@@ -191,7 +156,7 @@ public class RowFactory {
         }
     }
 
-    public void FillFoodTableLayout(TableLayout table, final User user, final Context context) {
+    public void FillFoodTableLayout(TableLayout table, final User user) {
         final List<Food> foods = controller.getFoodList(user);
         final RowFactory rowFactory = this;
         if (foods != null) {
@@ -234,7 +199,7 @@ public class RowFactory {
         }
     }
 
-    public void FillUnitTableLayout(TableLayout table, final User user, final Context context) {
+    public void FillUnitTableLayout(TableLayout table, final User user) {
         final List<Unit> units = controller.getUnitList(user);
         if (units != null) {
             for (int i = 0; i < units.size(); i++) {
@@ -274,7 +239,7 @@ public class RowFactory {
         }
     }
 
-    public void AddRowFoodDialogTableLayout(final TableLayout table, final User user, final Context context) {
+    public void AddRowFoodDialogTableLayout(final TableLayout table, final User user) {
         List<Unit> units = controller.getUnitList(user);
         List<Unit> usedUnits = new ArrayList<Unit>();
 
@@ -317,7 +282,7 @@ public class RowFactory {
         }
     }
 
-    public void AddRowFoodDialogTableLayout(final TableLayout table, Unit unit, final User user, final Context context) {
+    public void AddRowFoodDialogEditTableLayout(final TableLayout table, Unit unit, final User user) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final TableRow row = (TableRow) inflater.inflate(R.layout.row_food_unit, null);
         EditText quantity = (EditText) row.getChildAt(0);
@@ -348,7 +313,7 @@ public class RowFactory {
         table.addView(row, table.getChildCount() - 1);
     }
 
-    public void AddRowMealDialogTableLayout(final TableLayout table, final User user, final Context context) {
+    public void AddRowMealDialogTableLayout(final TableLayout table, final User user) {
         List<Food> foods = controller.getFoodList(user);
         List<Food> usedFoods = new ArrayList<Food>();
 
@@ -407,7 +372,7 @@ public class RowFactory {
         }
     }
 
-    public void AddRowMealDialogTableLayout(final TableLayout table, final Food food, final Unit unit, final User user, final Context context) {
+    public void AddRowMealDialogEditTableLayout(final TableLayout table, final Food food, final Unit unit, final User user) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final TableRow row = (TableRow) inflater.inflate(R.layout.row_meal_food, null);
         final Spinner foodSpinner = (Spinner) row.getChildAt(0);
