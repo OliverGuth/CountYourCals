@@ -195,7 +195,8 @@ public class DiaryActivity extends Activity {
                 ArrowsVisible(true);
                 maxDiffVisible(true);
                 date.setText(timeStamp);
-                rowFactory.FillDiaryTableLayout(table, state, selectedDate, selectedDate, user);
+                cal.setTime(selectedDate);
+                rowFactory.FillDiaryTableLayout(table, state, setTimeToBeginningOfDay(cal).getTime(), setTimeToEndofDay(cal).getTime(), user);
             break;
             case WeekState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue, R.color.BayerBlue);
@@ -249,18 +250,20 @@ public class DiaryActivity extends Activity {
             updateSumMaxFields();
         }
 
-    private static void setTimeToBeginningOfDay(Calendar calendar) {
+    private static Calendar setTimeToBeginningOfDay(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 
-    private static void setTimeToEndofDay(Calendar calendar) {
+    private static Calendar setTimeToEndofDay(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
+        return calendar;
     }
 
     private void updateSumMaxFields()
@@ -268,14 +271,21 @@ public class DiaryActivity extends Activity {
         int cals = 0;
         int max = 0;
 
-        for (int i = 1; i<= table.getChildCount(); i++)
-            cals = cals + Integer.parseInt(((TextView)((TableRow)table.getChildAt(i)).getChildAt(2)).getText().toString().split(" ")[0]);
-        sum.setText(cals + " kcal");
+        if(table.getChildCount() >0) {
+            for (int i = 0; i < table.getChildCount(); i++) {
+                TableRow row = (TableRow) table.getChildAt(i);
+                TextView text = (TextView) row.getChildAt(2);
+                String s = ((TextView) ((TableRow) table.getChildAt(i)).getChildAt(2)).getText().toString().split(" ")[0];
+                int i1 = 0;
+                cals = cals + Integer.parseInt(s);
+            }
+            sum.setText(cals + " kcal");
 
-        if (maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
-        else if (maxText.getText().equals("Diff.:")) maxValue.setText((user.getMaxKCal() - cals) + " kcal");
+            if (maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
+            else if (maxText.getText().equals("Diff.:"))
+                maxValue.setText((user.getMaxKCal() - cals) + " kcal");
+        }
     }
-
     private void ArrowsVisible(boolean visible)
     {
         if(visible)
@@ -289,6 +299,7 @@ public class DiaryActivity extends Activity {
             next.setVisibility(View.INVISIBLE);
         }
     }
+
 
     private void maxDiffVisible(boolean visible)
     {

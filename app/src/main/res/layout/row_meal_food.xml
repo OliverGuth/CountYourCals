@@ -15,7 +15,7 @@
         android:id="@+id/MealLineFoodSpinner"
         android:layout_weight="40"
         android:padding="2dp"
-        android:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border_green"
         android:layout_gravity="center_vertical" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:id="@+id/MealLineUnitSpinner"
         android:layout_weight="30"
         android:padding="2dp"
-        android:background="@drawable/spinner_border"
+        android:background="@drawable/spinner_border_green"
         android:layout_gravity="center_vertical" />
 
     <include

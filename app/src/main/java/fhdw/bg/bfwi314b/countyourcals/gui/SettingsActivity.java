@@ -23,6 +23,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
 
         final Button buttonFactoryReset = (Button) findViewById(R.id.SettingsButtonFactoryReset);
+        final Button buttonCredits = (Button) findViewById(R.id.SettingsButtonCredits);
         final Spinner spinnerLanguage = (Spinner) findViewById(R.id.SettingsLanguageSpinner);
 
         List<String> spinnerArray =  new ArrayList<String>();
@@ -37,6 +38,11 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 new DataStorageController(SettingsActivity.this).factoryReset();
 
+            }
+        });
+        buttonCredits.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new DialogFactory(SettingsActivity.this).CreateCreditsDialog();
             }
         });
     }

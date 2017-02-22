@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/DialogCreditsCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:text="Credits"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/Black"
+        android:textSize="36sp" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine1Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Verwaltung " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine1Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: Icons8 (http://www.iconarchive.com/show/ios7-icons-by-icons8/Food-Bunch-Ingredients-icon.html; www.icons8.com)" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine1Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde auf Basis der angegebenen Lizenz (https://icons8.com/license/) nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine2Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Tagebuch" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine2Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: Simpleicon.com (http://simpleicon.com/diary.html) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine2Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde auf Basis der angegebenen Lizenz (http://simpleicon.com/license-agreement/) nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine3Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Profil" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine3Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: Francesco Daffini (https://www.onlinewebfonts.com/icon/270531) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine3Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine4Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Einstellungen" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine4Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: FreeIconsPng.com (http://www.freeiconspng.com/free-images/settings-icon-14964)" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine4Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine5Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Profil" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine5Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: Francesco Daffini (https://www.onlinewebfonts.com/icon/270531) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine5Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine6Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Profil" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine6Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: Francesco Daffini (https://www.onlinewebfonts.com/icon/270531) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine6Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/DialogCreditsButtonClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/Grey"
+        android:text="Schließen"
+        android:textColor="@color/White" />
+
+
+</LinearLayout>

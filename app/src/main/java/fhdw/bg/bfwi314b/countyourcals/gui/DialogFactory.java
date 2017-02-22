@@ -54,14 +54,14 @@ public class DialogFactory
         dialogFactoryDiaryEntry.CreateNewDiaryEntryDialog(user);
     }
 
-    public void CreateEditDiaryEntryDialog(DiaryEntry diaryEntry)
+    public void CreateEditDiaryEntryDialog(DiaryEntry diaryEntry, final User user)
     {
-        dialogFactoryDiaryEntry.CreateEditDiaryEntryDialog(diaryEntry);
+        dialogFactoryDiaryEntry.CreateEditDiaryEntryDialog(diaryEntry, user);
     }
 
-    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry)
+    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user)
     {
-        dialogFactoryDiaryEntry.CreateDiaryEntryLineDialog(diaryEntry);
+        dialogFactoryDiaryEntry.CreateDiaryEntryLineDialog(diaryEntry, user);
     }
 
     //---- Meal ----
@@ -264,7 +264,7 @@ public class DialogFactory
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.deleteMeal(meal, user);
-                //managerActivity.updateView();
+                ((ManagerActivity)caller).updateView();
                 Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
                 dialog.cancel();
             }
@@ -443,7 +443,7 @@ public class DialogFactory
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.deleteFood(food, user);
-                //managerActivity.updateView();
+                ((ManagerActivity)caller).updateView();
                 Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
                 dialog.cancel();
             }
@@ -557,7 +557,7 @@ public class DialogFactory
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.deleteUnit(unit, user);
-                //managerActivity.updateView();
+                ((ManagerActivity)caller).updateView();
                 Toast.makeText(context, "Eintrag " + unit.getUnit() + " gelöscht", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
@@ -572,7 +572,6 @@ public class DialogFactory
     {
         dialogFactoryUser.CreateLoginDialog((MainActivity)caller, context);
     }
-
 
     //---- Other ----
 
@@ -596,5 +595,20 @@ public class DialogFactory
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void CreateCreditsDialog()
+    {
+        android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_credits, null);
+        dialogBuilder.setView(view);
+        final android.app.AlertDialog dialog = dialogBuilder.create();
+        Button close = (Button) view.findViewById(R.id.DialogCreditsButtonClose);
+        close.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 }

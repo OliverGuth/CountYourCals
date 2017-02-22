@@ -66,13 +66,13 @@ public class DiaryEntry {
     }
 
     public String getConsumedName() {
-        if (mConsumedFood.equals(null) && mConsumedMeal.equals(null)) {
+        if (mConsumedFood == null && mConsumedMeal == null) {
             return null;
-        } else if (mConsumedFood.equals(null)) {
+        } else if (mConsumedFood == null) {
             return mConsumedMeal.getName();
-        } else if (mConsumedMeal.equals(null)) {
+        } else if (mConsumedMeal == null) {
             return mConsumedFood.getName();
-        } else if (!(mConsumedFood.equals(null) && mConsumedMeal.equals(null))) {
+        } else if (!(mConsumedFood == null && mConsumedMeal == null)) {
             return mConsumedFood.getName() + mConsumedMeal.getName();
         } else {
             return null;

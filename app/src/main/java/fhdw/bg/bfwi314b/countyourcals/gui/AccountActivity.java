@@ -49,7 +49,8 @@ public class AccountActivity extends Activity {
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                user = null;
+                Intent intent = new Intent();
+                setResult(1, intent);
                 finish();
         }});
     }
@@ -67,20 +68,13 @@ public class AccountActivity extends Activity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (user != null) {
-            user.setMaxKCal(Integer.parseInt(maxCals.getText().toString()));
-            controller.editUser(user);
-            fillUserData();
-            Intent intent = new Intent();
-            intent.putExtra("user", user);
-            setResult(1, intent);
-            finish();
-        } else {
-            Intent intent = new Intent();
-            setResult(2, intent);
-            finish();
-        }
+    public void onBackPressed() {
+        user.setMaxKCal(Integer.parseInt(maxCals.getText().toString()));
+        controller.editUser(user);
+        Intent intent = new Intent();
+        intent.putExtra("user", user);
+        setResult(2, intent);
+        finish();
+        super.onBackPressed();
     }
 }

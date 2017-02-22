@@ -41,14 +41,14 @@ public class XMLDiaryEntryWriter {
             fileWriter.write("\n");
             fileWriter.write("<TimeStamp>" + tmpTimeStamp.toString() + "</TimeStamp>");
             fileWriter.write("\n");
+            fileWriter.write("<KCal>" + tmpKCal + "</KCal>");
+            fileWriter.write("\n");
             //fileWriter.write("<Quantity>" + tmpQuantity + "</Quantity>");
             fileWriter.write("<Quantity>" + tmpUnit.getQuantity() + "</Quantity>");
             fileWriter.write("\n");
             fileWriter.write("<Unit>" + tmpUnit.getUnit() + "</Unit>");
             fileWriter.write("\n");
             fileWriter.write("<UnitShort>" + tmpUnit.getUnitShort() + "</UnitShort>");
-            fileWriter.write("\n");
-            fileWriter.write("<KCal>" + tmpKCal + "</KCal>");
             fileWriter.write("\n");
             fileWriter.write("</DiaryEntry>");
             fileWriter.write("\n");

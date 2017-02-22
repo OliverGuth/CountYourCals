@@ -187,35 +187,39 @@ public class DataStorageController {
     }
 
     public void addDiaryEntry(DiaryEntry diaryEntry, User user) {
-       /* File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
-        ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
-        tmpDiaryEntryArrayList = getDiaryEntryList(user);
-        Date tmpdate = null;
-        for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
-            if (tmpdate.get < tmpDiaryEntryArrayList.get(index).getTimeStamp()) {
-                tmpIdentifier = tmpDiaryEntryArrayList.get(index).getTimeStamp();
-            }
-        }
+       File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
+        ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
+        if(tmpDiaryEntryArrayList == null)
+            tmpDiaryEntryArrayList = new ArrayList<DiaryEntry>();
         tmpDiaryEntryArrayList.add(diaryEntry);
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
-    */
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user);
     }
 
-    public void editDiaryEntry(DiaryEntry diaryEntry, User user) {
+    public void editDiaryEntry(DiaryEntry newDiaryEntry, DiaryEntry oldDiaryEntry, User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
-        ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
-        tmpDiaryEntryArrayList = getDiaryEntryList(user);
-        for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
-            if (tmpDiaryEntryArrayList.get(index).getTimeStamp() == diaryEntry.getTimeStamp()) {
-                //tmpDiaryEntryArrayList.get(index).setConsumedName(diaryEntry.getConsumedName());
-                //tmpDiaryEntryArrayList.get(index).setConsumedQuantity(consumedQuantity);
-                tmpDiaryEntryArrayList.get(index).setConsumedUnit(diaryEntry.getConsumedUnit());
-                tmpDiaryEntryArrayList.get(index).setConsumedKCal(diaryEntry.getConsumedKCal());
-
-                index = tmpDiaryEntryArrayList.size();
+        ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
+        if (tmpDiaryEntryArrayList != null) {
+            for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
+                if (tmpDiaryEntryArrayList.get(index).getTimeStamp().equals(oldDiaryEntry.getTimeStamp())) {
+                    tmpDiaryEntryArrayList.set(index, newDiaryEntry);
+                }
             }
         }
-        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user.getName());
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user);
+    }
+
+    public void deleteDiaryEntry(DiaryEntry diaryEntry, User user) {
+        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
+        ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
+        if(tmpDiaryEntryArrayList != null)
+            for (int index = 0; index < tmpDiaryEntryArrayList.size(); index++) {
+                if (diaryEntry.getTimeStamp().equals(tmpDiaryEntryArrayList.get(index).getTimeStamp()))
+                {
+                    tmpDiaryEntryArrayList.remove(index);
+                    break;
+                }
+            }
+        mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user);
     }
 
     //---- User -----

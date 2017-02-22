@@ -46,8 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/DialogNewUserGenderSpinner"
-        tools:background="@drawable/spinner_border"
-        android:background="@drawable/spinner_border"
+        tools:background="@drawable/spinner_border_green"
+        android:background="@drawable/spinner_border_green"
         android:entries="@array/Gender"
         android:layout_margin="5dp"
         android:padding="5dp" />
@@ -55,8 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/DialogNewUserLanguageSpinner"
-        tools:background="@drawable/spinner_border"
-        android:background="@drawable/spinner_border"
+        tools:background="@drawable/spinner_border_green"
+        android:background="@drawable/spinner_border_green"
         android:entries="@array/Language"
         android:layout_margin="5dp"
         android:padding="5dp" />

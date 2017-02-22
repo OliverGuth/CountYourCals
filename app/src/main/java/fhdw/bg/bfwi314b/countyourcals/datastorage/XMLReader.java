@@ -47,6 +47,7 @@ public class XMLReader {
                     tmpDiaryEntryList.get(i).setConsumedMeal(tmpMealList.get(0));
                 }
             }
+            return tmpDiaryEntryList;
         } catch (Exception exception) {
             System.err.println(exception);
         }

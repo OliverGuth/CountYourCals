@@ -29,18 +29,18 @@ public class XMLWriter {
         mContext = context;
     }
 
-    public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file, String userName) {
+    public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file, User user) {
         try {
             for (int i = 0; i < entryArrayList.size(); i++) {
-                if (!(entryArrayList.get(i).getConsumedFood().equals(null))) {
+                if (!(entryArrayList.get(i).getConsumedFood() == null)) {
                     ArrayList<Food> tmpFoodList = new ArrayList<Food>();
                     tmpFoodList.add(entryArrayList.get(i).getConsumedFood());
-                    this.writeFood(tmpFoodList, new File(mContext.getFilesDir() + "/" + userName + "DEF" + entryArrayList.get(i).getTimeStamp() + ".xml"));
+                    this.writeFood(tmpFoodList, new File(mContext.getFilesDir() + "/" + user.getName() + "DEF" + entryArrayList.get(i).getTimeStamp() + ".xml"));
                 }
-                if (!(entryArrayList.get(i).getConsumedMeal().equals(null))) {
+                if (!(entryArrayList.get(i).getConsumedMeal() == null)) {
                     ArrayList<Meal> tmpMealList = new ArrayList<Meal>();
                     tmpMealList.add(entryArrayList.get(i).getConsumedMeal());
-                    this.writeMeal(tmpMealList, new File(mContext.getFilesDir() + "/" + userName + "DEM" + entryArrayList.get(i).getTimeStamp() + ".xml"), (userName + entryArrayList.get(i).getTimeStamp() + "DEM"));
+                    this.writeMeal(tmpMealList, new File(mContext.getFilesDir() + "/" + user.getName() + "DEM" + entryArrayList.get(i).getTimeStamp() + ".xml"), (user.getName() + entryArrayList.get(i).getTimeStamp() + "DEM"));
                 }
             }
             mXMLDiaryEntryWriter.writeDiaryEntry(entryArrayList, file);

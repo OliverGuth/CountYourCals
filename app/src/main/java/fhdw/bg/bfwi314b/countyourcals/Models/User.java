@@ -26,6 +26,8 @@ public class User implements java.io.Serializable{
         return mName;
     }
 
+    public void setName(String name) { this.mName = name; }
+
     public Character getGender() {
         return mGender;
     }

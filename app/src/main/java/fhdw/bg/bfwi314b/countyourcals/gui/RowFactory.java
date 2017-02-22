@@ -46,7 +46,7 @@ public class RowFactory {
         this.context = context;
     }
 
-    public void FillDiaryTableLayout(TableLayout table, DiaryState state, Date beginningDate, Date endDate, User user) {
+    public void FillDiaryTableLayout(TableLayout table, DiaryState state, Date beginningDate, Date endDate, final User user) {
         table.removeAllViews();
         List<DiaryEntry> entriesAll = controller.getDiaryEntryList(user);
         List<DiaryEntry> entriesShown = new ArrayList<DiaryEntry>();
@@ -93,7 +93,7 @@ public class RowFactory {
 
                 row.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
-                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
+                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry, user);
                         return true;
                     }
 
@@ -101,7 +101,7 @@ public class RowFactory {
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry);
+                        dialogFactory.CreateDiaryEntryLineDialog(diaryEntry, user);
                     }
 
                 });
