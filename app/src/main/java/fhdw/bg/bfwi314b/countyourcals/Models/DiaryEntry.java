@@ -1,5 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.Models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -48,13 +49,13 @@ public class DiaryEntry {
 
     @Override
     public String toString() {
-        if (mConsumedFood.equals(null) && mConsumedMeal.equals(null)) {
+        if (mConsumedFood == null && mConsumedMeal == null) {
             return null;
-        } else if (mConsumedFood.equals(null)) {
+        } else if (mConsumedFood == null) {
             return mConsumedMeal.toString();
-        } else if (mConsumedMeal.equals(null)) {
+        } else if (mConsumedMeal == null) {
             return mConsumedFood.toString();
-        } else if (!(mConsumedFood.equals(null) && mConsumedMeal.equals(null))) {
+        } else if (!(mConsumedFood == null && mConsumedMeal == null)) {
             return mConsumedFood.toString() + mConsumedMeal.toString();
         } else {
             return null;
@@ -69,9 +70,9 @@ public class DiaryEntry {
         if (mConsumedFood == null && mConsumedMeal == null) {
             return null;
         } else if (mConsumedFood == null) {
-            return mConsumedMeal.getName();
+            return mConsumedMeal.getName() + " (" + new SimpleDateFormat("dd.MM.yyyy").format(mTimeStamp) + ")";
         } else if (mConsumedMeal == null) {
-            return mConsumedFood.getName();
+            return mConsumedFood.getName() + " (" + new SimpleDateFormat("dd.MM.yyyy").format(mTimeStamp) + ")";
         } else if (!(mConsumedFood == null && mConsumedMeal == null)) {
             return mConsumedFood.getName() + mConsumedMeal.getName();
         } else {

@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hinweis: Das Icon wurde auf Basis der angegebenen Lizenz (https://icons8.com/license/) nachträglich editiert." />
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
             </LinearLayout>
 
             <View style="@style/Divider" />
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hinweis: Das Icon wurde auf Basis der angegebenen Lizenz (http://simpleicon.com/license-agreement/) nachträglich editiert." />
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
             </LinearLayout>
 
             <View style="@style/Divider" />
@@ -154,14 +154,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Icon: Profil" />
+                    android:text="Icon: Ändern" />
 
                 <TextView
                     android:id="@+id/DialogCreditsLine5Text2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Urheber: Francesco Daffini (https://www.onlinewebfonts.com/icon/270531) " />
+                    android:text="Urheber: Freepik (http://www.flaticon.com/free-icon/pencil-edit-button_61456) " />
 
                 <TextView
                     android:id="@+id/DialogCreditsLine5Text3"
@@ -183,14 +183,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Icon: Profil" />
+                    android:text="Icon: Löschen" />
 
                 <TextView
                     android:id="@+id/DialogCreditsLine6Text2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Urheber: Francesco Daffini (https://www.onlinewebfonts.com/icon/270531) " />
+                    android:text="Urheber: Freepik (http://www.flaticon.com/free-icon/rubbish-bin_64022) " />
 
                 <TextView
                     android:id="@+id/DialogCreditsLine6Text3"
@@ -201,6 +201,62 @@
             </LinearLayout>
 
             <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine7Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Pfeil links" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine7Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: iconsdb.com (http://www.iconsdb.com/black-icons/arrow-37-icon.html) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine7Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine8Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Icon: Pfeil rechts" />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine8Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Urheber: iconsdb.com (http://www.iconsdb.com/black-icons/arrow-37-icon.html) " />
+
+                <TextView
+                    android:id="@+id/DialogCreditsLine8Text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hinweis: Das Icon wurde nachträglich editiert." />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

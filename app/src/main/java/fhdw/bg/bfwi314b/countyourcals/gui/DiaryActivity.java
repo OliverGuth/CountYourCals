@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,11 +20,13 @@ import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
+import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 import static fhdw.bg.bfwi314b.countyourcals.gui.DiaryState.*;
 
 public class DiaryActivity extends Activity {
 
+    private DataStorageController controller;
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
     private List<Food> foods;
@@ -61,6 +64,7 @@ public class DiaryActivity extends Activity {
     {
         rowFactory = new RowFactory(this);
         dialogFactory = new DialogFactory(this);
+        controller = new DataStorageController(DiaryActivity.this);
 
         user = (User) this.getIntent().getSerializableExtra("user");
 
@@ -157,9 +161,14 @@ public class DiaryActivity extends Activity {
 
         statistics.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(DiaryActivity.this, StatisticsActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
+                if(controller.getDiaryEntryList(user) != null)
+                {
+                    Intent intent = new Intent(DiaryActivity.this, StatisticsActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }
+                else
+                Toast.makeText(DiaryActivity.this, "Kein Tagebucheintrag vorhanden", Toast.LENGTH_LONG).show();
             }});
 
         newEntry.setOnClickListener(new View.OnClickListener() {
@@ -299,7 +308,6 @@ public class DiaryActivity extends Activity {
             next.setVisibility(View.INVISIBLE);
         }
     }
-
 
     private void maxDiffVisible(boolean visible)
     {

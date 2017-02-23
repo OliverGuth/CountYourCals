@@ -92,27 +92,137 @@
         android:layout_weight="70">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="100">
+            android:orientation="vertical">
 
-            <TextView
-                android:text="Durchschn. Kalorien p. Tag:"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/StatisticsAverageCaloriesText"
-                android:layout_weight="70"
-                android:textColor="@color/Black"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/StatisticsAverageCaloriesText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:text="Durchschn. Kalorien p. Tag: "
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/StatisticsAverageCaloriesValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/StatisticsAverageCaloriesValue"
-                android:layout_weight="30"
-                android:textColor="@color/Black"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/StatisticsEntryHighestCaloriesText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:text="Tagebucheintrag mit den meisten Kalorien: "
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/StatisticsEntryHighestCaloriesValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/StatisticsEntryLowestCaloriesText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:text="Tagebucheintrag mit den wenigsten Kalorien: "
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/StatisticsEntryLowestCaloriesValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/StatisticsMostEatenText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:text="Am meisten konsumiert: "
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/StatisticsMostEatenValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/StatisticsDaysOverMaxText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:text="So häufig den kcal-Höchstwert überschritten: "
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/StatisticsDaysOverMaxValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
