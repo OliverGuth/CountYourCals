@@ -32,8 +32,7 @@ public class DialogFactoryMeal {
         this.context = context;
     }
 
-    public void CreateNewMealDialog(final RowFactory rowFactory, final User user)
-    {
+    public void CreateNewMealDialog(final RowFactory rowFactory, final User user) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
@@ -44,86 +43,87 @@ public class DialogFactoryMeal {
         final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
         final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
 
-        newFood.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                rowFactory.AddRowMealDialogTableLayout(table, user);
-            }
-        });
+        List<Food> foodList = controller.getFoodList(user);
+        if (foodList != null) {
+            if (foodList.size() > 0) {
 
-        saveEntry.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                boolean readyForSaving = true;
-                List<Meal> mealList = controller.getMealList(user);
-                boolean mealExists = false;
-                if(!name.getText().toString().equals("") && table.getChildCount() >1) {
-                    if (mealList != null)
-                    {
-                        for (Meal meal : mealList) {
-                            if (name.getText().toString().trim().equals(meal.getName())) {
-                                Toast.makeText(context, "Eintrag " + meal.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
-                                mealExists = true;
-                                break;
-                            }
-                        }
+                newFood.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        rowFactory.AddRowMealDialogTableLayout(table, user);
                     }
-                    if (mealExists == false)
-                    {
-                        List<Food> foodList = new ArrayList<Food>();
-                        List<Unit> unitList = new ArrayList<Unit>();
-                        List<Food> allfoodsList = controller.getFoodList(user);
-                        for(int i = 0; i<table.getChildCount()-1; i++) {
-                            Spinner foodSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(0);
-                            EditText quantity = (EditText)((TableRow)table.getChildAt(i)).getChildAt(1);
-                            Spinner unitSpinner = (Spinner)((TableRow)table.getChildAt(i)).getChildAt(2);
-                            if(!quantity.getText().toString().equals(""))
-                            {
-                                Food newFood = (Food)foodSpinner.getSelectedItem();
-                                for (Food food : foodList)
-                                {
-                                    if (food.getName().equals(newFood.getName())) {
-                                        readyForSaving = false;
-                                        Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                                if (readyForSaving)
-                                {
-                                    foodList.add(newFood);
+                });
 
-                                    Unit newUnit = (Unit) unitSpinner.getSelectedItem();
-                                    newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
-                                    unitList.add(newUnit);
-                                }
-
-                            }
-                        }
-                        int cals = 0;
-                        for (int i = 0; i<foodList.size(); i++)
-                        {
-                            for (Food food : allfoodsList)
-                            {
-                                if(foodList.get(i).getName().equals(food.getName()))
-                                {
-                                    for (Unit newUnit : foodList.get(i).getUnits())
-                                    {
-                                        for (Unit unit : food.getUnits())
-                                        {
-                                            if (newUnit.getUnit().equals(unit.getUnit()))
-                                                cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                saveEntry.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        boolean readyForSaving = true;
+                        List<Meal> mealList = controller.getMealList(user);
+                        boolean mealExists = false;
+                        if (!name.getText().toString().equals("")) {
+                            if (table.getChildCount() > 1) {
+                                if (mealList != null) {
+                                    for (Meal meal : mealList) {
+                                        if (name.getText().toString().trim().equals(meal.getName())) {
+                                            Toast.makeText(context, "Eintrag " + meal.getName() + " existiert bereits", Toast.LENGTH_LONG).show();
+                                            mealExists = true;
+                                            break;
                                         }
                                     }
                                 }
-                            }
-                        }
-                        Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>)foodList, (ArrayList<Unit>)unitList, cals);
-                        controller.addMeal(meal, user);
-                        ((ManagerActivity)context).updateView();
-                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                        dialog.cancel();
+                                if (mealExists == false) {
+                                    List<Food> foodList = new ArrayList<Food>();
+                                    List<Unit> unitList = new ArrayList<Unit>();
+                                    List<Food> allfoodsList = controller.getFoodList(user);
+                                    for (int i = 0; i < table.getChildCount() - 1; i++) {
+                                        Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
+                                        EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
+                                        Spinner unitSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(2);
+                                        if (!quantity.getText().toString().equals("")) {
+                                            Food newFood = (Food) foodSpinner.getSelectedItem();
+                                            for (Food food : foodList) {
+                                                if (food.getName().equals(newFood.getName())) {
+                                                    readyForSaving = false;
+                                                    Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                            if (readyForSaving) {
+                                                foodList.add(newFood);
+
+                                                Unit newUnit = (Unit) unitSpinner.getSelectedItem();
+                                                newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                                                unitList.add(newUnit);
+                                            }
+                                        } else
+                                            Toast.makeText(context, "Bitte eine Menge eingeben", Toast.LENGTH_LONG).show();
+                                    }
+                                    int cals = 0;
+                                    for (int i = 0; i < foodList.size(); i++) {
+                                        for (Food food : allfoodsList) {
+                                            if (foodList.get(i).getName().equals(food.getName())) {
+                                                for (Unit newUnit : foodList.get(i).getUnits()) {
+                                                    for (Unit unit : food.getUnits()) {
+                                                        if (newUnit.getUnit().equals(unit.getUnit()))
+                                                            cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, cals);
+                                    controller.addMeal(meal, user);
+                                    ((ManagerActivity) context).updateView();
+                                    Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                                    dialog.cancel();
+                                }
+                            } else
+                                Toast.makeText(context, "Bitte mindestens ein Lebensmittel auswählen", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(context, "Bitte einen Namen eingeben", Toast.LENGTH_LONG).show();
                     }
-                }
-            }
-        });
-        dialog.show();
+                });
+                dialog.show();
+            } else
+                Toast.makeText(context, "Bitte erst ein Lebensmittel anlegen", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void CreateEditMealDialog(final Meal oldMeal, final RowFactory rowFactory, final User user)
@@ -161,46 +161,50 @@ public class DialogFactoryMeal {
                     List<Food> foodList = new ArrayList<Food>();
                     List<Unit> unitList = new ArrayList<Unit>();
                     List<Food> allfoodsList = controller.getFoodList(user);
-                    for (int i = 0; i < table.getChildCount() - 1; i++) {
-                        Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
-                        EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
-                        Spinner unitSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(2);
-                        if (!quantity.getText().toString().equals("")) {
-                            Food newFood = (Food) foodSpinner.getSelectedItem();
-                            for (Food food : foodList) {
-                                if (food.getName().equals(newFood.getName())) {
-                                    readyForSaving = false;
-                                    Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                    if(table.getChildCount()>0) {
+                        for (int i = 0; i < table.getChildCount() - 1; i++) {
+                            Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
+                            EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
+                            Spinner unitSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(2);
+                            if (!quantity.getText().toString().equals("")) {
+                                Food newFood = (Food) foodSpinner.getSelectedItem();
+                                for (Food food : foodList) {
+                                    if (food.getName().equals(newFood.getName())) {
+                                        readyForSaving = false;
+                                        Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                            if (readyForSaving) {
-                                foodList.add(newFood);
+                                if (readyForSaving) {
+                                    foodList.add(newFood);
 
-                                Unit newUnit = (Unit) unitSpinner.getSelectedItem();
-                                newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
-                                unitList.add(newUnit);
-                            }
-
+                                    Unit newUnit = (Unit) unitSpinner.getSelectedItem();
+                                    newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                                    unitList.add(newUnit);
+                                }
+                            } else
+                                Toast.makeText(context, "Bitte eine Menge angeben", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    int cals = 0;
-                    for (int i = 0; i < foodList.size(); i++) {
-                        for (Food food : allfoodsList) {
-                            if (foodList.get(i).getName().equals(food.getName())) {
-                                for (Unit newUnit : foodList.get(i).getUnits()) {
-                                    for (Unit unit : food.getUnits()) {
-                                        if (newUnit.getUnit().equals(unit.getUnit()))
-                                            cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                        float cals = 0;
+                        for (int i = 0; i < foodList.size(); i++) {
+                            for (Food food : allfoodsList) {
+                                if (foodList.get(i).getName().equals(food.getName())) {
+                                    for (Unit newUnit : foodList.get(i).getUnits()) {
+                                        for (Unit unit : food.getUnits()) {
+                                            if (newUnit.getUnit().equals(unit.getUnit()))
+                                                cals = cals + ((((float)food.getKCal()) / ((float)unit.getQuantity())) * ((float)unitList.get(i).getQuantity()));
+                                        }
                                     }
                                 }
                             }
                         }
+                        Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int)cals);
+                        controller.editMeal(oldMeal, newMeal, user);
+                        ((ManagerActivity) context).updateView();
+                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
                     }
-                    Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, cals);
-                    controller.editMeal(oldMeal, newMeal, user);
-                    ((ManagerActivity)context).updateView();
-                    Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                    dialog.cancel();
+                    else
+                        Toast.makeText(context, "Bitte mindestens ein Lebensmittel angeben", Toast.LENGTH_LONG).show();
                 }
             }
         });

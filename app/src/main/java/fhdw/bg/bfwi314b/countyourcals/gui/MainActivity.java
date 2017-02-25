@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if (user != null) {
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 2);
                 } else
                     dialogFactory.CreateLoginDialog();
             }
@@ -141,13 +141,18 @@ public class MainActivity extends Activity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (resultCode == 1)
-        {
-            user = null;
+        if(requestCode == 1) {
+            if (resultCode == 1) {
+                user = null;
+            } else if (resultCode == 2) {
+                user = (User) data.getSerializableExtra("user");
+            }
         }
-        else if (resultCode == 2)
-        {
-            user = (User) data.getSerializableExtra("user");
+        else if(requestCode == 2){
+            if (resultCode == 1) {
+                user = null;
+            } else if (resultCode == 2) {
+            }
         }
     }
 }

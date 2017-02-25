@@ -39,8 +39,6 @@ public class DialogFactory
     private Activity caller;
     private Context context;
 
-    private boolean result;
-
     public DialogFactory(Context context)
     {
         this.dialogFactoryUser = new DialogFactoryUser(context);
@@ -119,12 +117,12 @@ public class DialogFactory
         builder.setCancelable(false);
         builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                result = true;
+                ((SettingsActivity)caller).factoryReset();
             }
         });
         builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                result = false;
+
             }
         });
 

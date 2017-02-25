@@ -174,10 +174,19 @@ public class DialogFactoryDiaryEntry {
                                 }
                                 else if(mealSpinner.getSelectedItemPosition() > 0)
                                 {
-                                    int cals = ((((Meal)mealSpinner.getSelectedItem()).getKCal() / ((Unit)unitSpinner.getSelectedItem()).getQuantity()) * Integer.parseInt(quantity.getText().toString()));
-                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, cals), user);
+                                    List<Meal> tmpMealList = controller.getMealList(user);
+                                    float x = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
+                                    float y = 0;
+                                    for (Unit u : tmpMealList.get(mealSpinner.getSelectedItemPosition()-1).getUnits())
+                                        if(u.getUnit().equals(unit.getUnit()))
+                                            y = (float)u.getQuantity();
+                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    float cals = (z / y) * x;
+                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, (int)cals), user);
                                 }
-                                ((DiaryActivity)context).updateView();
+                                try {
+                                    ((DiaryActivity)context).updateView();
+                                }catch(Exception e){}
                                 Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
                                 dialog.cancel();
                             }
@@ -188,7 +197,7 @@ public class DialogFactoryDiaryEntry {
             dialog.show();
         }
         else
-            Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_LONG).show();
     }
 
     public void CreateEditDiaryEntryDialog(final DiaryEntry diaryEntry, final User user)
@@ -318,12 +327,31 @@ public class DialogFactoryDiaryEntry {
                             if (Integer.parseInt(quantity.getText().toString()) > 0) {
                                 Calendar cal = Calendar.getInstance();
                                 cal.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
-                                if (foodSpinner.getSelectedItemPosition() > 0) {
-                                    int cals = (((Food) foodSpinner.getSelectedItem()).getKCal() / Integer.parseInt(quantity.getText().toString()) * ((Unit) unitSpinner.getSelectedItem()).getQuantity());
-                                    controller.editDiaryEntry(new DiaryEntry(cal.getTime(), (Food) foodSpinner.getSelectedItem(), (Unit) unitSpinner.getSelectedItem(), cals), diaryEntry, user);
-                                } else if (mealSpinner.getSelectedItemPosition() > 0) {
-                                    int cals = (((Meal) mealSpinner.getSelectedItem()).getKCal() / Integer.parseInt(quantity.getText().toString()) * ((Unit) unitSpinner.getSelectedItem()).getQuantity());
-                                    controller.editDiaryEntry(new DiaryEntry(cal.getTime(), (Meal) mealSpinner.getSelectedItem(), (Unit) unitSpinner.getSelectedItem(), cals), diaryEntry, user);
+                                Unit unit = (Unit)unitSpinner.getSelectedItem();
+                                unit.setQuantity(Integer.parseInt(quantity.getText().toString()));
+                                if(foodSpinner.getSelectedItemPosition() > 0)
+                                {
+                                    List<Food> tmpFoodList = controller.getFoodList(user);
+                                    float x = ((float)((Food)foodSpinner.getSelectedItem()).getKCal());
+                                    float y = 0;
+                                    for (Unit u : tmpFoodList.get(foodSpinner.getSelectedItemPosition()-1).getUnits())
+                                        if(u.getUnit().equals(unit.getUnit()))
+                                            y = (float)u.getQuantity();
+                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    float cals = (z / y) * x;
+                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Food)foodSpinner.getSelectedItem(), unit, (int)cals), user);
+                                }
+                                else if(mealSpinner.getSelectedItemPosition() > 0)
+                                {
+                                    List<Meal> tmpMealList = controller.getMealList(user);
+                                    float x = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
+                                    float y = 0;
+                                    for (Unit u : tmpMealList.get(mealSpinner.getSelectedItemPosition()-1).getUnits())
+                                        if(u.getUnit().equals(unit.getUnit()))
+                                            y = (float)u.getQuantity();
+                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    float cals = (z / y) * x;
+                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, (int)cals), user);
                                 }
                                 ((DiaryActivity)context).updateView();
                                 Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();

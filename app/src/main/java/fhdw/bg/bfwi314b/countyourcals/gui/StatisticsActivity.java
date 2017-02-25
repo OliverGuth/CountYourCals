@@ -58,7 +58,6 @@ public class StatisticsActivity extends Activity {
         averageCalories = (TextView) findViewById(R.id.StatisticsAverageCaloriesValue);
         highestCalories = (TextView) findViewById(R.id.StatisticsEntryHighestCaloriesValue);
         lowestCalories = (TextView) findViewById(R.id.StatisticsEntryLowestCaloriesValue);
-        daysOverMax = (TextView) findViewById(R.id.StatisticsDaysOverMaxValue);
 
         date = (TextView) findViewById(R.id.StatisticsDate);
 
@@ -106,13 +105,13 @@ public class StatisticsActivity extends Activity {
                 break;
             case TwoWeeksState:
                 highlightState(R.color.BayerBlue, R.color.BayerGreen, R.color.BayerBlue);
-                cal.add(Calendar.WEEK_OF_YEAR, -1);
+                cal.add(Calendar.WEEK_OF_YEAR, -2);
                 setTimeToBeginningOfDay(cal);
                 timeFrameStart = cal.getTime();
                 break;
             case FourWeeksState:
                 highlightState(R.color.BayerBlue, R.color.BayerBlue, R.color.BayerGreen);
-                cal.add(Calendar.WEEK_OF_YEAR, -1);
+                cal.add(Calendar.WEEK_OF_YEAR, -4);
                 setTimeToBeginningOfDay(cal);
                 timeFrameStart = cal.getTime();
                 break;

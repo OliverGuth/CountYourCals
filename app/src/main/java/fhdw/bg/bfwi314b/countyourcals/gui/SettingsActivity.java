@@ -2,6 +2,7 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,8 +37,8 @@ public class SettingsActivity extends Activity {
 
         buttonFactoryReset.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new DataStorageController(SettingsActivity.this).factoryReset();
-
+                DialogFactory dialogFactory = new DialogFactory(SettingsActivity.this);
+                dialogFactory.BeShureDialog();
             }
         });
         buttonCredits.setOnClickListener(new View.OnClickListener() {
@@ -45,5 +46,21 @@ public class SettingsActivity extends Activity {
                 new DialogFactory(SettingsActivity.this).CreateCreditsDialog();
             }
         });
+    }
+
+    public void factoryReset()
+    {
+        new DataStorageController(SettingsActivity.this).factoryReset();
+        Intent intent = new Intent();
+        setResult(1, intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(2, intent);
+        finish();
+        super.onBackPressed();
     }
 }
