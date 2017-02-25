@@ -3,8 +3,6 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,85 +10,74 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import fhdw.bg.bfwi314b.countyourcals.R;
+/**
+ * Created by Oliver Guth
+ */
 
 public class ButtonTextImage extends RelativeLayout {
 
-    public ButtonTextImage(Context context, int id, int color)
+    public ButtonTextImage(Context context, int id, int color)  //constructor
     {
         super(context);
-
-        // if our context is not Activity we can't get View supplied by id
-        if (!(context instanceof Activity))
+        if (!(context instanceof Activity)) //if context is not Activity the View can't supplied with ID's
             return;
 
-        // find relative layout by id
-        View v = ((Activity)context).findViewById(id);
+        View v = ((Activity)context).findViewById(id);//find relative layout by id
 
-        // is it RelativeLayout ?
-        if (!(v instanceof RelativeLayout))
+        if (!(v instanceof RelativeLayout)) //is it RelativeLayout ?
             return;
 
-        //cast it to relative layout
-        RelativeLayout layout = (RelativeLayout)v;
+        RelativeLayout layout = (RelativeLayout)v;//cast it to relative layout
 
-        // copy layout parameters
+        //copy layout parameters
         ViewGroup.LayoutParams params = layout.getLayoutParams();
         this.setLayoutParams(params);
 
-        // here I am using temporary instance of Button class
-        // to get standard button background and to get button text color
-
+        //Create base-button
         Button bt = new Button(context);
         bt.setBackgroundColor(color);
         this.setBackgroundDrawable(bt.getBackground());
 
-
-
-        // copy all child from relative layout to this button
+        //copy all children from relative layout to this button
         while (layout.getChildCount() > 0)
         {
             View vchild = layout.getChildAt(0);
             layout.removeViewAt(0);
             this.addView(vchild);
 
-            // if child is textView set its color to standard buttong text colors
-            // using temporary instance of Button class
+            //if child is textView set its color to white
             if (vchild instanceof TextView  )
             {
                 ((TextView)vchild).setTextColor(Color.WHITE);
             }
 
-            // just to be sure that child views can't be clicked and focused
+            //child views can't be clicked and focused
             vchild.setClickable(false);
             vchild.setFocusable(false);
             vchild.setFocusableInTouchMode(false);
         }
 
-        // remove all view from layout (maybe it's not necessary)
+        //remove all view from layout
         layout.removeAllViews();
         bt.setBackgroundColor(color);
-        // set that this button is clickable, focusable, ...
+
+        //set that this button is clickable, focusable, ...
         this.setBackgroundColor(getResources().getColor(color));
         this.setClickable(true);
         this.setFocusable(true);
         this.setFocusableInTouchMode(false);
 
 
-        // replace relative layout in parent with this one modified to looks like button
+        //replace relative layout in parent with this modified version
         ViewGroup vp = (ViewGroup)layout.getParent();
         int index = vp.indexOfChild(layout);
         vp.removeView(layout);
         vp.addView(this,index);
 
         this.setId(id);
-
-
-
-
     }
 
-    // method for setting texts for the text views
+    //set text for the text view
     public void setText(int id, CharSequence text)
     {
         View v = findViewById(id);
@@ -98,41 +85,25 @@ public class ButtonTextImage extends RelativeLayout {
         {
             ((TextView)v).setText(text);
         }
-
-    }
-    // method for setting drawable for the images
-    public void setImageDrawable(int id, Drawable drawable)
-    {
-
-        View v = findViewById(id);
-        if (null != v && v instanceof ImageView)
-        {
-            ((ImageView)v).setImageDrawable(drawable);
-        }
-
     }
 
+    //assign background to relative layout
     public void setBackgroundColor(int id, int color)
     {
-
         View v = findViewById(id);
         if (null != v && v instanceof RelativeLayout)
         {
             ((RelativeLayout) v).getChildAt(0).setBackgroundResource(color);
         }
-
     }
 
-    // method for setting images by resource id
+    //set image by resource id
     public void setImageResource(int id, int image_resource_id)
     {
-
         View v = findViewById(id);
         if (null != v && v instanceof ImageView)
         {
             ((ImageView)v).setImageResource(image_resource_id);
         }
-
     }
-
 }

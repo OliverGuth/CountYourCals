@@ -7,30 +7,17 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
-import fhdw.bg.bfwi314b.countyourcals.Models.Food;
-import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
-import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
-import fhdw.bg.bfwi314b.countyourcals.Models.User;
+import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
- * Created by Oliver Guth on 02.02.2017.
+ * Created by Oliver Guth
  */
 
 public class DialogFactory
 {
-    private DataStorageController controller;
     private DialogFactoryUser dialogFactoryUser;
     private DialogFactoryDiaryEntry dialogFactoryDiaryEntry;
     private DialogFactoryFood dialogFactoryFood;
@@ -39,6 +26,7 @@ public class DialogFactory
     private Activity caller;
     private Context context;
 
+    //Constructor
     public DialogFactory(Context context)
     {
         this.dialogFactoryUser = new DialogFactoryUser(context);
@@ -46,69 +34,68 @@ public class DialogFactory
         this.dialogFactoryFood = new DialogFactoryFood(context);
         this.dialogFactoryMeal = new DialogFactoryMeal(context);
         this.dialogFactoryUnit = new DialogFactoryUnit(context);
-        this.controller = new DataStorageController(context);
         this.context = context;
         this.caller = (Activity)context;
     }
 
     //---- Diary ----
 
-    public void CreateNewDiaryEntryDialog(final User user)
+    public void CreateNewDiaryEntryDialog(final User user)      //Calls method to create new diary entry dialog
     {
         dialogFactoryDiaryEntry.CreateNewDiaryEntryDialog(user);
     }
 
-    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user)
+    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user)    //Calls method to create options dialog for diary entry line
     {
         dialogFactoryDiaryEntry.CreateDiaryEntryLineDialog(diaryEntry, user);
     }
 
     //---- Meal ----
 
-    public void CreateNewMealDialog(final RowFactory rowFactory, final User user)
+    public void CreateNewMealDialog(final RowFactory rowFactory, final User user)   //Calls method to create new meal dialog
     {
         dialogFactoryMeal.CreateNewMealDialog(rowFactory, user);
     }
 
-    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user)
+    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user) //Calls method to create options dialog for meal line
     {
         dialogFactoryMeal.CreateMealLineDialog(meal, rowFactory, user);
     }
 
     //---- Food ----
 
-    public void CreateNewFoodDialog(final RowFactory rowFactory, final User user)
+    public void CreateNewFoodDialog(final RowFactory rowFactory, final User user)   //Calls method to create new food dialog
     {
         dialogFactoryFood.CreateNewFoodDialog(rowFactory, user);
     }
 
-    public void CreateFoodLineDialog(final Food food, final RowFactory rowFactory, final User user)
+    public void CreateFoodLineDialog(final Food food, final RowFactory rowFactory, final User user) //Calls method to create options dialog for food line
     {
         dialogFactoryFood.CreateFoodLineDialog(food, rowFactory, user);
     }
 
     //---- Unit ----
 
-    public void CreateNewUnitDialog(final User user)
+    public void CreateNewUnitDialog(final User user)    //Calls method to create new unit dialog
     {
         dialogFactoryUnit.CreateNewUnitDialog(user);
     }
 
-    public void CreateUnitLineDialog(final Unit unit, final User user)
+    public void CreateUnitLineDialog(final Unit unit, final User user)  //Calls method to create options dialog for unit line
     {
         dialogFactoryUnit.CreateUnitLineDialog(unit, user);
     }
 
     //---- User ----
 
-    public void CreateLoginDialog()
+    public void CreateLoginDialog() //Calls method to create dialog to be authenticate the user.
     {
         dialogFactoryUser.CreateLoginDialog((MainActivity)caller, context);
     }
 
     //---- Other ----
 
-    public void BeSureDialog()
+    public void BeSureDialog()  //Creates dialog to confirm factory reset
     {
         final String s = "";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -130,7 +117,7 @@ public class DialogFactory
         alert.show();
     }
 
-    public void CreateCreditsDialog()
+    public void CreateCreditsDialog()   //Creates dialog to be compliant to icons licenses
     {
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_credits, null);
