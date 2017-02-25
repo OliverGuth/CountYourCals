@@ -108,7 +108,7 @@ public class DialogFactory
 
     //---- Other ----
 
-    public void BeShureDialog()
+    public void BeSureDialog()
     {
         final String s = "";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

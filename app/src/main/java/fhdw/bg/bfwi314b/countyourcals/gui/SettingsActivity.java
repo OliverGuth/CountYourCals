@@ -38,7 +38,7 @@ public class SettingsActivity extends Activity {
         buttonFactoryReset.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DialogFactory dialogFactory = new DialogFactory(SettingsActivity.this);
-                dialogFactory.BeShureDialog();
+                dialogFactory.BeSureDialog();
             }
         });
         buttonCredits.setOnClickListener(new View.OnClickListener() {
