@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.*;
 import fhdw.bg.bfwi314b.countyourcals.R;
-import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
  * Created by Oliver Guth
@@ -97,39 +96,41 @@ public class DialogFactory
 
     public void BeSureDialog()  //Creates dialog to confirm factory reset
     {
-        final String s = "";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+        //Set message and Buttons
         builder.setMessage("Sind Sie sicher?");
         builder.setCancelable(false);
         builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                ((SettingsActivity)caller).factoryReset();
+            public void onClick(DialogInterface dialog, int which) {    //Action for confirm-button
+                ((SettingsActivity)caller).factoryReset();  //perform factory reset
             }
         });
-        builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {   //Action for decline-button
             public void onClick(DialogInterface dialog, int which) {
-
+                //Do nothing in decline
             }
         });
 
+        //Create dialog and show it on screen
         AlertDialog alert = builder.create();
         alert.show();
     }
 
     public void CreateCreditsDialog()   //Creates dialog to be compliant to icons licenses
     {
+        //Create dialog according to corresponding layout file
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_credits, null);
         dialogBuilder.setView(view);
         final android.app.AlertDialog dialog = dialogBuilder.create();
-        Button close = (Button) view.findViewById(R.id.DialogCreditsButtonClose);
+        Button close = (Button) view.findViewById(R.id.DialogCreditsButtonClose);   //find close-button by id
         close.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.cancel();
             }
-        });
-        dialog.setCancelable(true);
-        dialog.show();
+        }); //set action for close-button
+        dialog.setCancelable(true); //dialog should be disposable
+        dialog.show();  //show dialog on screen
     }
 }

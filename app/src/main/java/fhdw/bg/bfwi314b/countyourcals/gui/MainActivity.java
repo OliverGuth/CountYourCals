@@ -20,7 +20,6 @@ import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 public class MainActivity extends Activity {
 
     private DialogFactory dialogFactory;
-    private DataStorageController controller;
 
     public User user;
 
@@ -39,7 +38,6 @@ public class MainActivity extends Activity {
 
     private void initializeActivity() {
         dialogFactory = new DialogFactory(this);
-        controller = new DataStorageController(this);
 
         ButtonTextImage buttonFoodDetail = new ButtonTextImage(this, R.id.MainButtonFoodDetail, R.color.BayerGreen);
         buttonFoodDetail.setText(R.id.button_text, "Verwalten");

@@ -74,6 +74,7 @@
                     android:textColor="@color/Black"
                     android:textColorHint="@color/Grey" />
 
+
                 <Spinner
                     android:id="@+id/DialogNewEntryUnitSpinner"
                     android:layout_width="match_parent"
@@ -81,8 +82,10 @@
                     android:layout_margin="1dp"
                     android:layout_weight="1"
                     android:background="@drawable/spinner_border_green"
-                    android:entries="@array/array_units"
-                    tools:background="" />
+                    android:entries="@array/array_meals"
+                    android:padding="2dp"
+                    tools:background="@drawable/spinner_border_green" />
+
             </LinearLayout>
 
             <Button

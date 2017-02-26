@@ -161,11 +161,16 @@ public class DiaryActivity extends Activity {
 
         statistics.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(controller.getDiaryEntryList(user) != null)
+                List<DiaryEntry> entries = controller.getDiaryEntryList(user);
+                if(entries != null)
                 {
-                    Intent intent = new Intent(DiaryActivity.this, StatisticsActivity.class);
-                    intent.putExtra("user", user);
-                    startActivity(intent);
+                    if (entries.size() > 0)
+                    {
+                        Intent intent = new Intent(DiaryActivity.this, StatisticsActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                    Toast.makeText(DiaryActivity.this, "Kein Tagebucheintrag vorhanden", Toast.LENGTH_LONG).show();
                 }
                 else
                 Toast.makeText(DiaryActivity.this, "Kein Tagebucheintrag vorhanden", Toast.LENGTH_LONG).show();
@@ -293,6 +298,10 @@ public class DiaryActivity extends Activity {
             if (maxText.getText().equals("Max:")) maxValue.setText(user.getMaxKCal() + " kcal");
             else if (maxText.getText().equals("Diff.:"))
                 maxValue.setText((user.getMaxKCal() - cals) + " kcal");
+        }
+        else
+        {
+            sum.setText(0 + " kcal");
         }
     }
     private void ArrowsVisible(boolean visible)

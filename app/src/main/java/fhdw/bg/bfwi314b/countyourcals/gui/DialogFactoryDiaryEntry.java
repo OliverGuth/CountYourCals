@@ -2,7 +2,6 @@ package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,12 +10,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import fhdw.bg.bfwi314b.countyourcals.Models.*;
@@ -24,26 +21,28 @@ import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
- * Created by Oliver Guth on 20.02.2017.
+ * Created by Oliver Guth
  */
 
 public class DialogFactoryDiaryEntry {
     private DataStorageController controller;
     private Context context;
 
-    public DialogFactoryDiaryEntry(Context context)
+    public DialogFactoryDiaryEntry(Context context) //contructor
     {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
-    public void CreateNewDiaryEntryDialog(final User user)
+    public void CreateNewDiaryEntryDialog(final User user)  //Create dialog to set up a new diary entry
     {
+        //set layout to dialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
         dialogBuilder.setView(view);
         final AlertDialog dialog = dialogBuilder.create();
 
+        //find views in layout by their id
         final Button saveEntry = (Button) view.findViewById(R.id.DialogNewEntrySaveButton);
         final DatePicker date = (DatePicker) view.findViewById(R.id.DialogNewEntryDatePicker);
         final Spinner foodSpinner = (Spinner) view.findViewById(R.id.DialogNewEntryFoodSpinner);
@@ -54,27 +53,34 @@ public class DialogFactoryDiaryEntry {
         final List<Food> foodList = new ArrayList<Food>();
         final List<Meal> mealList = new ArrayList<Meal>();
 
+        //Set default entries for food- and meal dropdown-lists
         foodList.add(new Food("Lebensmittel", new ArrayList<Unit>(), 0));
         mealList.add(new Meal("Mahlzeiten", new ArrayList<Unit>(), 0));
 
+        //get lists of all foods and meals from the controller
         List<Food> tmpFoodList = controller.getFoodList(user);
         List<Meal> tmpMealList = controller.getMealList(user);
 
+        //if lists are not null the food/meal objects will be added to the dropdown-lists
         if(tmpFoodList != null) foodList.addAll(tmpFoodList);
         if(tmpMealList != null) mealList.addAll(tmpMealList);
 
+        //one List contains more than the default entries
         if(foodList.size() > 1 || mealList .size() > 1)
         {
+            //if it is the food list to contain more than the default entries, continue
             if (foodList.size() > 1)
             {
+                //set food-list to the dropdown
                 ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, foodList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 foodSpinner.setAdapter(adapter);
 
+                //specify action if selection of food-dropdown was changed.
                 foodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());
+                        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());//fill unit-dropdown with
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         if(position > 0) {
                             unitSpinner.setAdapter(adapter);
@@ -115,7 +121,9 @@ public class DialogFactoryDiaryEntry {
                 mealSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Meal) mealSpinner.getSelectedItem()).getUnits());
+                        List<Unit> units = new ArrayList<Unit>();
+                        units.add(new Unit("Portion", "pt", 0));
+                        ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         if(position > 0) {
@@ -150,8 +158,6 @@ public class DialogFactoryDiaryEntry {
 
             saveEntry.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
-
                     if (foodSpinner.getSelectedItemPosition() > 0 ||  mealSpinner.getSelectedItemPosition() > 0  && !(foodSpinner.getSelectedItemPosition() > 0 &&  mealSpinner.getSelectedItemPosition() > 0)) {
                         if (!quantity.getText().toString().equals("")) {
                             if (Integer.parseInt(quantity.getText().toString()) > 0)
@@ -175,13 +181,9 @@ public class DialogFactoryDiaryEntry {
                                 else if(mealSpinner.getSelectedItemPosition() > 0)
                                 {
                                     List<Meal> tmpMealList = controller.getMealList(user);
-                                    float x = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
-                                    float y = 0;
-                                    for (Unit u : tmpMealList.get(mealSpinner.getSelectedItemPosition()-1).getUnits())
-                                        if(u.getUnit().equals(unit.getUnit()))
-                                            y = (float)u.getQuantity();
-                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
-                                    float cals = (z / y) * x;
+                                    float originalCals = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
+                                    float realQuantity = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    float cals = realQuantity * originalCals;
                                     controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, (int)cals), user);
                                 }
                                 try {

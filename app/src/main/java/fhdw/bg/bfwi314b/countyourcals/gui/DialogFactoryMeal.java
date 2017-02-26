@@ -77,7 +77,7 @@ public class DialogFactoryMeal {
                                         Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
                                         EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
                                         Spinner unitSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(2);
-                                        if (!quantity.getText().toString().equals("")) {
+                                        if (!(quantity.getText().toString().equals(""))) {
                                             Food newFood = (Food) foodSpinner.getSelectedItem();
                                             for (Food food : foodList) {
                                                 if (food.getName().equals(newFood.getName())) {
@@ -92,27 +92,35 @@ public class DialogFactoryMeal {
                                                 newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
                                                 unitList.add(newUnit);
                                             }
-                                        } else
+                                        }
+                                        else
+                                        {
+                                            readyForSaving = false;
                                             Toast.makeText(context, "Bitte eine Menge eingeben", Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                    int cals = 0;
-                                    for (int i = 0; i < foodList.size(); i++) {
-                                        for (Food food : allfoodsList) {
-                                            if (foodList.get(i).getName().equals(food.getName())) {
-                                                for (Unit newUnit : foodList.get(i).getUnits()) {
+                                    if (readyForSaving) {
+                                        float cals = 0;
+                                        for (int i = 0; i < foodList.size(); i++) {
+                                            float originalCals = (float) foodList.get(i).getKCal();
+                                            float realQuantity = (float) unitList.get(i).getQuantity();
+                                            float originalQuantity = 0;
+                                            for (Food food : allfoodsList) {
+                                                if(food.getName().equals(foodList.get(i).getName())) {
                                                     for (Unit unit : food.getUnits()) {
-                                                        if (newUnit.getUnit().equals(unit.getUnit()))
-                                                            cals = cals + ((food.getKCal() / unit.getQuantity()) * unitList.get(i).getQuantity());
+                                                        if (unit.getUnit().equals(unitList.get(i).getUnit()))
+                                                            originalQuantity = (float) unit.getQuantity();
                                                     }
                                                 }
                                             }
+                                            cals = cals + ((originalCals / originalQuantity) * realQuantity);
                                         }
+                                        Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int) cals);
+                                        controller.addMeal(meal, user);
+                                        ((ManagerActivity) context).updateView();
+                                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                                        dialog.cancel();
                                     }
-                                    Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, cals);
-                                    controller.addMeal(meal, user);
-                                    ((ManagerActivity) context).updateView();
-                                    Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                                    dialog.cancel();
                                 }
                             } else
                                 Toast.makeText(context, "Bitte mindestens ein Lebensmittel auswählen", Toast.LENGTH_LONG).show();
@@ -181,27 +189,36 @@ public class DialogFactoryMeal {
                                     newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
                                     unitList.add(newUnit);
                                 }
-                            } else
+                            }
+                            else
+                            {
+                                readyForSaving = false;
                                 Toast.makeText(context, "Bitte eine Menge angeben", Toast.LENGTH_LONG).show();
+                            }
                         }
-                        float cals = 0;
-                        for (int i = 0; i < foodList.size(); i++) {
-                            for (Food food : allfoodsList) {
-                                if (foodList.get(i).getName().equals(food.getName())) {
-                                    for (Unit newUnit : foodList.get(i).getUnits()) {
+                        if (readyForSaving) {
+                            float cals = 0;
+                            for (int i = 0; i < foodList.size(); i++) {
+                                float originalCals = (float) foodList.get(i).getKCal();
+                                float realQuantity = (float) unitList.get(i).getQuantity();
+                                float originalQuantity = 0;
+                                for (Food food : allfoodsList) {
+                                    if(food.getName().equals(foodList.get(i).getName())) {
                                         for (Unit unit : food.getUnits()) {
-                                            if (newUnit.getUnit().equals(unit.getUnit()))
-                                                cals = cals + ((((float)food.getKCal()) / ((float)unit.getQuantity())) * ((float)unitList.get(i).getQuantity()));
+                                            if (unit.getUnit().equals(unitList.get(i).getUnit()))
+                                                originalQuantity = (float) unit.getQuantity();
                                         }
                                     }
                                 }
+                                cals = cals + ((originalCals / originalQuantity) * realQuantity);
                             }
+
+                            Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int)cals);
+                            controller.editMeal(oldMeal, newMeal, user);
+                            ((ManagerActivity) context).updateView();
+                            Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
+                            dialog.cancel();
                         }
-                        Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int)cals);
-                        controller.editMeal(oldMeal, newMeal, user);
-                        ((ManagerActivity) context).updateView();
-                        Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                        dialog.cancel();
                     }
                     else
                         Toast.makeText(context, "Bitte mindestens ein Lebensmittel angeben", Toast.LENGTH_LONG).show();
