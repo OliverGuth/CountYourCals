@@ -15,21 +15,24 @@ import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
- * Created by Oliver Guth on 23.02.2017.
+ * Created by Oliver Guth
  */
 
 public class DialogFactoryUnit {
     private DataStorageController controller;
     private Context context;
 
+    //Controller
     public DialogFactoryUnit(Context context)
     {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
+    //Create new unit dialog
     public void CreateNewUnitDialog(final User user)
     {
+        //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
@@ -39,10 +42,13 @@ public class DialogFactoryUnit {
         final EditText name = (EditText) view.findViewById(R.id.DialogNewUnitName);
         final EditText nameShort = (EditText) view.findViewById(R.id.DialogNewUnitNameShort);
 
+        //specify click action for save button
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Unit> unitList = controller.getUnitList(user);
+                List<Unit> unitList = controller.getUnitList(user); //get all existing units from controller
                 boolean unitExists = false;
+
+                //check if unit already exists
                 if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
                     if (unitList != null) {
                         for (Unit unit : unitList) {
@@ -53,25 +59,27 @@ public class DialogFactoryUnit {
                             }
                         }
                     }
+                    //if not exists: save unit via the controller, update the view and close this dialog
                     if (unitExists == false) {
                         Unit unit = new Unit(name.getText().toString(), nameShort.getText().toString(), 0);
                         controller.addUnit(unit, user);
                         ((ManagerActivity)context).updateView();
                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+                        dialog.cancel();    //close dialog
                     }
                 }
             }
         });
-        dialog.show();
+        dialog.show(); //show dialog to the user
     }
 
+    //edit existing unit dialog
     public void CreateEditUnitDialog(final Unit oldUnit, final User user)
     {
+        //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
         dialogBuilder.setView(view);
-
 
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -79,12 +87,14 @@ public class DialogFactoryUnit {
         final EditText name = (EditText) view.findViewById(R.id.DialogNewUnitName);
         final EditText nameShort = (EditText) view.findViewById(R.id.DialogNewUnitNameShort);
 
+        //set known information from unit to be edited
         name.setText(oldUnit.getUnit());
         nameShort.setText(oldUnit.getUnitShort());
 
+        //handle click on save button
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<Unit> unitList = controller.getUnitList(user);
+                List<Unit> unitList = controller.getUnitList(user); //get unitlist from controller
                 boolean unitExists = false;
                 if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
                     if (unitList != null) {
@@ -97,18 +107,20 @@ public class DialogFactoryUnit {
                         }
                     }
                     if (unitExists == false) {
+                        //if not exists: save unit via the controller, update the view and close this dialog
                         Unit newUnit = new Unit(name.getText().toString(), nameShort.getText().toString(), 0);
                         controller.editUnit(oldUnit, newUnit, user);
                         ((ManagerActivity)context).updateView();
                         Toast.makeText(context, "Eintrag " + oldUnit.getUnit() + " geändert", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+                        dialog.dismiss(); //close this dialog
                     }
                 }
             }
         });
-        dialog.show();
+        dialog.show();  //show dialog to the user
     }
 
+    //show options dialog to interact with a unit row
     public void CreateUnitLineDialog(final Unit unit, final User user)
     {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals

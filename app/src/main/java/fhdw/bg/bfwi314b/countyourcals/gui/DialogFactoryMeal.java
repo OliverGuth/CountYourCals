@@ -19,20 +19,22 @@ import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
- * Created by Oliver Guth on 23.02.2017.
+ * Created by Oliver Guth
  */
 
 public class DialogFactoryMeal {
     private DataStorageController controller;
     private Context context;
 
-    public DialogFactoryMeal(Context context)
+    public DialogFactoryMeal(Context context)//controller
     {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
+    //Dialog to create and save new Meal
     public void CreateNewMealDialog(final RowFactory rowFactory, final User user) {
+        //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
@@ -43,21 +45,25 @@ public class DialogFactoryMeal {
         final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
         final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
 
-        List<Food> foodList = controller.getFoodList(user);
-        if (foodList != null) {
+        List<Food> foodList = controller.getFoodList(user); //get existing foods from controller
+        if (foodList != null) { //there has to be existing foods in order to create a meal
             if (foodList.size() > 0) {
 
+                //New Food rows will be added on click
                 newFood.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        rowFactory.AddRowMealDialogTableLayout(table, user);
+                        rowFactory.AddRowMealDialogTableLayout(table, user);//add food row
                     }
                 });
 
+                //Handles the click event to save a meal
                 saveEntry.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         boolean readyForSaving = true;
-                        List<Meal> mealList = controller.getMealList(user);
+                        List<Meal> mealList = controller.getMealList(user);//get all existing meals
                         boolean mealExists = false;
+
+                        //if meal already exists, dont continue
                         if (!name.getText().toString().equals("")) {
                             if (table.getChildCount() > 1) {
                                 if (mealList != null) {
@@ -69,10 +75,11 @@ public class DialogFactoryMeal {
                                         }
                                     }
                                 }
-                                if (mealExists == false) {
+                                if (mealExists == false) { //if meal doesn't exist
+                                    //Create a food object for each table row and add them to a list
                                     List<Food> foodList = new ArrayList<Food>();
                                     List<Unit> unitList = new ArrayList<Unit>();
-                                    List<Food> allfoodsList = controller.getFoodList(user);
+                                    List<Food> allfoodsList = controller.getFoodList(user);//get food list from controller
                                     for (int i = 0; i < table.getChildCount() - 1; i++) {
                                         Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
                                         EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
@@ -88,25 +95,25 @@ public class DialogFactoryMeal {
                                             if (readyForSaving) {
                                                 foodList.add(newFood);
 
+                                                //add units according to added foods
                                                 Unit newUnit = (Unit) unitSpinner.getSelectedItem();
                                                 newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
                                                 unitList.add(newUnit);
                                             }
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             readyForSaving = false;
                                             Toast.makeText(context, "Bitte eine Menge eingeben", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                     if (readyForSaving) {
+                                        //calculate calories
                                         float cals = 0;
                                         for (int i = 0; i < foodList.size(); i++) {
                                             float originalCals = (float) foodList.get(i).getKCal();
                                             float realQuantity = (float) unitList.get(i).getQuantity();
                                             float originalQuantity = 0;
                                             for (Food food : allfoodsList) {
-                                                if(food.getName().equals(foodList.get(i).getName())) {
+                                                if (food.getName().equals(foodList.get(i).getName())) {
                                                     for (Unit unit : food.getUnits()) {
                                                         if (unit.getUnit().equals(unitList.get(i).getUnit()))
                                                             originalQuantity = (float) unit.getQuantity();
@@ -115,27 +122,29 @@ public class DialogFactoryMeal {
                                             }
                                             cals = cals + ((originalCals / originalQuantity) * realQuantity);
                                         }
+                                        //create meal with the gathered information and save it via the controller
                                         Meal meal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int) cals);
                                         controller.addMeal(meal, user);
-                                        ((ManagerActivity) context).updateView();
+                                        ((ManagerActivity) context).updateView(); //update the view to show latest changes in manager activity
                                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                                        dialog.cancel();
+                                        dialog.cancel();//close dialog
                                     }
                                 }
-                            } else
+                            } else //if no row is added
                                 Toast.makeText(context, "Bitte mindestens ein Lebensmittel auswählen", Toast.LENGTH_LONG).show();
-                        } else
+                        } else  //if no name was entered
                             Toast.makeText(context, "Bitte einen Namen eingeben", Toast.LENGTH_LONG).show();
                     }
                 });
-                dialog.show();
-            } else
+                dialog.show();//show dialog to the user
+            } else //if no food exists
                 Toast.makeText(context, "Bitte erst ein Lebensmittel anlegen", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void CreateEditMealDialog(final Meal oldMeal, final RowFactory rowFactory, final User user)
-    {
+    //Dialog to edit and save a meal
+    public void CreateEditMealDialog(final Meal oldMeal, final RowFactory rowFactory, final User user) {
+        //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_meal_entry, null);
         dialogBuilder.setView(view);
@@ -146,30 +155,30 @@ public class DialogFactoryMeal {
         final Button newFood = (Button) view.findViewById(R.id.DialogNewMealAddNewFoodButton);
         final TableLayout table = (TableLayout) view.findViewById(R.id.DialogNewMealTableView);
 
-        name.setText(oldMeal.getName());
+        name.setText(oldMeal.getName()); //show name of the edited meal on screen
 
-        for (int i = 0; i < oldMeal.getIngredients().size(); i++)
-        {
+        //for each food in meal add a row in the table and fill it
+        for (int i = 0; i < oldMeal.getIngredients().size(); i++) {
             rowFactory.AddRowMealDialogEditTableLayout(table, oldMeal.getIngredients().get(i), oldMeal.getUnits().get(i), user);
         }
 
+        //New Food rows will be added on click
         newFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rowFactory.AddRowMealDialogTableLayout(table, user);
+                rowFactory.AddRowMealDialogTableLayout(table, user);//add food row
             }
         });
 
+        //Handles the click event to save a meal
         saveEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean readyForSaving = true;
-                List<Meal> mealList = controller.getMealList(user);
-                boolean mealExists = false;
-                if (!name.getText().toString().equals("") && table.getChildCount() > 1) {
-
+                if (!name.getText().toString().equals("") && table.getChildCount() > 1) {   //if name is entered and at least one food row is added
                     List<Food> foodList = new ArrayList<Food>();
                     List<Unit> unitList = new ArrayList<Unit>();
-                    List<Food> allfoodsList = controller.getFoodList(user);
-                    if(table.getChildCount()>0) {
+                    List<Food> allfoodsList = controller.getFoodList(user); //get existing foods from controller
+                    if (table.getChildCount() > 0) {
+                        //check for double entries in food rows
                         for (int i = 0; i < table.getChildCount() - 1; i++) {
                             Spinner foodSpinner = (Spinner) ((TableRow) table.getChildAt(i)).getChildAt(0);
                             EditText quantity = (EditText) ((TableRow) table.getChildAt(i)).getChildAt(1);
@@ -182,28 +191,28 @@ public class DialogFactoryMeal {
                                         Toast.makeText(context, "Lebensmittel " + food.getName() + " kommt mehrmals vor", Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                if (readyForSaving) {
+                                if (readyForSaving) { //add foodsand units to lists
                                     foodList.add(newFood);
 
                                     Unit newUnit = (Unit) unitSpinner.getSelectedItem();
                                     newUnit.setQuantity(Integer.parseInt(quantity.getText().toString()));
                                     unitList.add(newUnit);
                                 }
-                            }
-                            else
+                            } else//if no quantity was set
                             {
                                 readyForSaving = false;
                                 Toast.makeText(context, "Bitte eine Menge angeben", Toast.LENGTH_LONG).show();
                             }
                         }
                         if (readyForSaving) {
+                            //calculate calories
                             float cals = 0;
                             for (int i = 0; i < foodList.size(); i++) {
                                 float originalCals = (float) foodList.get(i).getKCal();
                                 float realQuantity = (float) unitList.get(i).getQuantity();
                                 float originalQuantity = 0;
                                 for (Food food : allfoodsList) {
-                                    if(food.getName().equals(foodList.get(i).getName())) {
+                                    if (food.getName().equals(foodList.get(i).getName())) {
                                         for (Unit unit : food.getUnits()) {
                                             if (unit.getUnit().equals(unitList.get(i).getUnit()))
                                                 originalQuantity = (float) unit.getQuantity();
@@ -212,25 +221,23 @@ public class DialogFactoryMeal {
                                 }
                                 cals = cals + ((originalCals / originalQuantity) * realQuantity);
                             }
-
-                            Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int)cals);
+                            //create meal with the gathered information and edit the existing one via the controller
+                            Meal newMeal = new Meal(name.getText().toString(), (ArrayList<Food>) foodList, (ArrayList<Unit>) unitList, (int) cals);
                             controller.editMeal(oldMeal, newMeal, user);
-                            ((ManagerActivity) context).updateView();
+                            ((ManagerActivity) context).updateView();   //update view of manager activity to show latest data changes
                             Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                            dialog.cancel();
+                            dialog.cancel(); //close this dialog
                         }
-                    }
-                    else
+                    } else    //No food exists
                         Toast.makeText(context, "Bitte mindestens ein Lebensmittel angeben", Toast.LENGTH_LONG).show();
                 }
             }
         });
-        dialog.show();
+        dialog.show(); //show dialog to user
     }
 
-    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user)
-    {
-        //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
+    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user) {
+        //initialize dialog and find its children by id
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_manager_entry, null);
@@ -240,23 +247,23 @@ public class DialogFactoryMeal {
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
 
+        //Open edit dialog on click of the edit button then close the dialog
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CreateEditMealDialog(meal, rowFactory, user);
-                Toast.makeText(context, "edit", Toast.LENGTH_LONG).show();
                 dialog.cancel();
             }
         });
 
+        //Delete selected meal on button click
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.deleteMeal(meal, user);
-                ((ManagerActivity)context).updateView();
-                Toast.makeText(context, "delete", Toast.LENGTH_LONG).show();
+                ((ManagerActivity) context).updateView();
+                Toast.makeText(context, "Eintrag " + meal.getName() + " gelöscht!", Toast.LENGTH_LONG).show();
                 dialog.cancel();
             }
         });
-
-        dialog.show();
+        dialog.show();//show dialog to the user
     }
 }
