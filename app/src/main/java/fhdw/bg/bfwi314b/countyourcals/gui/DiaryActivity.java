@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +28,6 @@ public class DiaryActivity extends Activity {
     private DataStorageController controller;
     private RowFactory rowFactory;
     private DialogFactory dialogFactory;
-    private List<Food> foods;
-    private List<Meal> meals;
     private User user;
     private DiaryState state;
     private Date selectedDate;

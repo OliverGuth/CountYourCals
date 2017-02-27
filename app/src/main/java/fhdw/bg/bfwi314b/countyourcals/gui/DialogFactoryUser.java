@@ -84,12 +84,15 @@ public class DialogFactoryUser {
         final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
         Button login = (Button) view.findViewById(R.id.LoginButton);
         Button register = (Button) view.findViewById(R.id.LoginRegisterButton);
+
+        //handle click on login button
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<User> userlist = controller.getUserList();
+                List<User> userlist = controller.getUserList();//get existing user list from controller
                 if (userlist != null) {
                     for (User user : userlist) {
                         if (loginUserName.getText().toString().trim().equals(user.getName())) {
+                            //if user is found in user list
                             Toast.makeText(context, "Eingeloggt als " + user.getName(), Toast.LENGTH_LONG).show();
                             dialog.setCancelable(true);
                             dialog.cancel();

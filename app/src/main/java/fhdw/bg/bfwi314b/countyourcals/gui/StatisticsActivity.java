@@ -30,8 +30,6 @@ public class StatisticsActivity extends Activity {
     private TextView averageCalories;
     private TextView highestCalories;
     private TextView lowestCalories;
-    private TextView mostEaten;
-    private TextView daysOverMax;
     private TextView date;
     private User user;
 
