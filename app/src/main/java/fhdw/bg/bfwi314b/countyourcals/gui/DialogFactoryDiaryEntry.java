@@ -62,15 +62,13 @@ public class DialogFactoryDiaryEntry {
         List<Meal> tmpMealList = controller.getMealList(user);
 
         //if lists are not null the food/meal objects will be added to the dropdown-lists
-        if(tmpFoodList != null) foodList.addAll(tmpFoodList);
-        if(tmpMealList != null) mealList.addAll(tmpMealList);
+        if (tmpFoodList != null) foodList.addAll(tmpFoodList);
+        if (tmpMealList != null) mealList.addAll(tmpMealList);
 
         //one List contains more than the default entries
-        if(foodList.size() > 1 || mealList .size() > 1)
-        {
+        if (foodList.size() > 1 || mealList.size() > 1) {
             //if it is the food list to contain more than the default entries, continue
-            if (foodList.size() > 1)
-            {
+            if (foodList.size() > 1) {
                 //set food-list to the dropdown
                 ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, foodList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,21 +80,21 @@ public class DialogFactoryDiaryEntry {
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());//fill unit-dropdown with
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        if(position > 0) {
-                            unitSpinner.setAdapter(adapter);
-                            if(unitSpinner.getAdapter().getCount()>0) unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
+                        if (position > 0) { //if selection is not the default selection
+                            unitSpinner.setAdapter(adapter);    //fill dropdown with matching units
+                            //set dropdown backgrounds
+                            if (unitSpinner.getAdapter().getCount() > 0)
+                                unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
-                            mealSpinner.setSelection(0);
-                        }
-                        else if(mealSpinner.getSelectedItemPosition() ==0)
+                            mealSpinner.setSelection(0);//set default selection for other dropdown
+                        } else if (mealSpinner.getSelectedItemPosition() == 0)  //if both dropdowns are on default position
                         {
                             unitSpinner.setAdapter(adapter);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             unitSpinner.setBackgroundResource(0);
-                        }
-                        else {
+                        } else {
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                         }
                     }
@@ -106,41 +104,42 @@ public class DialogFactoryDiaryEntry {
                         unitSpinner.setAdapter(null);
                     }
                 });
-            }
-            else
+            } else    //if the food list contains only the default entry, continue
             {
                 foodSpinner.setVisibility(Spinner.INVISIBLE);
             }
 
-            if (mealList.size() > 1)
+            if (mealList.size() > 1)  //if it is the meal list to contain more than the default entries, continue
             {
+                //set meal-list to the dropdown
                 ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, mealList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mealSpinner.setAdapter(adapter);
 
+                //if selection of meal dropdown is changed it will be handled here
                 mealSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         List<Unit> units = new ArrayList<Unit>();
-                        units.add(new Unit("Portion", "pt", 0));
+                        units.add(new Unit("Portion", "pt", 0));    //Meals should only measured in portions
                         ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, units);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        if(position > 0) {
+                        if (position > 0) {  //if the selected item is not the default item
+                            //unit dropdown is filled and backgrounds of other dropdowns are set
                             unitSpinner.setAdapter(adapter);
-                            if(unitSpinner.getAdapter().getCount()>0) unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
+                            if (unitSpinner.getAdapter().getCount() > 0)
+                                unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_green);
-                            foodSpinner.setSelection(0);
-                        }
-                        else if(foodSpinner.getSelectedItemPosition() ==0)
+                            foodSpinner.setSelection(0);//food dropdown has to show the default item
+                        } else if (foodSpinner.getSelectedItemPosition() == 0)  //if both dropdowns selected the default item
                         {
                             unitSpinner.setAdapter(adapter);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             unitSpinner.setBackgroundResource(0);
-                        }
-                        else {
+                        } else {
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                         }
                     }
@@ -150,60 +149,64 @@ public class DialogFactoryDiaryEntry {
                         unitSpinner.setAdapter(null);
                     }
                 });
-            }
-            else
+            } else //if the meal list contains only the default entry, continue
             {
                 mealSpinner.setVisibility(Spinner.INVISIBLE);
             }
 
+            //Handle the click on the save-button
             saveEntry.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (foodSpinner.getSelectedItemPosition() > 0 ||  mealSpinner.getSelectedItemPosition() > 0  && !(foodSpinner.getSelectedItemPosition() > 0 &&  mealSpinner.getSelectedItemPosition() > 0)) {
-                        if (!quantity.getText().toString().equals("")) {
-                            if (Integer.parseInt(quantity.getText().toString()) > 0)
+                    if (foodSpinner.getSelectedItemPosition() > 0 || mealSpinner.getSelectedItemPosition() > 0 && !(foodSpinner.getSelectedItemPosition() > 0 && mealSpinner.getSelectedItemPosition() > 0)) { //only one spinner not on default
+                        if (!quantity.getText().toString().equals("")) {    //quantity has to be set
+                            if (Integer.parseInt(quantity.getText().toString()) > 0)    //quantity has to be greater than zero
                             {
+                                //get date from datepicker and provide it to calendar object
                                 Calendar cal = Calendar.getInstance();
                                 cal.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
-                                Unit unit = (Unit)unitSpinner.getSelectedItem();
+                                //get unit
+                                Unit unit = (Unit) unitSpinner.getSelectedItem();
                                 unit.setQuantity(Integer.parseInt(quantity.getText().toString()));
-                                if(foodSpinner.getSelectedItemPosition() > 0)
+                                if (foodSpinner.getSelectedItemPosition() > 0)//if food is the basis of the diary entry
                                 {
+                                    //calculate calories and save new entry
                                     List<Food> tmpFoodList = controller.getFoodList(user);
-                                    float x = ((float)((Food)foodSpinner.getSelectedItem()).getKCal());
-                                    float y = 0;
-                                    for (Unit u : tmpFoodList.get(foodSpinner.getSelectedItemPosition()-1).getUnits())
-                                        if(u.getUnit().equals(unit.getUnit()))
-                                            y = (float)u.getQuantity();
-                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
-                                    float cals = (z / y) * x;
-                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Food)foodSpinner.getSelectedItem(), unit, (int)cals), user);
-                                }
-                                else if(mealSpinner.getSelectedItemPosition() > 0)
+                                    float originalCals = ((float) ((Food) foodSpinner.getSelectedItem()).getKCal());
+                                    float originalQuantity = 0;
+                                    for (Unit u : tmpFoodList.get(foodSpinner.getSelectedItemPosition() - 1).getUnits())
+                                        if (u.getUnit().equals(unit.getUnit()))
+                                            originalQuantity = (float) u.getQuantity();
+                                    float realQuantity = ((float) (Integer.parseInt(quantity.getText().toString())));
+                                    float cals = (realQuantity / originalQuantity) * originalCals;
+                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Food) foodSpinner.getSelectedItem(), unit, (int) cals), user);
+                                } else if (mealSpinner.getSelectedItemPosition() > 0)//if food is the basis of the diary entry
                                 {
+                                    //calculate calories and save new entry
                                     List<Meal> tmpMealList = controller.getMealList(user);
-                                    float originalCals = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
-                                    float realQuantity = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    float originalCals = ((float) ((Meal) mealSpinner.getSelectedItem()).getKCal());
+                                    float realQuantity = ((float) (Integer.parseInt(quantity.getText().toString())));
                                     float cals = realQuantity * originalCals;
-                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, (int)cals), user);
+                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal) mealSpinner.getSelectedItem(), unit, (int) cals), user);
                                 }
                                 try {
-                                    ((DiaryActivity)context).updateView();
-                                }catch(Exception e){}
+                                    ((DiaryActivity) context).updateView();  //update the diaryActivity view to show latest changed
+                                } catch (Exception e) {
+                                }
                                 Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
-                                dialog.cancel();
+                                dialog.cancel(); //close dialog
                             }
                         }
                     }
                 }
             });
-            dialog.show();
-        }
-        else
+            dialog.show();//show dialog to user
+        } else//no List contains more than the default entries
             Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_LONG).show();
     }
 
-    public void CreateEditDiaryEntryDialog(final DiaryEntry diaryEntry, final User user)
+    public void CreateEditDiaryEntryDialog(final DiaryEntry diaryEntry, final User user)//Create dialog to edit an existing diary entry
     {
+        //set layout and initialize dialog elements
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
         dialogBuilder.setView(view);
@@ -219,49 +222,56 @@ public class DialogFactoryDiaryEntry {
         final List<Food> foodList = new ArrayList<Food>();
         final List<Meal> mealList = new ArrayList<Meal>();
 
+        //define default entries
         foodList.add(new Food("Lebensmittel", new ArrayList<Unit>(), 0));
         mealList.add(new Meal("Mahlzeiten", new ArrayList<Unit>(), 0));
 
-        if(diaryEntry.getConsumedFood() != null)
+        //add the right entry to the right list
+        if (diaryEntry.getConsumedFood() != null)
             foodList.add(diaryEntry.getConsumedFood());
-        else if(diaryEntry.getConsumedMeal() != null)
+        else if (diaryEntry.getConsumedMeal() != null)
             mealList.add(diaryEntry.getConsumedMeal());
 
+        //fill datepicker
         Calendar cal = Calendar.getInstance();
         cal.setTime(diaryEntry.getTimeStamp());
         date.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
+        //set quantity value
         quantity.setText(diaryEntry.getConsumedUnit().getQuantity().toString());
 
-        if(foodList.size() > 1 || mealList .size() > 1)
+        if (foodList.size() > 1 || mealList.size() > 1) //if one entry is set
         {
-            if (foodList.size() > 1)
+            if (foodList.size() > 1)//if set entry is a food
             {
+                mealSpinner.setVisibility(Spinner.INVISIBLE);
+                //Set food dropdown
                 ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, foodList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 foodSpinner.setAdapter(adapter);
                 foodSpinner.setSelection(1);
 
+                //handle the event thrown if the selection of the dropdown changed
                 foodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        //set units of the selected element to the dropdown
                         ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Food) foodSpinner.getSelectedItem()).getUnits());
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        if(position > 0) {
+                        if (position > 0) { //if selected item is not the default item
                             unitSpinner.setAdapter(adapter);
-                            if(unitSpinner.getAdapter().getCount()>0) unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
+                            if (unitSpinner.getAdapter().getCount() > 0)
+                                unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setSelection(0);
-                        }
-                        else if(mealSpinner.getSelectedItemPosition() ==0)
+                        } else if (mealSpinner.getSelectedItemPosition() == 0) //if both selected items of the dropdowns are the default entries
                         {
                             unitSpinner.setAdapter(adapter);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             unitSpinner.setBackgroundResource(0);
-                        }
-                        else {
+                        } else {
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                         }
                     }
@@ -272,39 +282,37 @@ public class DialogFactoryDiaryEntry {
                     }
                 });
             }
-            else
-            {
-                foodSpinner.setVisibility(Spinner.INVISIBLE);
-            }
 
-            if (mealList.size() > 1)
+            if (mealList.size() > 1)//if set entry is a meal
             {
+                foodSpinner.setVisibility(Spinner.INVISIBLE);//food dropdown is not needed
+                //set meal to dropdown
                 ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, mealList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mealSpinner.setAdapter(adapter);
                 mealSpinner.setSelection(1);
 
+                //Handle Selection Changed Event of meal dropdown
                 mealSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         ArrayAdapter<String> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ((Meal) mealSpinner.getSelectedItem()).getUnits());
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        if(position > 0) {
+                        if (position > 0) {//if selected entry is not the default entry
                             unitSpinner.setAdapter(adapter);
-                            if(unitSpinner.getAdapter().getCount()>0) unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
+                            if (unitSpinner.getAdapter().getCount() > 0)
+                                unitSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_green);
                             foodSpinner.setSelection(0);
-                        }
-                        else if(foodSpinner.getSelectedItemPosition() ==0)
+                        } else if (foodSpinner.getSelectedItemPosition() == 0)//only default entries are selected
                         {
                             unitSpinner.setAdapter(adapter);
                             foodSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                             unitSpinner.setBackgroundResource(0);
-                        }
-                        else {
+                        } else {
                             mealSpinner.setBackgroundResource(R.drawable.spinner_border_grey);
                         }
                     }
@@ -315,63 +323,59 @@ public class DialogFactoryDiaryEntry {
                     }
                 });
             }
-            else
-            {
-                mealSpinner.setVisibility(Spinner.INVISIBLE);
-            }
 
-            saveEntry.setOnClickListener(new View.OnClickListener() {
+            saveEntry.setOnClickListener(new View.OnClickListener() {   //handles save-button Click event
                 public void onClick(View v) {
-
-
-                    if (foodSpinner.getSelectedItemPosition() > 0 || mealSpinner.getSelectedItemPosition() > 0 && !(foodSpinner.getSelectedItemPosition() > 0 && mealSpinner.getSelectedItemPosition() > 0)) {
-                        if (!quantity.getText().toString().equals("")) {
-                            if (Integer.parseInt(quantity.getText().toString()) > 0) {
+                    if (foodSpinner.getSelectedItemPosition() > 0 || mealSpinner.getSelectedItemPosition() > 0 && !(foodSpinner.getSelectedItemPosition() > 0 && mealSpinner.getSelectedItemPosition() > 0)) { //if just one entry is selected
+                        if (!quantity.getText().toString().equals("")) {//if quantity is entered
+                            if (Integer.parseInt(quantity.getText().toString()) > 0) { //if entered quantity is greater than zero
+                                //get date from datepicker and provide it to calendar object
                                 Calendar cal = Calendar.getInstance();
                                 cal.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
-                                Unit unit = (Unit)unitSpinner.getSelectedItem();
+                                //get unit
+                                Unit unit = (Unit) unitSpinner.getSelectedItem();
                                 unit.setQuantity(Integer.parseInt(quantity.getText().toString()));
-                                if(foodSpinner.getSelectedItemPosition() > 0)
+                                if (foodSpinner.getSelectedItemPosition() > 0)//if food is the basis of the diary entry
                                 {
+                                    //calculate calories and save new entry
                                     List<Food> tmpFoodList = controller.getFoodList(user);
-                                    float x = ((float)((Food)foodSpinner.getSelectedItem()).getKCal());
-                                    float y = 0;
-                                    for (Unit u : tmpFoodList.get(foodSpinner.getSelectedItemPosition()-1).getUnits())
-                                        if(u.getUnit().equals(unit.getUnit()))
-                                            y = (float)u.getQuantity();
-                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
-                                    float cals = (z / y) * x;
-                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Food)foodSpinner.getSelectedItem(), unit, (int)cals), user);
-                                }
-                                else if(mealSpinner.getSelectedItemPosition() > 0)
+                                    float originalCals = ((float) ((Food) foodSpinner.getSelectedItem()).getKCal());
+                                    float originalQuantity = 0;
+                                    for (Unit u : tmpFoodList.get(foodSpinner.getSelectedItemPosition() - 1).getUnits())
+                                        if (u.getUnit().equals(unit.getUnit()))
+                                            originalQuantity = (float) u.getQuantity();
+                                    float realQuantity = ((float) (Integer.parseInt(quantity.getText().toString())));
+                                    float cals = (realQuantity / originalQuantity) * originalCals;
+                                    controller.editDiaryEntry(new DiaryEntry(cal.getTime(), (Food) foodSpinner.getSelectedItem(), unit, (int) cals), diaryEntry, user);
+                                } else if (mealSpinner.getSelectedItemPosition() > 0)//if meal is the basis of the diary entry
                                 {
+                                    //calculate calories and save new entry
                                     List<Meal> tmpMealList = controller.getMealList(user);
-                                    float x = ((float)((Meal)mealSpinner.getSelectedItem()).getKCal());
+                                    float x = ((float) ((Meal) mealSpinner.getSelectedItem()).getKCal());
                                     float y = 0;
-                                    for (Unit u : tmpMealList.get(mealSpinner.getSelectedItemPosition()-1).getUnits())
-                                        if(u.getUnit().equals(unit.getUnit()))
-                                            y = (float)u.getQuantity();
-                                    float z = ((float)(Integer.parseInt(quantity.getText().toString())));
+                                    for (Unit u : tmpMealList.get(mealSpinner.getSelectedItemPosition() - 1).getUnits())
+                                        if (u.getUnit().equals(unit.getUnit()))
+                                            y = (float) u.getQuantity();
+                                    float z = ((float) (Integer.parseInt(quantity.getText().toString())));
                                     float cals = (z / y) * x;
-                                    controller.addDiaryEntry(new DiaryEntry(cal.getTime(), (Meal)mealSpinner.getSelectedItem(), unit, (int)cals), user);
+                                    controller.editDiaryEntry(new DiaryEntry(cal.getTime(), (Meal) mealSpinner.getSelectedItem(), unit, (int) cals), diaryEntry, user);
                                 }
-                                ((DiaryActivity)context).updateView();
+                                ((DiaryActivity) context).updateView();//update the DiaryActivity with the latest changes
                                 Toast.makeText(context, "Eintrag gespeichert", Toast.LENGTH_LONG).show();
-                                dialog.cancel();
+                                dialog.cancel(); //close dialog
                             }
                         }
                     }
                 }
             });
-            dialog.show();
-        }
-        else
+            dialog.show(); //show dialog to user
+        } else//if no food or meal is saved
             Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_SHORT).show();
     }
 
-    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user)
+    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user) //dialog to show options regarding one particular diary entry
     {
-        //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
+        //Create and initialize dialog and its children
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_diary_entry_column, null);
@@ -381,36 +385,38 @@ public class DialogFactoryDiaryEntry {
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
 
+        //Handles Click event für Copy-DiaryEntry-Button
         copy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(diaryEntry.getConsumedFood() == null)
+                //Save new diary entry with same settings as the selected one. Timestamp is set to the
+                if (diaryEntry.getConsumedFood() == null)
                     controller.addDiaryEntry(new DiaryEntry(Calendar.getInstance().getTime(), diaryEntry.getConsumedMeal(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal()), user);
                 else
                     controller.addDiaryEntry(new DiaryEntry(Calendar.getInstance().getTime(), diaryEntry.getConsumedFood(), diaryEntry.getConsumedUnit(), diaryEntry.getConsumedKCal()), user);
                 Toast.makeText(context, "Zum aktuellen Tag kopiert", Toast.LENGTH_LONG).show();
-                ((DiaryActivity)context).updateView();
-                dialog.cancel();
-            }
-        });
-        edit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CreateEditDiaryEntryDialog(diaryEntry, user);
-                dialog.cancel();
-            }
-        });
-        delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //BeShureDialog(context);
-                //if(result == true) {
-                controller.deleteDiaryEntry(diaryEntry, user);
-                ((DiaryActivity)context).updateView();
-                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show();
-                dialog.cancel();
-                //}
+                ((DiaryActivity) context).updateView();//update the DiaryActivity with the latest changes
+                dialog.cancel();//close dialog
             }
         });
 
-        dialog.show();
+        //Handles Click event für Edit-DiaryEntry-Button
+        edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CreateEditDiaryEntryDialog(diaryEntry, user);//edit entry with the edit dialog
+                dialog.cancel();//close dialog
+            }
+        });
+
+        //Handles Click event für Delete-DiaryEntry-Button
+        delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                controller.deleteDiaryEntry(diaryEntry, user); //delete the corresponding entry via the controller
+                ((DiaryActivity) context).updateView();//update the DiaryActivity with the latest changes
+                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show();
+                dialog.cancel();//close dialog
+            }
+        });
+
+        dialog.show();//show dialog to user
     }
 }

@@ -37,7 +37,7 @@ public class AccountActivity extends Activity {
 
         //Bind Layout-Elements to variables
         name = (TextView) findViewById(R.id.AccountNameValue);
-        gender =  (TextView) findViewById(R.id.AccountGenderValue);
+        gender = (TextView) findViewById(R.id.AccountGenderValue);
         maxCals = (EditText) findViewById(R.id.AccountMaxCalsValue);
         Button buttonLogout = (Button) findViewById(R.id.AccountButtonLogout);
 
@@ -50,15 +50,14 @@ public class AccountActivity extends Activity {
                 Intent intent = new Intent();
                 setResult(1, intent);//Result Code "1" informes the parent activity that the user was logged out.
                 finish();//Activity gets destroyed
-        }});
+            }
+        });
     }
 
     //personalize the necessary fields with the specific user data
-    public void fillUserData()
-    {
+    public void fillUserData() {
         //user-object has to be not null
-        if(user != null)
-        {
+        if (user != null) {
             name.setText(user.getName());
             gender.setText(user.getGender().toString());
             maxCals.setText(user.getMaxKCal().toString());

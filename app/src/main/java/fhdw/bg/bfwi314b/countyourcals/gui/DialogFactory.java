@@ -15,8 +15,7 @@ import fhdw.bg.bfwi314b.countyourcals.R;
  * Created by Oliver Guth
  */
 
-public class DialogFactory
-{
+public class DialogFactory {
     private DialogFactoryUser dialogFactoryUser;
     private DialogFactoryDiaryEntry dialogFactoryDiaryEntry;
     private DialogFactoryFood dialogFactoryFood;
@@ -26,15 +25,14 @@ public class DialogFactory
     private Context context;
 
     //Constructor
-    public DialogFactory(Context context)
-    {
+    public DialogFactory(Context context) {
         this.dialogFactoryUser = new DialogFactoryUser(context);
         this.dialogFactoryDiaryEntry = new DialogFactoryDiaryEntry(context);
         this.dialogFactoryFood = new DialogFactoryFood(context);
         this.dialogFactoryMeal = new DialogFactoryMeal(context);
         this.dialogFactoryUnit = new DialogFactoryUnit(context);
         this.context = context;
-        this.caller = (Activity)context;
+        this.caller = (Activity) context;
     }
 
     //---- Diary ----
@@ -89,7 +87,7 @@ public class DialogFactory
 
     public void CreateLoginDialog() //Calls method to create dialog to be authenticate the user.
     {
-        dialogFactoryUser.CreateLoginDialog((MainActivity)caller, context);
+        dialogFactoryUser.CreateLoginDialog((MainActivity) caller, context);
     }
 
     //---- Other ----
@@ -103,7 +101,7 @@ public class DialogFactory
         builder.setCancelable(false);
         builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {    //Action for confirm-button
-                ((SettingsActivity)caller).factoryReset();  //perform factory reset
+                ((SettingsActivity) caller).factoryReset();  //perform factory reset
             }
         });
         builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {   //Action for decline-button
