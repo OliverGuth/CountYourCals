@@ -26,8 +26,8 @@ public class DialogFactoryFood {
     private DataStorageController controller;
     private Context context;
 
-    public DialogFactoryFood(Context context)   //contructor
-    {
+    //Contructor
+    public DialogFactoryFood(Context context) {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
@@ -108,6 +108,7 @@ public class DialogFactoryFood {
             Toast.makeText(context, "Bitte erst eine Einheit anlegen", Toast.LENGTH_LONG).show();
     }
 
+    //Dialog to edit and save food
     public void CreateEditFoodDialog(final Food food, final RowFactory rowFactory, final User user) {
         //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -182,6 +183,7 @@ public class DialogFactoryFood {
         dialog.show();//Show dialog to user
     }
 
+    //show options dialog to interact with a food row
     public void CreateFoodLineDialog(final Food food, final RowFactory rowFactory, final User user) {
         //initialize dialog and its children.
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);

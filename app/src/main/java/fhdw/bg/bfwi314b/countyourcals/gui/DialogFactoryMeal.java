@@ -26,8 +26,8 @@ public class DialogFactoryMeal {
     private DataStorageController controller;
     private Context context;
 
-    public DialogFactoryMeal(Context context)//controller
-    {
+    //Constructor
+    public DialogFactoryMeal(Context context) {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
@@ -236,6 +236,7 @@ public class DialogFactoryMeal {
         dialog.show(); //show dialog to user
     }
 
+    //show options dialog to interact with a meal row
     public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user) {
         //initialize dialog and find its children by id
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);

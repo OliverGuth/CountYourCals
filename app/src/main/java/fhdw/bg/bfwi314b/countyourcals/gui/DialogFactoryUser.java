@@ -1,7 +1,6 @@
 package fhdw.bg.bfwi314b.countyourcals.gui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,23 +15,22 @@ import fhdw.bg.bfwi314b.countyourcals.R;
 import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 
 /**
- * Created by Oliver Guth on 19.02.2017.
+ * Created by Oliver Guth
  */
 
-public class DialogFactoryUser
-{
+public class DialogFactoryUser {
     private DataStorageController controller;
     private Context context;
-    public User userResult;
 
-    public DialogFactoryUser(Context context)
-    {
+    //Constructor
+    public DialogFactoryUser(Context context) {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
-    public void CreateNewUserDialog(String username)
-    {
+    //create new user via dialog
+    public void CreateNewUserDialog(String username) {
+        //initialize dialog and find its children by id
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_user, null);
         dialogBuilder.setView(view);
@@ -41,15 +39,19 @@ public class DialogFactoryUser
         final EditText maxCals = (EditText) view.findViewById(R.id.DialogNewUserMaxCals);
         final Spinner gender = (Spinner) view.findViewById(R.id.DialogNewUserGenderSpinner);
         final Spinner language = (Spinner) view.findViewById(R.id.DialogNewUserLanguageSpinner);
-
-        name.setText(username);
         Button create = (Button) view.findViewById(R.id.DialogNewUserCreateButton);
 
+        //set name from login dialog
+        name.setText(username);
+
+        //Handle click on create button
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<User> userlist = controller.getUserList();
+                List<User> userlist = controller.getUserList(); //get existing user list from controller
+
+                //check if user already exists
                 boolean userExists = false;
-                if(!name.getText().toString().equals("") && !maxCals.getText().toString().equals("")) {
+                if (!name.getText().toString().equals("") && !maxCals.getText().toString().equals("")) {
                     if (userlist != null) {
                         for (User user : userlist) {
                             if (name.getText().toString().trim().equals(user.getName())) {
@@ -60,21 +62,21 @@ public class DialogFactoryUser
                         }
                     }
                     if (userExists == false) {
+                        //if not already exists, create user object and save it via the controller
                         User user = new User(name.getText().toString(), gender.getSelectedItem().toString().charAt(0), Integer.parseInt(maxCals.getText().toString()), language.getSelectedItem().toString());
                         controller.addUser(user);
-
                         Toast.makeText(context, "User angelegt", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+                        dialog.cancel();    //close dialog
                     }
                 }
             }
         });
-        dialog.show();
+        dialog.show(); //show dialog to the user
     }
 
-    public void CreateLoginDialog(final MainActivity mainActivity, final Context context)
-    {
-        userResult = null;
+    //Create login dialog to authenticate user at Start
+    public void CreateLoginDialog(final MainActivity mainActivity, final Context context) {
+        //initialize dialog and find its children by id
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
         dialogBuilder.setView(view);
@@ -82,12 +84,15 @@ public class DialogFactoryUser
         final EditText loginUserName = (EditText) view.findViewById(R.id.LoginNameValue);
         Button login = (Button) view.findViewById(R.id.LoginButton);
         Button register = (Button) view.findViewById(R.id.LoginRegisterButton);
+
+        //handle click on login button
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<User> userlist = controller.getUserList();
-                if(userlist != null) {
+                List<User> userlist = controller.getUserList();//get existing user list from controller
+                if (userlist != null) {
                     for (User user : userlist) {
                         if (loginUserName.getText().toString().trim().equals(user.getName())) {
+                            //if user is found in user list
                             Toast.makeText(context, "Eingeloggt als " + user.getName(), Toast.LENGTH_LONG).show();
                             dialog.setCancelable(true);
                             dialog.cancel();
@@ -96,10 +101,9 @@ public class DialogFactoryUser
                         }
                     }
                 }
-                if(mainActivity.user == null)
-                {
-                        Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
-                        CreateNewUserDialog(loginUserName.getText().toString());
+                if (mainActivity.user == null) {
+                    Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
+                    CreateNewUserDialog(loginUserName.getText().toString());
                 }
             }
         });
@@ -107,7 +111,8 @@ public class DialogFactoryUser
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CreateNewUserDialog(loginUserName.getText().toString());
-            }});
+            }
+        });
         dialog.setCancelable(false);
         dialog.show();
     }

@@ -28,14 +28,14 @@ public class DialogFactoryDiaryEntry {
     private DataStorageController controller;
     private Context context;
 
-    public DialogFactoryDiaryEntry(Context context) //contructor
-    {
+    //contructor
+    public DialogFactoryDiaryEntry(Context context) {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
-    public void CreateNewDiaryEntryDialog(final User user)  //Create dialog to set up a new diary entry
-    {
+    //Create dialog to set up a new diary entry
+    public void CreateNewDiaryEntryDialog(final User user) {
         //set layout to dialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
@@ -204,8 +204,8 @@ public class DialogFactoryDiaryEntry {
             Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_LONG).show();
     }
 
-    public void CreateEditDiaryEntryDialog(final DiaryEntry diaryEntry, final User user)//Create dialog to edit an existing diary entry
-    {
+    //Create dialog to edit an existing diary entry
+    public void CreateEditDiaryEntryDialog(final DiaryEntry diaryEntry, final User user) {
         //set layout and initialize dialog elements
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = (View) LayoutInflater.from(context).inflate(R.layout.dialog_new_diary_entry, null);
@@ -373,8 +373,8 @@ public class DialogFactoryDiaryEntry {
             Toast.makeText(context, "Bitte erst Lebensmittel oder Mahlzeiten anlegen", Toast.LENGTH_SHORT).show();
     }
 
-    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user) //dialog to show options regarding one particular diary entry
-    {
+    //dialog to show options regarding one particular diary entry
+    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user) {
         //Create and initialize dialog and its children
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;

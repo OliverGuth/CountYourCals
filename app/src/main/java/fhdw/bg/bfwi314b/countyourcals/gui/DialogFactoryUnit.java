@@ -22,16 +22,14 @@ public class DialogFactoryUnit {
     private DataStorageController controller;
     private Context context;
 
-    //Controller
-    public DialogFactoryUnit(Context context)
-    {
+    //Constructor
+    public DialogFactoryUnit(Context context) {
         this.controller = new DataStorageController(context);
         this.context = context;
     }
 
     //Create new unit dialog
-    public void CreateNewUnitDialog(final User user)
-    {
+    public void CreateNewUnitDialog(final User user) {
         //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
@@ -49,7 +47,7 @@ public class DialogFactoryUnit {
                 boolean unitExists = false;
 
                 //check if unit already exists
-                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                if (!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
                     if (unitList != null) {
                         for (Unit unit : unitList) {
                             if (name.getText().toString().trim().equals(unit.getUnit())) {
@@ -63,7 +61,7 @@ public class DialogFactoryUnit {
                     if (unitExists == false) {
                         Unit unit = new Unit(name.getText().toString(), nameShort.getText().toString(), 0);
                         controller.addUnit(unit, user);
-                        ((ManagerActivity)context).updateView();
+                        ((ManagerActivity) context).updateView();
                         Toast.makeText(context, "Eintrag angelegt", Toast.LENGTH_LONG).show();
                         dialog.cancel();    //close dialog
                     }
@@ -74,8 +72,7 @@ public class DialogFactoryUnit {
     }
 
     //edit existing unit dialog
-    public void CreateEditUnitDialog(final Unit oldUnit, final User user)
-    {
+    public void CreateEditUnitDialog(final Unit oldUnit, final User user) {
         //initialize dialog and find its children by id
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_unit_entry, null);
@@ -96,7 +93,7 @@ public class DialogFactoryUnit {
             public void onClick(View v) {
                 List<Unit> unitList = controller.getUnitList(user); //get unitlist from controller
                 boolean unitExists = false;
-                if(!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
+                if (!name.getText().toString().equals("") && !nameShort.getText().toString().equals("")) {
                     if (unitList != null) {
                         for (Unit unit : unitList) {
                             if (name.getText().toString().trim().equals(unit.getUnit()) && !name.getText().toString().equals(oldUnit.getUnit())) {
@@ -110,9 +107,9 @@ public class DialogFactoryUnit {
                         //if not exists: save unit via the controller, update the view and close this dialog
                         Unit newUnit = new Unit(name.getText().toString(), nameShort.getText().toString(), 0);
                         controller.editUnit(oldUnit, newUnit, user);
-                        ((ManagerActivity)context).updateView();
+                        ((ManagerActivity) context).updateView();
                         Toast.makeText(context, "Eintrag " + oldUnit.getUnit() + " geändert", Toast.LENGTH_LONG).show();
-                        dialog.dismiss(); //close this dialog
+                        dialog.cancel(); //close this dialog
                     }
                 }
             }
@@ -121,8 +118,7 @@ public class DialogFactoryUnit {
     }
 
     //show options dialog to interact with a unit row
-    public void CreateUnitLineDialog(final Unit unit, final User user)
-    {
+    public void CreateUnitLineDialog(final Unit unit, final User user) {
         //DiaryEntry diaryEntry, List<Food> foods, List<Meal> meals
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         final android.app.AlertDialog dialog;
@@ -133,22 +129,23 @@ public class DialogFactoryUnit {
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
 
+        //on click create a corresponding edit unit dialog
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CreateEditUnitDialog(unit, user);
-                dialog.dismiss();
+                dialog.cancel(); //close the dialog
             }
         });
 
+        //on click delete the curresponding unit via the controller and update the view
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 controller.deleteUnit(unit, user);
-                ((ManagerActivity)context).updateView();
+                ((ManagerActivity) context).updateView();
                 Toast.makeText(context, "Eintrag " + unit.getUnit() + " gelöscht", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                dialog.cancel(); //close the dialog
             }
         });
-
-        dialog.show();
+        dialog.show(); //Show dialog to the user
     }
 }
