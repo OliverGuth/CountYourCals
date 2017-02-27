@@ -37,63 +37,63 @@ public class DialogFactory {
 
     //---- Diary ----
 
-    public void CreateNewDiaryEntryDialog(final User user)      //Calls method to create new diary entry dialog
-    {
+    //Calls method to create new diary entry dialog
+    public void CreateNewDiaryEntryDialog(final User user) {
         dialogFactoryDiaryEntry.CreateNewDiaryEntryDialog(user);
     }
 
-    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user)    //Calls method to create options dialog for diary entry line
-    {
+    //Calls method to create options dialog for diary entry line
+    public void CreateDiaryEntryLineDialog(final DiaryEntry diaryEntry, final User user) {
         dialogFactoryDiaryEntry.CreateDiaryEntryLineDialog(diaryEntry, user);
     }
 
     //---- Meal ----
 
-    public void CreateNewMealDialog(final RowFactory rowFactory, final User user)   //Calls method to create new meal dialog
-    {
+    //Calls method to create new meal dialog
+    public void CreateNewMealDialog(final RowFactory rowFactory, final User user) {
         dialogFactoryMeal.CreateNewMealDialog(rowFactory, user);
     }
 
-    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user) //Calls method to create options dialog for meal line
-    {
+    //Calls method to create options dialog for meal line
+    public void CreateMealLineDialog(final Meal meal, final RowFactory rowFactory, final User user) {
         dialogFactoryMeal.CreateMealLineDialog(meal, rowFactory, user);
     }
 
     //---- Food ----
 
-    public void CreateNewFoodDialog(final RowFactory rowFactory, final User user)   //Calls method to create new food dialog
-    {
+    //Calls method to create new food dialog
+    public void CreateNewFoodDialog(final RowFactory rowFactory, final User user) {
         dialogFactoryFood.CreateNewFoodDialog(rowFactory, user);
     }
 
-    public void CreateFoodLineDialog(final Food food, final RowFactory rowFactory, final User user) //Calls method to create options dialog for food line
-    {
+    //Calls method to create options dialog for food line
+    public void CreateFoodLineDialog(final Food food, final RowFactory rowFactory, final User user) {
         dialogFactoryFood.CreateFoodLineDialog(food, rowFactory, user);
     }
 
     //---- Unit ----
 
-    public void CreateNewUnitDialog(final User user)    //Calls method to create new unit dialog
-    {
+    //Calls method to create new unit dialog
+    public void CreateNewUnitDialog(final User user) {
         dialogFactoryUnit.CreateNewUnitDialog(user);
     }
 
-    public void CreateUnitLineDialog(final Unit unit, final User user)  //Calls method to create options dialog for unit line
-    {
+    //Calls method to create options dialog for unit line
+    public void CreateUnitLineDialog(final Unit unit, final User user) {
         dialogFactoryUnit.CreateUnitLineDialog(unit, user);
     }
 
     //---- User ----
 
-    public void CreateLoginDialog() //Calls method to create dialog to be authenticate the user.
-    {
+    //Calls method to create dialog to be authenticate the user.
+    public void CreateLoginDialog() {
         dialogFactoryUser.CreateLoginDialog((MainActivity) caller, context);
     }
 
     //---- Other ----
 
-    public void BeSureDialog()  //Creates dialog to confirm factory reset
-    {
+    //Creates dialog to confirm factory reset
+    public void BeSureDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         //Set message and Buttons
@@ -115,8 +115,8 @@ public class DialogFactory {
         alert.show();
     }
 
-    public void CreateCreditsDialog()   //Creates dialog to be compliant to icons licenses
-    {
+    //Creates dialog to be compliant to icons licenses
+    public void CreateCreditsDialog() {
         //Create dialog according to corresponding layout file
         android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_credits, null);

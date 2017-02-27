@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 public class ButtonTextImage extends RelativeLayout {
 
-    public ButtonTextImage(Context context, int id, int color)  //constructor
-    {
+    //Constructor
+    public ButtonTextImage(Context context, int id, int color) {
         super(context);
         if (!(context instanceof Activity)) //if context is not Activity the View can't supplied with ID's
             return;

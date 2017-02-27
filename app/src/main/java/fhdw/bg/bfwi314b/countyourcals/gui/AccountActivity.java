@@ -19,16 +19,15 @@ import fhdw.bg.bfwi314b.countyourcals.controller.DataStorageController;
 public class AccountActivity extends Activity {
 
     public User user;
-
     private TextView name;
     private TextView gender;
     private EditText maxCals;
     private DataStorageController controller;
 
 
+    //onCreate() get's called on start of the activity. Furthermore it is called when the devices gets tilted.
     @Override
-    protected void onCreate(Bundle savedInstanceState) //onCreate() get's called on start of the activity. Furthermore it is called when the devices gets tilted.
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);  //Assign layout to Activity
 
@@ -64,6 +63,7 @@ public class AccountActivity extends Activity {
         }
     }
 
+    //method is called when back button is pressed
     @Override
     public void onBackPressed() {   //If the Back-button is pressed, this method is called to handle the event
         //if changes were made, they will be saved
