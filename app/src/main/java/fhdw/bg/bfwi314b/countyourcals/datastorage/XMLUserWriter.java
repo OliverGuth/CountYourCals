@@ -12,11 +12,14 @@ import android.os.Bundle;
 import fhdw.bg.bfwi314b.countyourcals.Models.User;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLUserWriter {
 
+    //Writes the Users to an XML-File
+    //Therefore the Users-Attributes are inserted into an XML-Template and written into an File.
+    //Fore Each User is one node "<User>" into "<Users>" generated.
     public void writeUser(ArrayList<User> userArrayList, File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
                 User tmpUser;

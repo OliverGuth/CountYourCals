@@ -14,7 +14,7 @@ import fhdw.bg.bfwi314b.countyourcals.Models.User;
 import fhdw.bg.bfwi314b.countyourcals.datastorage.*;
 
 /**
- * Created by Niko.
+ * Created by Fabian Schmitz
  */
 
 public class DataStorageController {
@@ -31,6 +31,7 @@ public class DataStorageController {
     private String mUser;
 
 
+    //Constructor
     public DataStorageController(Context context) {
         mXMLReader = new XMLReader(context);
         mXMLWriter = new XMLWriter(context);
@@ -39,12 +40,16 @@ public class DataStorageController {
 
     //---- Meal ----
 
+    //Reads and returns the Meals of the actual Users as ArrayList<Meal>
     public ArrayList<Meal> getMealList(User user) {
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
         if (tmpMealListFile.exists()) {
+            //If there is an existing File the content will be read and returned
             tmpMealArrayList = mXMLReader.readMeal(tmpMealListFile, user.getName());
         } else {
+            //If there is no existing File it will be created
+            //In this case an empty List will be returned
             try {
                 tmpMealListFile.createNewFile();
             } catch (Exception exception) {
@@ -55,21 +60,28 @@ public class DataStorageController {
         return tmpMealArrayList;
     }
 
+    //Adds a Meal to the actual Users Meal-List
     public void addMeal(Meal meal, User user) {
+        //First the Meal-List is read
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        //Then the new Meal is added
         if(tmpMealArrayList != null) tmpMealArrayList.add(meal);
         else
         {
             tmpMealArrayList = new ArrayList<Meal>();
             tmpMealArrayList.add(meal);
         }
+        //Finally the List will be written to the File
         mXMLWriter.writeMeal(tmpMealArrayList, tmpMealListFile, user.getName());
     }
 
+    //Edits a Meal of the actual Users Meal-List
     public void editMeal(Meal oldMeal, Meal newMeal, User user) {
+        //First the Meal-List is read
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        //Then the Meal is searched and changed
         if (tmpMealArrayList != null) {
             for (int index = 0; index < tmpMealArrayList.size(); index++) {
                 if (tmpMealArrayList.get(index).getName().equals(oldMeal.getName())) {
@@ -77,12 +89,16 @@ public class DataStorageController {
                 }
             }
         }
+        //Finally the List will be written to the File
         mXMLWriter.writeMeal(tmpMealArrayList, tmpFoodListFile, user.getName());
     }
 
+    //Deletes a Meal of the actual Users Meal-List
     public void deleteMeal(Meal meal, User user) {
+        //First the Meal-List is read
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList = getMealList(user);
+        //Then the Meal is searched and removed
         if(tmpMealArrayList != null)
             for (int index = 0; index < tmpMealArrayList.size(); index++) {
                 if (meal.getName().equals(tmpMealArrayList.get(index).getName()))
@@ -91,11 +107,11 @@ public class DataStorageController {
                     break;
                 }
             }
+        //Finally the List will be written to the File
         mXMLWriter.writeMeal(tmpMealArrayList, tmpFoodListFile, user.getName());
     }
 
-
-
+    //Adds a Ingredient (Food) to an existing Meal of the actual Users Meal-List
     public void addFoodToMeal(String mealName, Integer mealQuantity, Food ingredient, User user) {
         File tmpMealListFile = new File(context.getFilesDir() + "/" + user.getName() + "Meal.xml");
         ArrayList<Meal> tmpMealArrayList;
@@ -112,6 +128,7 @@ public class DataStorageController {
 
     //---- Food ----
 
+    //Reads and returns the Foods of the actual Users as ArrayList<Food>
     public ArrayList<Food> getFoodList(User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
         ArrayList<Food> tmpFoodArrayList;
@@ -128,6 +145,7 @@ public class DataStorageController {
         return tmpFoodArrayList;
     }
 
+    //Adds a Food to the actual Users Food-List
     public void addFood(Food food, User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
         ArrayList<Food> tmpFoodArrayList = getFoodList(user);
@@ -140,6 +158,7 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
+    //Edits a Food of the actual Users Food-List
     public void editFood(Food oldFood, Food newFood, User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
         ArrayList<Food> tmpFoodArrayList = getFoodList(user);
@@ -153,6 +172,7 @@ public class DataStorageController {
         mXMLWriter.writeFood(tmpFoodArrayList, tmpFoodListFile);
     }
 
+    //Deletes a Food of the actual Users Food-List
     public void deleteFood(Food food, User user) {
         File tmpFoodListFile = new File(context.getFilesDir() + "/" + user.getName() + "Food.xml");
         ArrayList<Food> tmpFoodArrayList = getFoodList(user);
@@ -170,6 +190,7 @@ public class DataStorageController {
 
     //---- DiaryEntry ----
 
+    //Reads and returns the DiarayEntrys of the actual Users as ArrayList<DiaryEntry>
     public ArrayList<DiaryEntry> getDiaryEntryList(User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList;
@@ -186,6 +207,7 @@ public class DataStorageController {
         return tmpDiaryEntryArrayList;
     }
 
+    //Adds a DiaryEntry to the actual Users DiaryEntry-List
     public void addDiaryEntry(DiaryEntry diaryEntry, User user) {
        File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
@@ -195,6 +217,7 @@ public class DataStorageController {
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user);
     }
 
+    //Edits a DiaryEntry of the actual Users DiaryEntry-List
     public void editDiaryEntry(DiaryEntry newDiaryEntry, DiaryEntry oldDiaryEntry, User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
@@ -208,6 +231,7 @@ public class DataStorageController {
         mXMLWriter.writeDiaryEntry(tmpDiaryEntryArrayList, tmpDiaryEntryListFile, user);
     }
 
+    //Deletes a DiaryEntry of the actual Users DiaryEntry-List
     public void deleteDiaryEntry(DiaryEntry diaryEntry, User user) {
         File tmpDiaryEntryListFile = new File(context.getFilesDir() + "/" + user.getName() + "DiaryEntry.xml");
         ArrayList<DiaryEntry> tmpDiaryEntryArrayList = getDiaryEntryList(user);
@@ -224,6 +248,7 @@ public class DataStorageController {
 
     //---- User -----
 
+    //Reads and returns all existing Users
     public ArrayList<User> getUserList() {
         File tmpUserListFile = new File(context.getFilesDir() + "/User.xml");
         ArrayList<User> tmpUserArrayList;
@@ -240,6 +265,7 @@ public class DataStorageController {
         return tmpUserArrayList;
     }
 
+    //Adds a User to the User-List
     public void addUser(User user) {
         File tmpUserListFile = new File(context.getFilesDir() + "/User.xml");
         ArrayList<User> tmpUserArrayList;
@@ -253,6 +279,7 @@ public class DataStorageController {
         mXMLWriter.writeUser(tmpUserArrayList, tmpUserListFile);
     }
 
+    //Edits an existing User
     public void editUser(User user) {
         File tmpUserListFile = new File(context.getFilesDir() + "/User.xml");
         ArrayList<User> tmpUserArrayList;
@@ -270,6 +297,7 @@ public class DataStorageController {
 
     //---- Unit -----
 
+    //Reads and returns the Units of the actual Users as ArrayList<Unit>
     public ArrayList<Unit> getUnitList(User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
         ArrayList<Unit> tmpUnitArrayList;
@@ -286,6 +314,7 @@ public class DataStorageController {
         return tmpUnitArrayList;
     }
 
+    //Adds a Unit to the actual Users Unit-List
     public void addUnit(Unit unit, User user) {
 
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
@@ -299,6 +328,7 @@ public class DataStorageController {
         mXMLWriter.writeUnit(tmpUnitArrayList, tmpUnitListFile);
     }
 
+    //Edits a Unit of the actual Users Unit-List
     public void editUnit(Unit oldUnit, Unit newUnit, User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
         ArrayList<Unit> tmpUnitArrayList = getUnitList(user);
@@ -313,6 +343,7 @@ public class DataStorageController {
 
     }
 
+    //Deletes a Unit of the actual Users Unit-List
     public void deleteUnit(Unit unit, User user) {
         File tmpUnitListFile = new File(context.getFilesDir() + "/" + user.getName() + "Unit.xml");
         ArrayList<Unit> tmpUnitArrayList = getUnitList(user);

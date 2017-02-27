@@ -23,11 +23,14 @@ import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLMealReader {
 
+    //Reads the Meals  from  an XML-File and returns these as ArrayList<Meals>
+    //Therefore the XML-Opject is mapped into a tree and all attributes are read
+    //From these Attributes the Meals are creadted (as Meal)
     public ArrayList<Meal> readMeal(File file/*, String userName*/) throws ParserConfigurationException, IOException, SAXException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line = bufferedReader.readLine();

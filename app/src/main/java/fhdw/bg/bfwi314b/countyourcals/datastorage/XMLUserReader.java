@@ -21,11 +21,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import fhdw.bg.bfwi314b.countyourcals.Models.User;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLUserReader {
 
+    //Reads the Users  from  an XML-File and returns these as ArrayList<User>
+    //Therefore the XML-Opject is mapped into a tree and all attributes are read
+    //From these Attributes the Users are creadted (as User)
     public ArrayList<User> readUser(File file) throws ParserConfigurationException, IOException, SAXException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line = bufferedReader.readLine();

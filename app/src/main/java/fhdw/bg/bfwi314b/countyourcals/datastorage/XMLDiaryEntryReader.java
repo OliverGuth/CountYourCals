@@ -23,11 +23,14 @@ import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLDiaryEntryReader {
 
+    //Reads the DiaryEntrys  from  an XML-File and returns these as ArrayList<DiaryEntry>
+    //Therefore the XML-Opject is mapped into a tree and all attributes are read
+    //From these Attributes the DiaryEntrys are creadted (as DiaryEntry)
     public ArrayList<DiaryEntry> readDiaryEntry(File file) throws ParserConfigurationException, IOException, SAXException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line = bufferedReader.readLine();

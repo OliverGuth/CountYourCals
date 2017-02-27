@@ -10,11 +10,14 @@ import fhdw.bg.bfwi314b.countyourcals.Models.DiaryEntry;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLDiaryEntryWriter {
 
+    //Writes the DiaryEntrys to an XML-File
+    //Therefore the DiaryEntrys-Attributes are inserted into an XML-Template and written into an File.
+    //Fore Each User is one node "<DiaryEntry>" into "<DiaryEntrys>" generated.
     public void writeDiaryEntry(ArrayList<DiaryEntry> entryArrayList, File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
         DiaryEntry tmpEntry;

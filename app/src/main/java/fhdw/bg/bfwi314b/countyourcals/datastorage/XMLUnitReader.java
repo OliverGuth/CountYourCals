@@ -21,11 +21,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLUnitReader {
 
+    //Reads the Units  from  an XML-File and returns these as ArrayList<Units>
+    //Therefore the XML-Opject is mapped into a tree and all attributes are read
+    //From these Attributes the Units are creadted (as Unit)
     public ArrayList<Unit> readUnit(File file) throws ParserConfigurationException, IOException, SAXException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line = bufferedReader.readLine();

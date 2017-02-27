@@ -10,11 +10,14 @@ import fhdw.bg.bfwi314b.countyourcals.Models.Meal;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLMealWriter {
 
+    //Writes the Meals to an XML-File
+    //Therefore the Meals-Attributes are inserted into an XML-Template and written into an File.
+    //Fore Each User is one node "<Meal>" into "<Meals>" generated.
     public void writeMeal(ArrayList<Meal> mealArrayList, File file/*, String userName*/) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
         Meal tmpMeal;

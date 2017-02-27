@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import fhdw.bg.bfwi314b.countyourcals.Models.Unit;
 
 /**
- * Created by Niko.
+ * Created by Niko Reder
  */
 
 public class XMLUnitWriter {
 
+    //Writes the Units to an XML-File
+    //Therefore the Unit-Attributes are inserted into an XML-Template and written into an File.
+    //Fore Each User is one node "<Unit>" into "<Units>" generated.
     public void writeUnit(ArrayList<Unit> unitArrayList, File file) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
         Unit tmpUnit;
