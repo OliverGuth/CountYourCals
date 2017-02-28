@@ -92,15 +92,16 @@ public class DialogFactoryUser {
                 if (userlist != null) {
                     for (User user : userlist) {
                         if (loginUserName.getText().toString().trim().equals(user.getName())) {
-                            //if user is found in user list
+                            //if user is found in user list pass object to mainActivity
                             Toast.makeText(context, "Eingeloggt als " + user.getName(), Toast.LENGTH_LONG).show();
                             dialog.setCancelable(true);
-                            dialog.cancel();
+                            dialog.cancel(); //close dialog
                             mainActivity.user = user;
                             break;
                         }
                     }
                 }
+                //if user is not found, open create new user dialog in front of this one
                 if (mainActivity.user == null) {
                     Toast.makeText(context, "login failed", Toast.LENGTH_LONG).show();
                     CreateNewUserDialog(loginUserName.getText().toString());
@@ -108,12 +109,13 @@ public class DialogFactoryUser {
             }
         });
 
+        //on click on register button open create new user dialog in front of this one
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CreateNewUserDialog(loginUserName.getText().toString());
             }
         });
-        dialog.setCancelable(false);
-        dialog.show();
+        dialog.setCancelable(false); //dialog can only be closed by the app and not by the user to prevent dismissing login dialog without logging in
+        dialog.show();//show dialog to the user
     }
 }

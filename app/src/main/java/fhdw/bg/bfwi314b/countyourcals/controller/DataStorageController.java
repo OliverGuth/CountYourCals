@@ -23,14 +23,6 @@ public class DataStorageController {
     private XMLWriter mXMLWriter;
     private Context context;
 
-//    private File mUserFile;
-//    private File mFoodFile;
-//    private File mMealFile;
-//    private File mDiaryEntryFile;
-
-    private String mUser;
-
-
     //Constructor
     public DataStorageController(Context context) {
         mXMLReader = new XMLReader(context);
